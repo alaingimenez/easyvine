@@ -46,7 +46,7 @@ class WindowMain:
         self.font_p = pygame.font.Font('freesansbold.ttf', 25)
         self.font = pygame.font.Font('freesansbold.ttf', 30)
 
-        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", "  VIEW  ", "  OUTILS  "]
+        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "  OUTILS  "]
         """
         action FICHIER permet de CREER ET EFFACER des fichier
         action CREAT permet de creer des PARCELLE et des RANG

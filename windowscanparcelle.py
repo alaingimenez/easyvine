@@ -39,9 +39,9 @@ class WindowScanParcelle:
         self.module = module
         self.parcel = parcel
         
-        print("id parcel :", id(self.parcel))
+        #print("id parcel :", id(self.parcel))
         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle) # comment on charge un objet
-        print("id parcel :", id(self.parcel))
+        #print("id parcel :", id(self.parcel))
 
         self.font = pygame.font.Font('freesansbold.ttf', 30)
         self.font_g = pygame.font.Font('freesansbold.ttf', 80)

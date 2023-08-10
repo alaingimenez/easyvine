@@ -8,6 +8,7 @@ import os
 import windowfichier
 import windowscan
 import windowmain
+import windowview
 
 from gps import *
 import threading
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     is_running = True
     while is_running:
 
-        print (gpsp.gpsd.fix.latitude)
+        #print (gpsp.gpsd.fix.latitude)
 
         try:
             pass
@@ -68,13 +69,19 @@ if __name__ == '__main__':
         except IOError:
             pass
             #erreurio +=1
-
-        if action == 0: # fichier
+        #print ("index_action : " + str (window_main.index_action))
+        if window_main.index_action == 0: # fichier
             action = windowfichier.gestion(window_main)
-        elif action == 1: # creat
+
+        elif window_main.index_action == 1: # creat
             pass
-        elif action == 2: # scan
+
+        elif window_main.index_action == 2: # scan
             action = windowscan.gestion(window_main)
+
+        elif window_main.index_action == 3: # VIEW
+            window_view = windowview.WindowView(window_main)
+            action = window_view.gestion()
 
         if window_main.index_action == -99: # il faut arreter le prg
             is_running = False

@@ -123,4 +123,5 @@ def gestion(window_m):
         if window_m.index_action != 2: # permet de sortir de la windowscan
             del(module)
             del(parcel)
+            print("window_m.index_action " + str(window_m.index_action))
             return # return a main
