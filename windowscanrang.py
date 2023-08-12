@@ -237,7 +237,8 @@ class WindowScanRang:
 
         while True: # boucle principale
 
-            titre = "**EasyVine SCAN RANG**   lat: " + str(self.latitude) + "   long: " + str(self.longitude) + "  track: " + str(self.track) + "  altitude: " + str(self.altitude)
+            
+            titre = "**EasyVine SCAN RANG**   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
             pygame.display.set_caption(titre) 
             pygame.Surface.fill(self.screen, BLACK)
             # c'est ici que je vais affficher les parcelle et les rang

@@ -37,6 +37,7 @@ from communication import*
 from routine_vigne import*
 import parcelle
 
+
 import time
 import pygame
 pygame.init()
@@ -63,6 +64,7 @@ class WindowView:
 
 
         self.font = pygame.font.Font('freesansbold.ttf', 30)
+        self.font_mg = pygame.font.Font('freesansbold.ttf', 50)
         self.font_g = pygame.font.Font('freesansbold.ttf', 80)
 
         self.flag_info = False
@@ -79,6 +81,143 @@ class WindowView:
         self.tour_parcelle_pyg =[]
         self.vigne_pyg = []
         self.evenement_pyg = []
+
+        self.arbre = 0
+        self.racine = 0
+        self.mort = 0
+        self.americain = 0
+        self.espalier = 0
+        self.pulve = 0
+        self.rabassier = 0
+        self.count_evenement()
+
+        
+
+
+        width = 780
+        width1 = 740
+
+        self.libelle_general = self.font.render("evenement general", True, WHITE, BLACK)
+        self.libelle_generalRect = self.libelle_general.get_rect()
+        self.libelle_generalRect.x = 700
+        self.libelle_generalRect.y = 20
+
+        self.buton_arbre = self.font.render("|ARBRE|", True, couleur_arbre, BLACK)
+        self.buton_arbreRect = self.buton_arbre.get_rect()
+        self.buton_arbreRect.x = width
+        self.buton_arbreRect.y = 60
+
+        self.nb_arbre = self.font.render(str(self.arbre), True, couleur_arbre, BLACK)
+        self.nb_arbreRect = self.nb_arbre.get_rect()
+        self.nb_arbreRect.x = width1
+        self.nb_arbreRect.y = 60
+
+        self.buton_racine = self.font.render("|RACINE|", True, couleur_racine, BLACK)
+        self.buton_racineRect = self.buton_racine.get_rect()
+        self.buton_racineRect.x = width
+        self.buton_racineRect.y = 100
+
+        self.nb_racine = self.font.render(str(self.racine), True, couleur_racine, BLACK)
+        self.nb_racineRect = self.nb_racine.get_rect()
+        self.nb_racineRect.x = width1
+        self.nb_racineRect.y = 100
+
+        self.buton_mort = self.font.render("|MORT|", True, couleur_mort, BLACK)
+        self.buton_mortRect = self.buton_mort.get_rect()
+        self.buton_mortRect.x = width
+        self.buton_mortRect.y = 140
+
+        self.nb_mort = self.font.render(str(self.mort), True, couleur_mort, BLACK)
+        self.nb_mortRect = self.nb_mort.get_rect()
+        self.nb_mortRect.x = width1
+        self.nb_mortRect.y = 140
+
+        self.buton_americain = self.font.render("|AMERICAIN|", True, couleur_americain, BLACK)
+        self.buton_americainRect = self.buton_americain.get_rect()
+        self.buton_americainRect.x = width
+        self.buton_americainRect.y = 180
+
+        self.nb_americain = self.font.render(str(self.americain), True, couleur_americain, BLACK)
+        self.nb_americainRect = self.nb_americain.get_rect()
+        self.nb_americainRect.x = width1
+        self.nb_americainRect.y = 180
+
+        self.buton_espalier = self.font.render("|ESPALIER|", True, couleur_espalier, BLACK)
+        self.buton_espalierRect = self.buton_espalier.get_rect()
+        self.buton_espalierRect.x = width
+        self.buton_espalierRect.y = 220
+
+        self.nb_espalier = self.font.render(str(self.espalier), True, couleur_espalier, BLACK)
+        self.nb_espalierRect = self.nb_espalier.get_rect()
+        self.nb_espalierRect.x = width1
+        self.nb_espalierRect.y = 220
+
+        self.buton_pulve = self.font.render("|PULVE|", True, couleur_pulve, BLACK)
+        self.buton_pulveRect = self.buton_pulve.get_rect()
+        self.buton_pulveRect.x = width
+        self.buton_pulveRect.y = 260
+
+        self.nb_pulve = self.font.render(str(self.pulve), True, couleur_pulve, BLACK)
+        self.nb_pulveRect = self.nb_pulve.get_rect()
+        self.nb_pulveRect.x = width1
+        self.nb_pulveRect.y = 260
+
+        self.buton_rabassier = self.font.render("|RABASSIER|", True, couleur_rabassier, BLACK)
+        self.buton_rabassierRect = self.buton_rabassier.get_rect()
+        self.buton_rabassierRect.x = width
+        self.buton_rabassierRect.y = 300
+
+        self.nb_rabassier = self.font.render(str(self.rabassier), True, couleur_rabassier, BLACK)
+        self.nb_rabassierRect = self.nb_rabassier.get_rect()
+        self.nb_rabassierRect.x = width1
+        self.nb_rabassierRect.y = 300
+
+        self.libelle_plant = self.font.render("travaux plant", True, WHITE, BLACK)
+        self.libelle_plantRect = self.libelle_plant.get_rect()
+        self.libelle_plantRect.x = width
+        self.libelle_plantRect.y = 400
+
+        self.libelle_enlever = self.font.render("|ENLEVER|", True, WHITE, BLACK)
+        self.libelle_enleverRect = self.libelle_enlever.get_rect()
+        self.libelle_enleverRect.x = width
+        self.libelle_enleverRect.y = 440
+
+        self.libelle_planter = self.font.render("|PLANTER|", True, WHITE, BLACK)
+        self.libelle_planterRect = self.libelle_planter.get_rect()
+        self.libelle_planterRect.x = width
+        self.libelle_planterRect.y = 480
+
+        self.libelle_rabaisser = self.font.render("|RABAISSER|", True, WHITE, BLACK)
+        self.libelle_rabaisserRect = self.libelle_rabaisser.get_rect()
+        self.libelle_rabaisserRect.x = width
+        self.libelle_rabaisserRect.y = 520
+
+        self.libelle_monter = self.font.render("|MONTER|", True, WHITE, BLACK)
+        self.libelle_monterRect = self.libelle_monter.get_rect()
+        self.libelle_monterRect.x = width
+        self.libelle_monterRect.y = 560
+
+        self.libelle_aroser = self.font.render("|ARROSER|", True, WHITE, BLACK)
+        self.libelle_aroserRect = self.libelle_aroser.get_rect()
+        self.libelle_aroserRect.x = width
+        self.libelle_aroserRect.y = 620
+
+        self.libelle_engrais = self.font.render("|ENGRAIS|", True, WHITE, BLACK)
+        self.libelle_engraisRect = self.libelle_engrais.get_rect()
+        self.libelle_engraisRect.x = width
+        self.libelle_engraisRect.y = 660
+
+        self.libelle_piquet = self.font.render("travaux piquet", True, WHITE, BLACK)
+        self.libelle_piquetRect = self.libelle_piquet.get_rect()
+        self.libelle_piquetRect.x = width
+        self.libelle_piquetRect.y = 740
+
+        self.libelle_remplacer = self.font.render("|REMPLACER|", True, WHITE, BLACK)
+        self.libelle_remplacerRect = self.libelle_remplacer.get_rect()
+        self.libelle_remplacerRect.x = width
+        self.libelle_remplacerRect.y = 780
+
+        
 
 
 
@@ -121,7 +260,37 @@ class WindowView:
 
 
     def update(self):
-        
+        self.screen.blit(self.libelle_general, self.libelle_generalRect)
+        self.screen.blit(self.buton_arbre, self.buton_arbreRect)
+        self.screen.blit(self.buton_racine, self.buton_racineRect)
+        self.screen.blit(self.buton_mort, self.buton_mortRect)
+        self.screen.blit(self.buton_americain, self.buton_americainRect)
+        self.screen.blit(self.buton_espalier, self.buton_espalierRect)
+        self.screen.blit(self.buton_pulve, self.buton_pulveRect)
+        self.screen.blit(self.buton_rabassier, self.buton_rabassierRect)
+        self.screen.blit(self.libelle_plant, self.libelle_plantRect)
+        self.screen.blit(self.libelle_piquet, self.libelle_piquetRect)
+        self.screen.blit(self.libelle_enlever, self.libelle_enleverRect)
+        self.screen.blit(self.libelle_planter, self.libelle_planterRect)
+        self.screen.blit(self.libelle_rabaisser, self.libelle_rabaisserRect)
+        self.screen.blit(self.libelle_monter, self.libelle_monterRect)
+        self.screen.blit(self.libelle_aroser, self.libelle_aroserRect)
+        self.screen.blit(self.libelle_engrais, self.libelle_engraisRect)
+        self.screen.blit(self.libelle_remplacer, self.libelle_remplacerRect)
+        self.nb_arbre = self.font.render(str(self.arbre), True, couleur_arbre, BLACK)
+        self.screen.blit(self.nb_arbre, self.nb_arbreRect)
+        self.nb_racine = self.font.render(str(self.racine), True, couleur_racine, BLACK)
+        self.screen.blit(self.nb_racine, self.nb_racineRect)
+        self.nb_mort = self.font.render(str(self.mort), True, couleur_mort, BLACK)
+        self.screen.blit(self.nb_mort, self.nb_mortRect)
+        self.nb_americain = self.font.render(str(self.americain), True, couleur_americain, BLACK)
+        self.screen.blit(self.nb_americain, self.nb_americainRect)
+        self.nb_espalier = self.font.render(str(self.espalier), True, couleur_espalier, BLACK)
+        self.screen.blit(self.nb_espalier, self.nb_espalierRect)
+        self.nb_pulve = self.font.render(str(self.pulve), True, couleur_pulve, BLACK)
+        self.screen.blit(self.nb_pulve, self.nb_pulveRect)
+        self.nb_rabassier = self.font.render(str(self.rabassier), True, couleur_rabassier, BLACK)
+        self.screen.blit(self.nb_rabassier, self.nb_rabassierRect)
         
 
         #####################################
@@ -140,11 +309,34 @@ class WindowView:
             self.libelle_nb_event = self.font.render("NB evenement : " + str(len(self.parcel.evenement)), True, WHITE, BLACK)
             self.screen.blit(self.libelle_nb_event , self.libelle_nb_eventRect )    
 
+    def count_evenement(self):
+        self.arbre = 0
+        self.racine = 0
+        self.mort = 0
+        self.americain = 0
+        self.espalier = 0
+        self.pulve = 0
+        self.rabassier = 0
+        for ev in self.parcel.evenement:
+            if ev[1] == "ARBRE":
+                self.arbre += 1
+            elif ev[1] == "RACINE":
+                self.racine += 1
+            elif ev[1] == "MORT":
+                self.mort += 1
+            elif ev[1] == "AMERICAIN":
+                self.americain += 1
+            elif ev[1] == "ESPALIER":
+                self.espalier += 1
+            elif ev[1] == "PULVE":
+                self.pulve += 1
+            elif ev[1] == "RABASSIER":
+                self.rabassier += 1
 
 
     def gestion(self):
         while True:
-            titre = "**EasyVine SCAN EVENEMENT **   lat: " + str(self.latitude) + "   long: " + str(self.longitude) + "  track: " + str(self.track) + "  altitude: " + str(self.altitude)
+            titre = "**EasyVine VIEW**   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
             pygame.display.set_caption(titre) 
             pygame.Surface.fill(self.screen, BLACK)
             # c'est ici que je vais affficher les parcelle et les rang
@@ -264,14 +456,19 @@ class WindowView:
                         #self.window_main.fichier.save_file(self.window_main.name_parcelle, self.parcel)
                         self.evenement_pyg = []
                         self.window_main.dec_index_parcelle()
-                        
                         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle)  # charge un objet
-                        
+
+                        self.count_evenement()
+
                     elif self.window_main.bouton_parcelle_dRect.collidepoint(event.pos):  # change de parcelle
                         #self.window_main.fichier.save_file(self.window_main.name_parcelle, self.parcel)
                         self.evenement_pyg = []
                         self.window_main.inc_index_parcelle()
                         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle)  # charge un objet
+
+                        self.count_evenement()
+                        
+
 
                     retour = self.window_main.gest_event(event, self.parcel)
                     if retour == 0 : # si l'ACTION change return a windowscan et return a main.py 

@@ -47,6 +47,14 @@ class WindowScanParcelle:
         self.font_g = pygame.font.Font('freesansbold.ttf', 80)
 
         self.flag_info = False
+
+        
+        self.latitude = 0
+        self.longitude = 0
+        self.pitch = 0
+        self.roll = 0
+        self.track = 0
+        self.altitude = 0
         
         self.position_gps = (0, 0)
         self.track = 0
@@ -197,11 +205,17 @@ class WindowScanParcelle:
         gs.start() # start it up
         
         latitude = gs.gpsd.fix.latitude
-        print(latitude)
+
+        longitude = gs.gpsd.fix.longitude
+        self.position_gps = (latitude, longitude)
+
+        self.track = gs.gpsd.fix.track
+        self.altitude = gs.gpsd.fix.altitude
        
 
         while True:
-            
+            titre = "**EasyVine SCAN PARCELLE **   lat: " + format(latitude, '.7f') + "   long: " + format(longitude, '.7f') + "  track: " + format(self.track,'.2f')  # + "  altitude: " + format(self.altitude, '.4f')
+            pygame.display.set_caption(titre)
 
 
             pygame.Surface.fill(self.screen, BLACK)
@@ -240,6 +254,7 @@ class WindowScanParcelle:
             self.position_gps = (latitude, longitude)
 
             self.track = gs.gpsd.fix.track
+            #self.altitude = gpsd.fix.altitude
             
             """
             print(gs.lat) # = gpsd.fix.latitude
