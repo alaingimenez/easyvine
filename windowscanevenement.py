@@ -1,35 +1,8 @@
 
 
-BLACK = (0, 0, 0)
-GRAY = (206, 206, 206) #(127, 127, 127)
-WHITE = (255, 255, 255)
-
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-
-YELLOW = (255, 255, 0)
-CYAN = (0, 255, 255)
-MAGENTA = (255, 0, 255)
-
-ALEZAN = (167, 103, 38)
-AMBRE = (240, 195, 0)
-FER = (132, 132, 132)
-CHROME = (255, 255, 5)
-CITROUILLE = (223, 109, 20)
-BLEU = (0, 0, 255)
-
-couleur_arbre = WHITE
-couleur_racine = MAGENTA
-couleur_mort = CHROME
-couleur_americain = GREEN
-couleur_espalier = FER
-couleur_pulve = ALEZAN
-couleur_rabassier = BLEU
-
 
 TIME_MSG = 1
-
+import config
 import main
 import routine_gps
 import windowalerte
@@ -66,7 +39,7 @@ class WindowScanEvenement:
 
         self.flag_info = False
 
-        self.libelle_saving = self.font_g.render("** SAVING **", True, GREEN, GRAY)
+        self.libelle_saving = self.font_g.render("** SAVING **", True, config.GREEN, config.GRAY)
         self.libelle_savingRect = self.libelle_saving.get_rect()
         self.libelle_savingRect.x = 400
         self.libelle_savingRect.y = 400
@@ -94,37 +67,37 @@ class WindowScanEvenement:
         self.evenement_signale = False
 
         
-        self.buton_arbre = self.font_mg.render("|ARBRE|", True, couleur_arbre, GRAY)
+        self.buton_arbre = self.font_mg.render("|ARBRE|", True, config.couleur_arbre, config.GRAY)
         self.buton_arbreRect = self.buton_arbre.get_rect()
         self.buton_arbreRect.x = 700
         self.buton_arbreRect.y = 60
 
-        self.buton_racine = self.font_mg.render("|RACINE|", True, couleur_racine, GRAY)
+        self.buton_racine = self.font_mg.render("|RACINE|", True, config.couleur_racine, config.GRAY)
         self.buton_racineRect = self.buton_racine.get_rect()
         self.buton_racineRect.x = 700
         self.buton_racineRect.y = 140
 
-        self.buton_mort = self.font_mg.render("|MORT|", True, couleur_mort, GRAY)
+        self.buton_mort = self.font_mg.render("|MORT|", True, config.couleur_mort, config.GRAY)
         self.buton_mortRect = self.buton_mort.get_rect()
         self.buton_mortRect.x = 700
         self.buton_mortRect.y = 220
 
-        self.buton_americain = self.font_mg.render("|AMERICAIN|", True, couleur_americain, GRAY)
+        self.buton_americain = self.font_mg.render("|AMERICAIN|", True, config.couleur_americain, config.GRAY)
         self.buton_americainRect = self.buton_americain.get_rect()
         self.buton_americainRect.x = 700
         self.buton_americainRect.y = 300
 
-        self.buton_espalier = self.font_mg.render("|ESPALIER|", True, couleur_espalier, GRAY)
+        self.buton_espalier = self.font_mg.render("|ESPALIER|", True, config.couleur_espalier, config.GRAY)
         self.buton_espalierRect = self.buton_espalier.get_rect()
         self.buton_espalierRect.x = 700
         self.buton_espalierRect.y = 380
 
-        self.buton_pulve = self.font_mg.render("|PULVE|", True, couleur_pulve, GRAY)
+        self.buton_pulve = self.font_mg.render("|PULVE|", True, config.couleur_pulve, config.GRAY)
         self.buton_pulveRect = self.buton_pulve.get_rect()
         self.buton_pulveRect.x = 700
         self.buton_pulveRect.y = 460
 
-        self.buton_rabassier = self.font_mg.render("|RABASSIER|", True, couleur_rabassier, GRAY)
+        self.buton_rabassier = self.font_mg.render("|RABASSIER|", True, config.couleur_rabassier, config.GRAY)
         self.buton_rabassierRect = self.buton_rabassier.get_rect()
         self.buton_rabassierRect.x = 700
         self.buton_rabassierRect.y = 540
@@ -133,28 +106,28 @@ class WindowScanEvenement:
         #############################################
         #############################################
         # format(self.parcel.largeur_rang, '.2f')
-        self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, WHITE, BLACK)
+        self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, config.WHITE, config.BLACK)
         self.libelle_largeur_rangRect = self.libelle_largeur_rang.get_rect() #font.render(format(zoom, '.2f')
         self.libelle_largeur_rangRect.x = 10
         self.libelle_largeur_rangRect.y = 400
 
         # format(self.parcel.distance_souche, '.2f')
-        self.libelle_distance_cep = self.font.render("distance cep  : "+ str(self.parcel.distance_souche) +"M", True, WHITE, BLACK)
+        self.libelle_distance_cep = self.font.render("distance cep  : "+ str(self.parcel.distance_souche) +"M", True, config.WHITE, config.BLACK)
         self.libelle_distance_cepRect = self.libelle_distance_cep.get_rect()
         self.libelle_distance_cepRect.x = 10
         self.libelle_distance_cepRect.y = 440
 
-        self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, WHITE, BLACK)
+        self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, config.WHITE, config.BLACK)
         self.libelle_cepageRect = self.libelle_cepage.get_rect()
         self.libelle_cepageRect.x = 10
         self.libelle_cepageRect.y = 480
 
-        self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, WHITE, BLACK)
+        self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, config.WHITE, config.BLACK)
         self.libelle_nb_rangeRect = self.libelle_nb_range.get_rect()
         self.libelle_nb_rangeRect.x = 20
         self.libelle_nb_rangeRect.y = 520
 
-        self.libelle_nb_event = self.font.render("NB evenement : " + str(len(self.parcel.evenement)), True, WHITE, BLACK)
+        self.libelle_nb_event = self.font.render("NB evenement : " + str(len(self.parcel.evenement)), True, config.WHITE, config.BLACK)
         self.libelle_nb_eventRect = self.libelle_nb_event.get_rect()
         self.libelle_nb_eventRect.x = 20
         self.libelle_nb_eventRect.y = 560
@@ -176,16 +149,16 @@ class WindowScanEvenement:
         #####################################
         if self.flag_info:
             l_r = float(self.parcel.largeur_rang)
-            self.libelle_largeur_rang = self.font.render("largeur rang  : " + format( l_r, '.2f') + "M" , True, WHITE, BLACK)
+            self.libelle_largeur_rang = self.font.render("largeur rang  : " + format( l_r, '.2f') + "M" , True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_largeur_rang, self.libelle_largeur_rangRect)
             d_t = float(self.parcel.distance_souche)
-            self.libelle_distance_cep = self.font.render("distance cep  : "+ format( d_t, '.2f') +"M", True, WHITE, BLACK)
+            self.libelle_distance_cep = self.font.render("distance cep  : "+ format( d_t, '.2f') +"M", True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_distance_cep , self.libelle_distance_cepRect )
-            self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, WHITE, BLACK)
+            self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_cepage , self.libelle_cepageRect )
-            self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, WHITE, BLACK)
+            self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_nb_range , self.libelle_nb_rangeRect )
-            self.libelle_nb_event = self.font.render("NB evenement : " + str(len(self.parcel.evenement)), True, WHITE, BLACK)
+            self.libelle_nb_event = self.font.render("NB evenement : " + str(len(self.parcel.evenement)), True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_nb_event , self.libelle_nb_eventRect )
 
 
@@ -210,29 +183,29 @@ class WindowScanEvenement:
         while True:
             titre = "**EasyVine SCAN EVENEMENT **   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
             pygame.display.set_caption(titre) 
-            pygame.Surface.fill(self.screen, BLACK)
+            pygame.Surface.fill(self.screen, config.BLACK)
             # c'est ici que je vais affficher les parcelle et les rang
 
             ################################### AFFICHER LA POSITION ACTUELLE ROND ROUGE  ############################################
-            pygame.draw.circle(self.screen, RED, self.position_py, 8)  # long_pyg , lat_pyg
+            pygame.draw.circle(self.screen, config.RED, self.position_py, 8)  # long_pyg , lat_pyg
 
             ################################### AFFICHER LES POINTS GPS TOUR DE LA PARCELLE ###########################################
             for lon_lat in self.tour_parcelle_pyg:
                 long_pyg, lat_pyg = lon_lat
-                pygame.draw.circle(self.screen, YELLOW, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
+                pygame.draw.circle(self.screen, config.YELLOW, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
 
             ################################## AFFICHER LES LIGNES QUI RELIES LES POINT GPS DU TOUR DE LA PARCELLE ###################
             if len(self.tour_parcelle_pyg) > 1:
-                pygame.draw.lines(self.screen, YELLOW, True, self.tour_parcelle_pyg, 3)
+                pygame.draw.lines(self.screen, config.YELLOW, True, self.tour_parcelle_pyg, 3)
 
             #################################  AFFICHER LES POINTS QUI COMPOSE LES RANGS   #############################
             if len(self.parcel.vigne) > 0: # il y a au moins un debut de rang
                 for rang_py in self.vigne_pyg:
                     for lon_lat in rang_py:
                         long_pyg, lat_pyg = lon_lat
-                        pygame.draw.circle(self.screen, GREEN, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
+                        pygame.draw.circle(self.screen, config.GREEN, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
                     if len(rang_py) > 1:
-                        pygame.draw.lines(self.screen, GREEN, True, rang_py, 3)
+                        pygame.draw.lines(self.screen, config.GREEN, True, rang_py, 3)
 
             ############################ AFFICHER LES EVENEMENTS #######################################
             # 
@@ -241,19 +214,19 @@ class WindowScanEvenement:
                     lon_lat, nom = evenement
                     long_pyg, lat_pyg = lon_lat
                     if nom == "ARBRE":
-                        couleur = couleur_arbre
+                        couleur = config.couleur_arbre
                     elif nom == "RACINE":
-                        couleur = couleur_racine   
+                        couleur = config.couleur_racine   
                     elif nom == "MORT":
-                        couleur = couleur_mort
+                        couleur = config.couleur_mort
                     elif nom == "AMERICAIN":
-                        couleur = couleur_americain
+                        couleur = config.couleur_americain
                     elif nom == "ESPALIER":
-                        couleur = couleur_espalier
+                        couleur = config.couleur_espalier
                     elif nom == "PULVE":
-                        couleur = couleur_pulve
+                        couleur = config.couleur_pulve
                     elif nom == "RABASSIER":
-                        couleur = couleur_rabassier 
+                        couleur = config.couleur_rabassier 
 
                     pygame.draw.circle(self.screen, couleur, (long_pyg, lat_pyg), 8)  # long_pyg , lat_pyg
                     

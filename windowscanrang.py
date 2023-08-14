@@ -1,19 +1,9 @@
 
 
-BLACK = (0, 0, 0)
-GRAY = (127, 127, 127)
-WHITE = (255, 255, 255)
-
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-
-YELLOW = (255, 255, 0)
-CYAN = (0, 255, 255)
-MAGENTA = (255, 0, 255)
 
 TIME_MSG = 1
 
+import config
 import main
 import routine_gps
 import windowalerte
@@ -46,7 +36,7 @@ class WindowScanRang:
 
         self.flag_info = False
 
-        self.libelle_saving = self.font_g.render("** SAVING **", True, GREEN, GRAY)
+        self.libelle_saving = self.font_g.render("** SAVING **", True, config.GREEN, config.GRAY)
         self.libelle_savingRect = self.libelle_saving.get_rect()
         self.libelle_savingRect.x = 400
         self.libelle_savingRect.y = 400
@@ -80,70 +70,70 @@ class WindowScanRang:
         self.list_travaux_piquet = ["AUCUN", "REMPLACER"]  # liste des travaux a effectuer sur ce quoi
         self.index_travaux_piquet = 0
 
-        self.buton_scan_quoi_g = self.font.render("<< :", True, YELLOW, GRAY)
+        self.buton_scan_quoi_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_scan_quoi_gRect = self.buton_scan_quoi_g.get_rect()
         self.buton_scan_quoi_gRect.x = 10
         self.buton_scan_quoi_gRect.y = 60
 
-        self.buton_scan_quoi_d = self.font.render(": >>", True, YELLOW, GRAY)
+        self.buton_scan_quoi_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.buton_scan_quoi_dRect = self.buton_scan_quoi_d.get_rect()
         self.buton_scan_quoi_dRect.x = 285
         self.buton_scan_quoi_dRect.y = 60
 
-        self.text_scan_quoi = self.font.render(self.list_scan_quoi[self.index_list_scan_quoi], True, GREEN, BLUE)
+        self.text_scan_quoi = self.font.render(self.list_scan_quoi[self.index_list_scan_quoi], True, config.GREEN, config.BLUE)
         self.text_scan_quoi_Rect = self.text_scan_quoi.get_rect()
         self.text_scan_quoi_Rect.x = 70
         self.text_scan_quoi_Rect.y = 60
 
-        self.buton_scan= self.font_mg.render("| CLICK FOR SCAN |", True, YELLOW, GRAY)
+        self.buton_scan= self.font_mg.render("| CLICK FOR SCAN |", True, config.YELLOW, config.GRAY)
         self.buton_scanRect = self.buton_scan.get_rect()
         self.buton_scanRect.x = 490
         self.buton_scanRect.y = 160
 
-        self.text_libelle_travaux= self.font.render("TRAVAIL->", True, WHITE, BLACK)
+        self.text_libelle_travaux= self.font.render("TRAVAIL->", True, config.WHITE, config.BLACK)
         self.text_libelle_travauxRect = self.text_libelle_travaux.get_rect()
         self.text_libelle_travauxRect.x = 30
         self.text_libelle_travauxRect.y = 120
 
-        self.buton_travaux_g = self.font.render("<< :", True, YELLOW, GRAY)
+        self.buton_travaux_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_travaux_gRect = self.buton_travaux_g.get_rect()
         self.buton_travaux_gRect.x = 285
         self.buton_travaux_gRect.y = 120
 
-        self.buton_travaux_d = self.font.render(": >>", True, YELLOW, GRAY)
+        self.buton_travaux_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.buton_travaux_dRect = self.buton_travaux_d.get_rect()
         self.buton_travaux_dRect.x = 520
         self.buton_travaux_dRect.y = 120
 
-        self.text_travaux= self.font.render(self.list_travaux_piquet[self.index_travaux_piquet],True , GREEN, BLUE)
+        self.text_travaux= self.font.render(self.list_travaux_piquet[self.index_travaux_piquet],True , config.GREEN, config.BLUE)
         self.text_travauxRect = self.text_travaux.get_rect()
         self.text_travauxRect.x = 360
         self.text_travauxRect.y = 120
 
-        self.buton_arroser = self.font_mg.render("A ARROSER", True, YELLOW, GRAY )
+        self.buton_arroser = self.font_mg.render("A ARROSER", True, config.YELLOW, config.GRAY )
         self.buton_arroserRect = self.buton_arroser.get_rect()
         self.buton_arroserRect.x = 360
         self.buton_arroserRect.y = 60
 
         #############################################
         # format(self.parcel.largeur_rang, '.2f')
-        self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, WHITE, BLACK)
+        self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, config.WHITE, config.BLACK)
         self.libelle_largeur_rangRect = self.libelle_largeur_rang.get_rect() #font.render(format(zoom, '.2f')
         self.libelle_largeur_rangRect.x = 10
         self.libelle_largeur_rangRect.y = 400
 
         # format(self.parcel.distance_souche, '.2f')
-        self.libelle_distance_cep = self.font.render("distance cep  : "+ str(self.parcel.distance_souche) +"M", True, WHITE, BLACK)
+        self.libelle_distance_cep = self.font.render("distance cep  : "+ str(self.parcel.distance_souche) +"M", True, config.WHITE, config.BLACK)
         self.libelle_distance_cepRect = self.libelle_distance_cep.get_rect()
         self.libelle_distance_cepRect.x = 10
         self.libelle_distance_cepRect.y = 440
 
-        self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, WHITE, BLACK)
+        self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, config.WHITE, config.BLACK)
         self.libelle_cepageRect = self.libelle_cepage.get_rect()
         self.libelle_cepageRect.x = 10
         self.libelle_cepageRect.y = 480
 
-        self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, WHITE, BLACK)
+        self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, config.WHITE, config.BLACK)
         self.libelle_nb_rangeRect = self.libelle_nb_range.get_rect()
         self.libelle_nb_rangeRect.x = 10
         self.libelle_nb_rangeRect.y = 520
@@ -154,35 +144,35 @@ class WindowScanRang:
     def update(self):
         if self.flag_info:
             l_r = float(self.parcel.largeur_rang)
-            self.libelle_largeur_rang = self.font.render("largeur rang  : " + format( l_r, '.2f') + "M" , True, WHITE, BLACK)
+            self.libelle_largeur_rang = self.font.render("largeur rang  : " + format( l_r, '.2f') + "M" , True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_largeur_rang, self.libelle_largeur_rangRect)
             d_t = float(self.parcel.distance_souche)
-            self.libelle_distance_cep = self.font.render("distance cep  : "+ format( d_t, '.2f') +"M", True, WHITE, BLACK)
+            self.libelle_distance_cep = self.font.render("distance cep  : "+ format( d_t, '.2f') +"M", True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_distance_cep , self.libelle_distance_cepRect )
-            self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, WHITE, BLACK)
+            self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_cepage , self.libelle_cepageRect )
-            self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, WHITE, BLACK)
+            self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_nb_range , self.libelle_nb_rangeRect )
 
 
         self.screen.blit(self.buton_scan_quoi_g, self.buton_scan_quoi_gRect)
         self.screen.blit(self.buton_scan_quoi_d, self.buton_scan_quoi_dRect)
-        self.text_scan_quoi = self.font.render(self.list_scan_quoi[self.index_list_scan_quoi], True, GREEN, BLUE)
+        self.text_scan_quoi = self.font.render(self.list_scan_quoi[self.index_list_scan_quoi], True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_scan_quoi, self.text_scan_quoi_Rect)
         self.screen.blit(self.buton_scan, self.buton_scanRect)
         self.screen.blit(self.text_libelle_travaux, self.text_libelle_travauxRect)
         self.screen.blit(self.buton_travaux_g, self.buton_travaux_gRect)
         self.screen.blit(self.buton_travaux_d, self.buton_travaux_dRect)
         if self.a_arroser:
-            self.buton_arroser = self.font_mg.render("A ARROSER", True, YELLOW, RED )
+            self.buton_arroser = self.font_mg.render("A ARROSER", True, config.YELLOW, config.RED )
         else:
-            self.buton_arroser = self.font_mg.render("A ARROSER", True, YELLOW, GRAY )
+            self.buton_arroser = self.font_mg.render("A ARROSER", True, config.YELLOW, config.GRAY )
         self.screen.blit(self.buton_arroser, self.buton_arroserRect)        
 
         if self.index_list_scan_quoi == 2:# on scanne la souche
-            self.text_travaux= self.font.render(self.list_travaux_plant[self.index_travaux_plant], True, GREEN, BLUE)
+            self.text_travaux= self.font.render(self.list_travaux_plant[self.index_travaux_plant], True, config.GREEN, config.BLUE)
         else:
-            self.text_travaux= self.font.render(self.list_travaux_piquet[self.index_travaux_piquet], True, GREEN, BLUE)
+            self.text_travaux= self.font.render(self.list_travaux_piquet[self.index_travaux_piquet], True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_travaux, self.text_travauxRect)
 
 
@@ -240,29 +230,29 @@ class WindowScanRang:
             
             titre = "**EasyVine SCAN RANG**   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
             pygame.display.set_caption(titre) 
-            pygame.Surface.fill(self.screen, BLACK)
+            pygame.Surface.fill(self.screen, config.BLACK)
             # c'est ici que je vais affficher les parcelle et les rang
 
             ################################### AFFICHER LA POSITION ACTUELLE ROND ROUGE  ############################################
-            pygame.draw.circle(self.screen, RED, self.position_py, 8)  # long_pyg , lat_pyg
+            pygame.draw.circle(self.screen, config.RED, self.position_py, 8)  # long_pyg , lat_pyg
 
             ################################### AFFICHER LES POINTS GPS TOUR DE LA PARCELLE ###########################################
             for lon_lat in self.tour_parcelle_pyg:
                 long_pyg, lat_pyg = lon_lat
-                pygame.draw.circle(self.screen, YELLOW, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
+                pygame.draw.circle(self.screen, config.YELLOW, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
 
             ################################## AFFICHER LES LIGNES QUI RELIES LES POINT GPS DU TOUR DE LA PARCELLE ###################
             if len(self.tour_parcelle_pyg) > 1:
-                pygame.draw.lines(self.screen, YELLOW, True, self.tour_parcelle_pyg, 3)
+                pygame.draw.lines(self.screen, config.YELLOW, True, self.tour_parcelle_pyg, 3)
 
             #################################  AFFICHER LES POINTS QUI COMPOSE LES RANGS   #############################
             if len(self.parcel.vigne) > 0: # il y a au moins un debut de rang
                 for rang_py in self.vigne_pyg:
                     for lon_lat in rang_py:
                         long_pyg, lat_pyg = lon_lat
-                        pygame.draw.circle(self.screen, GREEN, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
+                        pygame.draw.circle(self.screen, config.GREEN, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
                     if len(rang_py) > 1:
-                        pygame.draw.lines(self.screen, GREEN, True, rang_py, 3)
+                        pygame.draw.lines(self.screen, config.GREEN, True, rang_py, 3)
 
 
 
@@ -270,10 +260,10 @@ class WindowScanRang:
 
             ################## afficher le niveau ################
             # pygame.draw.lines(screen, GRAY, True, [(deb_x, deb_y), (fin_x, deb_y), (fin_x, fin_y), (deb_x, fin_y)], 10)
-            pygame.draw.lines(self.screen, GRAY, True, [(840, 10), (980, 10), (980, 150), (840, 150)], 5)
-            pygame.draw.line(self.screen, GRAY, (910, 10), (910, 150), 4)
-            pygame.draw.line(self.screen, GRAY, (840, 80), (980, 80), 4)
-            pygame.draw.circle(self.screen, RED, (911 + self.roll * 5, 81 + self.pitch * 5), 10)  # long_pyg , lat_pyg
+            pygame.draw.lines(self.screen, config.GRAY, True, [(840, 10), (980, 10), (980, 150), (840, 150)], 5)
+            pygame.draw.line(self.screen, config.GRAY, (910, 10), (910, 150), 4)
+            pygame.draw.line(self.screen, config.GRAY, (840, 80), (980, 80), 4)
+            pygame.draw.circle(self.screen, config.RED, (911 + self.roll * 5, 81 + self.pitch * 5), 10)  # long_pyg , lat_pyg
 
             ########################################### AFFICHE LES MENUS ##############################
             self.window_main.update()  # # affiche a l'ecran les texte

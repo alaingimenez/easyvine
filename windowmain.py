@@ -6,7 +6,7 @@ Fichier Delete
 """
 
 
-
+import config
 import fichier
 
 import pygame
@@ -14,20 +14,6 @@ pygame.init()
 
 
 
-
-
-
-BLACK = (0, 0, 0)
-GRAY = (127, 127, 127)
-WHITE = (255, 255, 255)
-
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-
-YELLOW = (255, 255, 0)
-CYAN = (0, 255, 255)
-MAGENTA = (255, 0, 255)
 
 DELAY = 0.2
 
@@ -46,7 +32,7 @@ class WindowMain:
         self.font_p = pygame.font.Font('freesansbold.ttf', 25)
         self.font = pygame.font.Font('freesansbold.ttf', 30)
 
-        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "  OUTILS  "]
+        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  OUTILS  "]
         """
         action FICHIER permet de CREER ET EFFACER des fichier
         action CREAT permet de creer des PARCELLE et des RANG
@@ -60,96 +46,96 @@ class WindowMain:
         self.centre_x = 500
         self.centre_y = 500
 
-        self.libelle_vigne = self.font_p.render("Vigne encours", True, WHITE, BLACK)
+        self.libelle_vigne = self.font_p.render("Vigne encours", True, config.WHITE, config.BLACK)
         self.libelle_vigneRect = self.libelle_vigne.get_rect()
         self.libelle_vigneRect.x = 100
         self.libelle_vigneRect.y = 935
 
-        self.libelle_action = self.font_p.render("Action", True, WHITE, BLACK)
+        self.libelle_action = self.font_p.render("Action", True, config.WHITE, config.BLACK)
         self.libelle_actionRect = self.libelle_action.get_rect()
         self.libelle_actionRect.x = 750
         self.libelle_actionRect.y = 935
 
 
-        self.bouton_action_g = self.font.render(str("<< :"), True, YELLOW, GRAY)  # transformer le texte en graphique
+        self.bouton_action_g = self.font.render(str("<< :"), True, config.YELLOW, config.GRAY)  # transformer le texte en graphique
         self.bouton_action_gRect = self.bouton_action_g.get_rect()
         self.bouton_action_gRect.x = 670 # position le texte en width
         self.bouton_action_gRect.y = 960  # position le texe en heigh en se servant de sa hauteur
 
-        self.bouton_action_d = self.font.render(str(": >>"), True, YELLOW, GRAY)  # transformer le texte en graphique
+        self.bouton_action_d = self.font.render(str(": >>"), True, config.YELLOW, config.GRAY)  # transformer le texte en graphique
         self.bouton_action_dRect = self.bouton_action_d.get_rect()
         self.bouton_action_dRect.x = 940  # position le texte en width
         self.bouton_action_dRect.y = 960  # position le texe en heigh en se servant de sa hauteur
 
-        self.bouton_parcelle_g = self.font.render("<< :", True, YELLOW, GRAY)
+        self.bouton_parcelle_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.bouton_parcelle_gRect = self.bouton_parcelle_g.get_rect()
         self.bouton_parcelle_gRect.x = 10
         self.bouton_parcelle_gRect.y = 960
 
-        self.bouton_parcelle_d = self.font.render(": >>", True, YELLOW, GRAY)
+        self.bouton_parcelle_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.bouton_parcelle_dRect = self.bouton_parcelle_d.get_rect()
         self.bouton_parcelle_dRect.x = 250
         self.bouton_parcelle_dRect.y = 960
 
         self.name_action = self.actions[self.index_action]  # chargement de la liste /PARCELLE/ /RANG/
-        self.text_action = self.font.render(str(self.name_action), True, GREEN,
-                                            BLUE)  # transformer le texte en graphique
+        self.text_action = self.font.render(str(self.name_action), True, config.GREEN,
+                                            config.BLUE)  # transformer le texte en graphique
         self.text_actionRect = self.text_action.get_rect()  # recuperer le rectangle du texte
         self.text_actionRect.x = 730  # position le texte 10 + largeur  bouton gauche  + 5 en width
         self.text_actionRect.y = 960  # position le texe en heigh en se servant de sa hauteur
 
         self.name_parcelle = self.list_name_parcelle[self.index_list_name_parcelle]
-        self.text_name_parcelle = self.font.render(self.name_parcelle, True, GREEN, BLUE)
+        self.text_name_parcelle = self.font.render(self.name_parcelle, True, config.GREEN, config.BLUE)
         self.text_name_parcelleRect = self.text_name_parcelle.get_rect()
         self.text_name_parcelleRect.x = 80
         self.text_name_parcelleRect.y = 960
 
-        self.buton_centre_h = self.font.render("^^", True, YELLOW, GRAY)
+        self.buton_centre_h = self.font.render("^^", True, config.YELLOW, config.GRAY)
         self.buton_centre_hRect = self.buton_centre_h.get_rect()
         self.buton_centre_hRect.x = 50
         self.buton_centre_hRect.y = 850
 
-        self.buton_centre = self.font.render("@", True, YELLOW, GRAY)
+        self.buton_centre = self.font.render("@", True, config.YELLOW, config.GRAY)
         self.buton_centreRect = self.buton_centre.get_rect()
         self.buton_centreRect.x = 52
         self.buton_centreRect.y = 884
 
-        self.buton_centre_b = self.font.render("vv", True, YELLOW, GRAY)
+        self.buton_centre_b = self.font.render("vv", True, config.YELLOW, config.GRAY)
         self.buton_centre_bRect = self.buton_centre_b.get_rect()
         self.buton_centre_bRect.x = 50
         self.buton_centre_bRect.y = 920
 
-        self.buton_centre_g = self.font.render("<<", True, YELLOW, GRAY)
+        self.buton_centre_g = self.font.render("<<", True, config.YELLOW, config.GRAY)
         self.buton_centre_gRect = self.buton_centre_g.get_rect()
         self.buton_centre_gRect.x = 10
         self.buton_centre_gRect.y = 884
 
-        self.buton_centre_d = self.font.render(">>", True, YELLOW, GRAY)
+        self.buton_centre_d = self.font.render(">>", True, config.YELLOW, config.GRAY)
         self.buton_centre_dRect = self.buton_centre_d.get_rect()
         self.buton_centre_dRect.x = 86
         self.buton_centre_dRect.y = 884
 
-        self.buton_zoom_g = self.font.render("<< :", True, YELLOW, GRAY)
+        self.buton_zoom_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_zoom_gRect = self.buton_zoom_g.get_rect()
         self.buton_zoom_gRect.x = 340
         self.buton_zoom_gRect.y = 960
 
-        self.buton_zoom_d = self.font.render(": >>", True, YELLOW, GRAY)
+        self.buton_zoom_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.buton_zoom_dRect = self.buton_zoom_d.get_rect()
         self.buton_zoom_dRect.x = 465
         self.buton_zoom_dRect.y = 960
 
-        self.text_zoom = self.font.render(format(self.zoom,'.2f'), True, GREEN, BLUE)
+        self.text_zoom = self.font.render(format(self.zoom,'.2f'), True, config.GREEN, config.BLUE)
         self.text_zoom_Rect = self.text_zoom.get_rect()
         self.text_zoom_Rect.x = 400
         self.text_zoom_Rect.y = 960
 
-        self.libelle_zoom = self.font_p.render("ZOOM", True, WHITE, BLACK)
+        self.libelle_zoom = self.font_p.render("ZOOM", True, config.WHITE, config.BLACK)
         self.libelle_zoomRect = self.libelle_zoom.get_rect()
         self.libelle_zoomRect.x = 395
         self.libelle_zoomRect.y = 935
 
-        self.buton_info = self.font.render("| INFO |", True, YELLOW, GRAY)
+        self.buton_info = self.font.render("| INFO |", True, config.YELLOW, config.GRAY)
         self.buton_infoRect = self.buton_info.get_rect()
         self.buton_infoRect.x = 160
         self.buton_infoRect.y = 884
@@ -159,7 +145,7 @@ class WindowMain:
     def update(self):
         self.screen.blit(self.buton_info, self.buton_infoRect)
         self.screen.blit(self.libelle_zoom, self.libelle_zoomRect)
-        self.text_zoom = self.font.render(format(self.zoom, '.2f'), True, GREEN, BLUE)
+        self.text_zoom = self.font.render(format(self.zoom, '.2f'), True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_zoom, self.text_zoom_Rect)
         self.screen.blit(self.buton_zoom_g, self.buton_zoom_gRect)
         self.screen.blit(self.buton_zoom_d, self.buton_zoom_dRect)
@@ -177,12 +163,12 @@ class WindowMain:
         self.screen.blit(self.bouton_parcelle_d, self.bouton_parcelle_dRect)
 
         self.name_action = self.actions[self.index_action]  # chargement de la liste /PARCELLE/ /RANG/
-        self.text_action = self.font.render(str(self.name_action), True, GREEN,
-                                            BLUE)  # transformer le texte en graphique
+        self.text_action = self.font.render(str(self.name_action), True, config.GREEN,
+                                            config.BLUE)  # transformer le texte en graphique
         self.screen.blit(self.text_action, self.text_actionRect)
 
         self.name_parcelle = self.list_name_parcelle[self.index_list_name_parcelle]
-        self.text_name_parcelle = self.font.render(self.name_parcelle, True, GREEN, BLUE)
+        self.text_name_parcelle = self.font.render(self.name_parcelle, True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_name_parcelle, self.text_name_parcelleRect)
 
 

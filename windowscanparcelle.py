@@ -1,19 +1,10 @@
 
 
-BLACK = (0, 0, 0)
-GRAY = (127, 127, 127)
-WHITE = (255, 255, 255)
 
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-
-YELLOW = (255, 255, 0)
-CYAN = (0, 255, 255)
-MAGENTA = (255, 0, 255)
 
 TIME_MSG = 1
 
+import config
 import main
 import routine_gps
 import windowalerte
@@ -66,42 +57,42 @@ class WindowScanParcelle:
 
         self.index_scan_mode = 0 #   = 0 mode VIEW  = 1 mode PAUSE   = 2 mode REC
 
-        self.libelle_saving = self.font_g.render("** SAVING **", True, GREEN, GRAY)
+        self.libelle_saving = self.font_g.render("** SAVING **", True, config.GREEN, config.GRAY)
         self.libelle_savingRect = self.libelle_saving.get_rect()
         self.libelle_savingRect.x = 400
         self.libelle_savingRect.y = 400
 
-        self.buton_rec = self.font.render("|  REC  |", True, YELLOW, GRAY)
+        self.buton_rec = self.font.render("|  REC  |", True, config.YELLOW, config.GRAY)
         self.buton_recRect = self.buton_rec.get_rect()
         self.buton_recRect.x = 350
         self.buton_recRect.y = 80
 
-        self.buton_pause = self.font.render("|PAUSE|", True, YELLOW, GRAY)
+        self.buton_pause = self.font.render("|PAUSE|", True, config.YELLOW, config.GRAY)
         self.buton_pauseRect = self.buton_pause.get_rect()
         self.buton_pauseRect.x = 470
         self.buton_pauseRect.y = 80
 
-        self.buton_view = self.font.render("|VIEW|", True, YELLOW, RED)
+        self.buton_view = self.font.render("|VIEW|", True, config.YELLOW, config.RED)
         self.buton_viewRect = self.buton_view.get_rect()
         self.buton_viewRect.x = 610
         self.buton_viewRect.y = 80
 
-        self.libelle_distance = self.font.render("Distance Point", True, WHITE , BLACK)
+        self.libelle_distance = self.font.render("Distance Point", True, config.WHITE , config.BLACK)
         self.libelle_distanceRect = self.libelle_distance.get_rect()
         self.libelle_distanceRect.x = 30
         self.libelle_distanceRect.y = 50
 
-        self.buton_distance_g = self.font.render("<< :", True, YELLOW, GRAY)
+        self.buton_distance_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_distance_gRect = self.buton_distance_g.get_rect()
         self.buton_distance_gRect.x = 33+20
         self.buton_distance_gRect.y = 80
 
-        self.buton_distance_d = self.font.render(": >>", True, YELLOW, GRAY)
+        self.buton_distance_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.buton_distance_dRect = self.buton_distance_d.get_rect()
         self.buton_distance_dRect.x = 150+20
         self.buton_distance_dRect.y = 80
 
-        self.text_distance = self.font.render(format(self.distance_point,'.2f'), True, GREEN, BLUE)
+        self.text_distance = self.font.render(format(self.distance_point,'.2f'), True, config.GREEN, config.BLUE)
         self.text_distanceRect = self.text_distance.get_rect()
         self.text_distanceRect.x = 90+20
         self.text_distanceRect.y = 80
@@ -109,23 +100,23 @@ class WindowScanParcelle:
 
         #############################################
         # format(self.parcel.largeur_rang, '.2f')
-        self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, WHITE, BLACK)
+        self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, config.WHITE, config.BLACK)
         self.libelle_largeur_rangRect = self.libelle_largeur_rang.get_rect() #font.render(format(zoom, '.2f')
         self.libelle_largeur_rangRect.x = 10
         self.libelle_largeur_rangRect.y = 400
    
         # format(self.parcel.distance_souche, '.2f')
-        self.libelle_distance_cep = self.font.render("distance cep  : "+ str(self.parcel.distance_souche) +"M", True, WHITE, BLACK)
+        self.libelle_distance_cep = self.font.render("distance cep  : "+ str(self.parcel.distance_souche) +"M", True, config.WHITE, config.BLACK)
         self.libelle_distance_cepRect = self.libelle_distance_cep.get_rect()
         self.libelle_distance_cepRect.x = 10
         self.libelle_distance_cepRect.y = 440
 
-        self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, WHITE, BLACK)
+        self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, config.WHITE, config.BLACK)
         self.libelle_cepageRect = self.libelle_cepage.get_rect()
         self.libelle_cepageRect.x = 10
         self.libelle_cepageRect.y = 480
 
-        self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, WHITE, BLACK)
+        self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, config.WHITE, config.BLACK)
         self.libelle_nb_rangeRect = self.libelle_nb_range.get_rect()
         self.libelle_nb_rangeRect.x = 10
         self.libelle_nb_rangeRect.y = 520
@@ -136,14 +127,14 @@ class WindowScanParcelle:
     def update(self):
         if self.flag_info:
             l_r = float(self.parcel.largeur_rang)
-            self.libelle_largeur_rang = self.font.render("largeur rang  : " + format( l_r, '.2f') + "M" , True, WHITE, BLACK)
+            self.libelle_largeur_rang = self.font.render("largeur rang  : " + format( l_r, '.2f') + "M" , True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_largeur_rang, self.libelle_largeur_rangRect)
             d_t = float(self.parcel.distance_souche)
-            self.libelle_distance_cep = self.font.render("distance cep  : "+ format( d_t, '.2f') +"M", True, WHITE, BLACK)
+            self.libelle_distance_cep = self.font.render("distance cep  : "+ format( d_t, '.2f') +"M", True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_distance_cep , self.libelle_distance_cepRect )
-            self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, WHITE, BLACK)
+            self.libelle_cepage = self.font.render("cepage  : "+ self.parcel.cepage , True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_cepage , self.libelle_cepageRect )
-            self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, WHITE, BLACK)
+            self.libelle_nb_range = self.font.render("NB Rangé : " + str(len(self.parcel.vigne)), True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_nb_range , self.libelle_nb_rangeRect )
 
         self.screen.blit(self.buton_rec, self.buton_recRect)
@@ -152,22 +143,22 @@ class WindowScanParcelle:
         self.screen.blit(self.libelle_distance, self.libelle_distanceRect)
         self.screen.blit(self.buton_distance_g, self.buton_distance_gRect)
         self.screen.blit(self.buton_distance_d, self.buton_distance_dRect)
-        self.text_distance = self.font.render(format(self.distance_point,'.2f'), True, GREEN, BLUE)
+        self.text_distance = self.font.render(format(self.distance_point,'.2f'), True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_distance, self.text_distanceRect)
 
     def scan_mode(self):
         if self.index_scan_mode == 0:  # mode VIEW
-            self.buton_view = self.font.render("|VIEW|", True, YELLOW, RED)
-            self.buton_pause = self.font.render("|PAUSE|", True, YELLOW, GRAY)
-            self.buton_rec = self.font.render("|  REC  |", True, YELLOW, GRAY)
+            self.buton_view = self.font.render("|VIEW|", True, config.YELLOW, config.RED)
+            self.buton_pause = self.font.render("|PAUSE|", True, config.YELLOW, config.GRAY)
+            self.buton_rec = self.font.render("|  REC  |", True, config.YELLOW, config.GRAY)
         elif self.index_scan_mode == 1: # mode PAUSE
-            self.buton_view = self.font.render("|VIEW|", True, YELLOW, GRAY)
-            self.buton_pause = self.font.render("|PAUSE|", True, YELLOW, RED)
-            self.buton_rec = self.font.render("|  REC  |", True, YELLOW, GRAY)
+            self.buton_view = self.font.render("|VIEW|", True, config.YELLOW, config.GRAY)
+            self.buton_pause = self.font.render("|PAUSE|", True, config.YELLOW, config.RED)
+            self.buton_rec = self.font.render("|  REC  |", True, config.YELLOW, config.GRAY)
         elif self.index_scan_mode == 2: # mode REC
-            self.buton_view = self.font.render("|VIEW|", True, YELLOW, GRAY)
-            self.buton_pause = self.font.render("|PAUSE|", True, YELLOW, GRAY)
-            self.buton_rec = self.font.render("|  REC  |", True, YELLOW, RED)
+            self.buton_view = self.font.render("|VIEW|", True, config.YELLOW, config.GRAY)
+            self.buton_pause = self.font.render("|PAUSE|", True, config.YELLOW,config. GRAY)
+            self.buton_rec = self.font.render("|  REC  |", True, config.YELLOW, config.RED)
 
     def dec_distance_point(self):
         self.distance_point -= 0.2
@@ -218,16 +209,16 @@ class WindowScanParcelle:
             pygame.display.set_caption(titre)
 
 
-            pygame.Surface.fill(self.screen, BLACK)
+            pygame.Surface.fill(self.screen, config.BLACK)
             # c'est ici que je vais affficher les parcelle et les rang
 
             ################################### AFFICHER LA POSITION ACTUELLE ROND ROUGE  ############################################
-            pygame.draw.circle(self.screen, RED, self.position_py, 8)  # long_pyg , lat_pyg
+            pygame.draw.circle(self.screen, config.RED, self.position_py, 8)  # long_pyg , lat_pyg
 
             ################################### AFFICHER LES POINTS GPS TOUR DE LA PARCELLE ###########################################
             for lon_lat in self.tour_parcelle_pyg:
                 long_pyg, lat_pyg = lon_lat
-                pygame.draw.circle(self.screen, YELLOW, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
+                pygame.draw.circle(self.screen, config.YELLOW, (long_pyg, lat_pyg), 4)  # long_pyg , lat_pyg
 
             ################################## AFFICHER LES LIGNES QUI RELIES LES POINT GPS DU TOUR DE LA PARCELLE ###################
             if len(self.tour_parcelle_pyg) > 1:
@@ -235,7 +226,7 @@ class WindowScanParcelle:
                     fermer = True
                 else:
                     fermer = False
-                pygame.draw.lines(self.screen, YELLOW, fermer, self.tour_parcelle_pyg, 3)
+                pygame.draw.lines(self.screen, config.YELLOW, fermer, self.tour_parcelle_pyg, 3)
 
 
 
