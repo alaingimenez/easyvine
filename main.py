@@ -9,6 +9,7 @@ import windowfichier
 import windowscan
 import windowmain
 import windowview
+import windowrecherch
 
 from gps import *
 import threading
@@ -82,6 +83,9 @@ if __name__ == '__main__':
         elif window_main.index_action == 3: # VIEW
             window_view = windowview.WindowView(window_main)
             action = window_view.gestion()
+
+        elif window_main.index_action == 4: # RECHERCHE
+            action = windowrecherch.gestion(window_main)
 
         if window_main.index_action == -99: # il faut arreter le prg
             is_running = False
