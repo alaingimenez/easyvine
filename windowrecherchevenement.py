@@ -7,10 +7,12 @@ TIME_MSG = 1
 import config
 import main
 import routine_gps
+#import routine_robot
+import robot
 import windowalerte
 import pyg
 from communication import*
-from routine_vigne import*
+#from routine_vigne import*
 
 import time
 import pygame
@@ -34,6 +36,7 @@ class WindowRecherchEvenement:
         self.module = module
         self.parcel = parcel
         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle) # comment on charge un objet
+        self.robot = robot.Robot()
 
         self.font = pygame.font.Font('freesansbold.ttf', 30)
         self.font_mg = pygame.font.Font('freesansbold.ttf', 30)
@@ -47,17 +50,20 @@ class WindowRecherchEvenement:
         self.libelle_savingRect.y = 400
 
         self.position_gps = (0, 0)
+        self.position_gps_simule = (0,0)
         self.latitude = 0
         self.longitude = 0
         self.pitch = 0
         self.roll = 0
         self.track = 0
+        self.track_simule = 0
         self.altitude = 0
 
         self.position_py = (0,0)
         self.tour_parcelle_pyg =[]
         self.vigne_pyg = []
         self.evenement_pyg = []
+        self.parcour_pyg = []
 
         self.mode_simulation = True
         self.event_selected = []
@@ -179,7 +185,80 @@ class WindowRecherchEvenement:
             self.libelle_nb_event = self.font.render("NB evenement : " + str(len(self.parcel.evenement)), True, config.WHITE, config.BLACK)
             self.screen.blit(self.libelle_nb_event , self.libelle_nb_eventRect )
 
+    def creer_parcours(self):
+        print(self.event_selected)
+        #regarder ou se trouve le robot et tourner la vigne pour que le premier rang de la liste soit pret du robot
+        self.robot.position = self.position_gps
+        pos_robot = self.robot.robot_a_cote(self.parcel.vigne)
+        self.parcel.reverse_vigne(pos_robot) # 
 
+        rang = self.parcel.vigne[0] 
+        cap, cap_inverse = self.parcel.cap_rang(rang)
+
+        # savoir de quel coté s'etale la vigne droite ou gauche -1 = un seul rang / 1 = a droite / 0 = a gauche
+        cote = self.parcel.vigne_setend()
+        if cote == 1: # la vigne s'etend a droite
+            pos_debut,quoi,an,hauteur,arrosage,travail = rang[0]
+            pos_fin,quoi,an,hauteur,arrosage,travail = rang[-1]
+            demi_largeur = float(self.parcel.largeur_rang) / 2
+            ad_dep = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_debut, cap - 90, demi_largeur), cap_inverse, self.robot.longueur)
+            ad_fin = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_fin, cap - 90, demi_largeur), cap, self.robot.longueur )
+            self.robot.parcour.append(ad_dep)
+            self.robot.parcour.append(ad_fin)
+            print("parcour ", self.robot.parcour)
+            # creer un point a gauche debut de rang et fin de rang et a 1/2 rang et les mettre a l'exterieur de la vigne
+            # de la longueur du robot
+            pass
+        elif cote == 0: # la vigne s'etend a gauche
+            pass
+        elif cote == -1: # il n'y a q'une seule range
+            pass
+        # tracer des ligne entre chaque rangé et a mis distance
+        #tracer une ligne a mis distance de la premiere range a l'extrieur de la vigne
+        #tracer une ligne a mis distance de la derniere range et a mis distance
+        #rallonger les lignes de la longueur robot
+        #regarder la distance de l'evenement a la ligne si la distances est inferieure a une 1/2 rangé attribuer
+        #l'evenement a cette ligne
+        #
+        # pour les tests recuperer un adresse gps a chaque bout des rang exterieur
+        
+
+    def position_amarre(self, indice, distance):
+        """
+        return un point gps qui sert a positionner le robot avant la creation du parcour pendant la simulation
+            si indice = 1 return la position de la premiere amarre du premier rang
+            si indice = 2 return la position de la derniere amarre du premier rang 
+            si indice = 3 return la position de la derniere amarre du dernier rang
+            si indice = 4 return la position de la premiere amarre du dernier rang
+
+        """
+        if  len(self.parcel.vigne) > 0: # le tour de la parcelle est existant donc initialiser  self.position_gps_simule
+            rang = self.parcel.vigne[0]
+            cap, cap_inverse = self.parcel.cap_rang(rang)
+            position,quoi,an,hauteur,arrosage,travail = rang[0]
+
+            if indice == 1: # on simule que le gps est au  point de la liste premier rang premier amarre
+                self.position_gps_simule = routine_gps.new_pointgpt(position, cap_inverse, distance)
+                self.track_simule = cap
+                 
+            elif indice == 2: # on simule que le gps est au  point de la liste premier rang dernier amarre
+                position,quoi,an,hauteur,arrosage,travail = rang[-1]
+                self.position_gps_simule = routine_gps.new_pointgpt(position, cap, distance)
+                self.track_simule = cap_inverse
+                
+            elif indice == 3: # on simule que le gps est au point de la liste dernier rang dernier amarre 
+                rang = self.parcel.vigne[-1]
+                position,quoi,an,hauteur,arrosage,travail = rang[-1]                
+                self.position_gps_simule = routine_gps.new_pointgpt(position, cap, distance)
+                self.track_simule = cap_inverse
+                   
+            elif indice == 4: #  numero 4 # on simule que le gps est au point de la liste dernier rang premier amarre 
+                rang = self.parcel.vigne[-1]
+                #print(rang)
+                position,quoi,an,hauteur,arrosage,travail = rang[0]
+                self.position_gps_simule = routine_gps.new_pointgpt(position, cap_inverse, distance)
+                self.track_simule = cap
+            return      
 
 
     def gestion(self):########### EVENEMENT #########
@@ -192,11 +271,8 @@ class WindowRecherchEvenement:
 
         erreurio = 0
 
-
-
-
-
-
+        if  len(self.parcel.tour) > 0: # le tour de la parcelle est existant donc initialiser  self.position_gps_simule
+                self.position_gps_simule = self.parcel.tour[0] # on simule que le gps est au premier point de la parcelle
 
         while True:
             titre = "**EasyVine RECHERCHE EVENEMENT **   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
@@ -225,6 +301,12 @@ class WindowRecherchEvenement:
                     if len(rang_py) > 1:
                         pygame.draw.lines(self.screen, config.GREEN, True, rang_py, 3)
 
+            ################################ AFFICHER LE PARCOURS ######################################
+            #
+            if len(self.parcour_pyg) > 0:
+                pygame.draw.lines(self.screen, config.BLUE, True, self.parcour_pyg, 3)
+
+            
             ############################ AFFICHER LES EVENEMENTS #######################################
             # 
             if len(self.evenement_pyg) > 0:
@@ -260,9 +342,9 @@ class WindowRecherchEvenement:
 
 
 
-            ######################################################################
-            ###############   CALCULER ET SCANNER LES EVENEMENT   ################
-            ######################################################################
+            ####################################################################################################
+            ###############   CALCULER ET suivre le parcours et eliminer les evenement traité   ################
+            ####################################################################################################
 
 
             try:
@@ -278,9 +360,9 @@ class WindowRecherchEvenement:
             self.altitude_gps = gs.gpsd.fix.altitude
 
             
-            if self.mode_simulation and len(self.parcel.tour) > 0: # le tour de la parcelle est existant est mode VIEW
-                self.position_gps = self.parcel.tour[0] # on simule que le gps est au premier point de la parcelle
-                self.track = 0 #  nord
+            if self.mode_simulation: # and len(self.parcel.tour) > 0: # le tour de la parcelle est existant est mode VIEW
+                self.position_gps = self.position_gps_simule # on simule que le gps est au premier point de la parcelle
+                self.track = self.track_simule  #  
 
 
 
@@ -299,23 +381,21 @@ class WindowRecherchEvenement:
 
 
 
+
             ###################### TRANSFORMER LES COORDONNEES GPS EN COORDONNE PYG ##############################
-            if len(self.parcel.vigne) > 0: # il y a au moins un debut de rang
-                self.vigne_pyg, self.tour_parcelle_pyg, self.position_py = pyg.rang_vigne_en_pyg(self.parcel.vigne,
-                                                                                                self.parcel.tour,
-                                                                                                self.position_gps,
-                                                                                                self.window_main.zoom, self.window_main.centre_x,
-                                                                                                self.window_main.centre_y,
-                                                                                                 self.track)
-            if len(self.event_selected) > 0:
-                self.evenement_pyg, self.tour_parcelle_pyg, self.position_py = pyg.evenement_en_pyg(self.event_selected,
-                                                                                                    self.parcel.tour,
-                                                                                                    self.position_gps,
-                                                                                                    self.window_main.zoom, self.window_main.centre_x,
-                                                                                                    self.window_main.centre_y,
-                                                                                                    self.track)    
-            else:
-                self.evenement_pyg = []
+
+
+            self.parcour_pyg, self.evenement_pyg, self.vigne_pyg, self.tour_parcelle_pyg, un_point, echelle, self.position_py = pyg.gps_en_pyg(
+                                                                                        self.robot.parcour, self.event_selected, 
+                                                                                        self.parcel.vigne,
+                                                                                        self.parcel.tour, self.position_gps,
+                                                                                        self.position_gps, self.window_main.zoom, 
+                                                                                        self.window_main.centre_x,
+                                                                                        self.window_main.centre_y, self.track)
+
+
+
+           
 
 
 
@@ -453,27 +533,31 @@ class WindowRecherchEvenement:
 
                     ##-----------------------------------------------------------
                     ##-----------------------------------------------------------
-                    ########## GERE LES EVENEMENTS DE LA windowscan module
-                    elif self.module.buton_simuRect.collidepoint(event.pos): # BUTON UNDO
+                    ########## GERE LES EVENEMENTS DE LA windowrecherch module
+                    elif self.module.buton_simuRect.collidepoint(event.pos): # BUTON 
                         if self.mode_simulation:
                             self.mode_simulation = False
                             self.module.buton_simu = self.font.render("|SIMU|", True, config.YELLOW, config.GRAY)
                         else:
                             self.mode_simulation = True
                             self.module.buton_simu = self.font.render("|SIMU|", True, config.YELLOW, config.RED)
-
-                    elif self.module.buton_redoRect.collidepoint(event.pos): # BUTON REDO
-                        print("MODULE A IMPLEMENTER")
-                        if len(self.list_undo) > 0:
-                            pass
-                            #self.parcel.vigne.append(self.list_undo.pop())
+                            if  len(self.parcel.tour) > 0: # le tour de la parcelle est existant donc initialiser  self.position_gps_simule
+                                self.position_gps_simule = self.parcel.tour[0] # on simule que le gps est au premier point de la parcelle
+                                self.track_simule = 0
+                    elif self.module.buton_parcoursRect.collidepoint(event.pos): # BUTON 
+                        print("MODULE A IMPLEMENTER  PARCOURS")
+                        self.creer_parcours()
+                        
+                            
                     elif self.module.buton_delRect.collidepoint(event.pos):
                         print("MODULE A IMPLEMENTER")
+                        """
                         self.windowalerte = windowalerte.WindowAlerte(self.screen, "voulez vous detruire tous les evenements ",self.window_main.name_parcelle)  # creer la fenetre d'alerte
                         if self.windowalerte.update():  # attente de reponse de la fenetre d'alerte
                             self.parcel.evenement = []
                             self.evenement_pyg = []
                             #self.list_undo.append(self.parcel.tour.pop())
+                        """
                     elif self.module.buton_saveRect.collidepoint(event.pos):
                         print("id parcel :", id(self.parcel))
                         self.window_main.fichier.save_file(self.window_main.name_parcelle, self.parcel)
@@ -481,6 +565,25 @@ class WindowRecherchEvenement:
                         self.screen.blit(self.libelle_saving, self.libelle_savingRect)
                         pygame.display.update()
                         time.sleep(TIME_MSG)
+
+                    elif self.module.buton_bgRect.collidepoint(event.pos):
+                        self.position_amarre(1, 1) # premiere rang premier amarre a 1 metre
+                        self.parcour_pyg = []
+                        self.robot.parcour = []
+                    elif self.module.buton_hgRect.collidepoint(event.pos):
+                        self.position_amarre(2, 1) # premier rang dernier amarre a 1 metre
+                        self.parcour_pyg = []
+                        self.robot.parcour = []
+                    elif self.module.buton_hdRect.collidepoint(event.pos):
+                        self.position_amarre(3, 1) # dernier rang dernier amarre a 1 metre
+                        self.parcour_pyg = []
+                        self.robot.parcour = []
+                    elif self.module.buton_bdRect.collidepoint(event.pos):
+                        self.position_amarre(4, 1) # dernier rang premier amarre a 1 metre
+                        self.parcour_pyg = []
+                        self.robot.parcour = []
+                        
+                           
 
                     
 

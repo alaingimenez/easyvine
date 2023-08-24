@@ -39,20 +39,40 @@ class Module: # permet de choisir le module qui vas etre utiliser    EVENEMENT /
         self.buton_simuRect.x = 350
         self.buton_simuRect.y = 10
 
-        self.buton_redo = self.font.render("|-----|", True, config.YELLOW, config.GRAY)
-        self.buton_redoRect = self.buton_redo.get_rect()
-        self.buton_redoRect.x = 470
-        self.buton_redoRect.y = 10
+        self.buton_parcours = self.font.render("|PARCOURS|", True, config.YELLOW, config.GRAY)
+        self.buton_parcoursRect = self.buton_parcours.get_rect()
+        self.buton_parcoursRect.x = 470
+        self.buton_parcoursRect.y = 10
 
-        self.buton_save = self.font.render("|SAVE|", True, config.YELLOW, config.GRAY)
+        self.buton_save = self.font.render("|----|", True, config.YELLOW, config.GRAY)
         self.buton_saveRect = self.buton_save.get_rect()
-        self.buton_saveRect.x = 610
+        self.buton_saveRect.x = 710
         self.buton_saveRect.y = 10
 
-        self.buton_del = self.font.render("|DEL|", True, config.YELLOW, config.GRAY)
+        self.buton_del = self.font.render("|----|", True, config.YELLOW, config.GRAY)
         self.buton_delRect = self.buton_del.get_rect()
-        self.buton_delRect.x = 740
+        self.buton_delRect.x = 840
         self.buton_delRect.y = 10
+
+        self.buton_hd = self.font.render("O", True, config.YELLOW, config.GRAY)
+        self.buton_hdRect = self.buton_hd.get_rect()
+        self.buton_hdRect.x = 950
+        self.buton_hdRect.y = 5
+
+        self.buton_hg = self.font.render("O", True, config.YELLOW, config.GRAY)
+        self.buton_hgRect = self.buton_hg.get_rect()
+        self.buton_hgRect.x = 922
+        self.buton_hgRect.y = 5
+
+        self.buton_bg = self.font.render("O", True, config.YELLOW, config.GRAY)
+        self.buton_bgRect = self.buton_bg.get_rect()
+        self.buton_bgRect.x = 922
+        self.buton_bgRect.y = 40
+
+        self.buton_bd = self.font.render("O", True, config.YELLOW, config.GRAY)
+        self.buton_bdRect = self.buton_bd.get_rect()
+        self.buton_bdRect.x = 950
+        self.buton_bdRect.y = 40
 
         
 
@@ -65,9 +85,13 @@ class Module: # permet de choisir le module qui vas etre utiliser    EVENEMENT /
         self.screen.blit(self.module, self.moduleRect)
         self.screen.blit(self.buton_d,self.buton_dRect)
         self.screen.blit(self.buton_simu, self.buton_simuRect)
-        self.screen.blit(self.buton_redo, self.buton_redoRect)
+        self.screen.blit(self.buton_parcours, self.buton_parcoursRect)
         self.screen.blit(self.buton_save, self.buton_saveRect)
         self.screen.blit(self.buton_del, self.buton_delRect)
+        self.screen.blit(self.buton_hd, self.buton_hdRect)
+        self.screen.blit(self.buton_hg, self.buton_hgRect)
+        self.screen.blit(self.buton_bd, self.buton_bdRect)
+        self.screen.blit(self.buton_bg, self.buton_bgRect)
 
     def chang_module(self, ofset):
         self.index = self.index + ofset

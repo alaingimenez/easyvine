@@ -248,8 +248,9 @@ def format_name_vigne(name,nb_caractere):
 def add_debut_rang_in_list_rang(position_complette_in_rang, list_rang_vigne,largeur_vigne ):
 
     # ajouter la position_complette_in_rang au debut d'un nouveau rang
-    rang = [position_complette_in_rang]
+    rang = [position_complette_in_rang] # ICI Il faut essayer de mettre 2 crochet de plus
     list_rang_vigne.append(rang)
+    #list_rang_vigne[x].append(position_complette_in_rang)
 
     # recuperer la largeur_vigne c'est la largeur entre les rangs
     #largeur_vigne

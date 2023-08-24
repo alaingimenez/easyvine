@@ -295,7 +295,7 @@ class WindowScanRang:
                 self.buton_state = GPIO.HIGH # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
                 ######################  SCANNE LES DEBUTS DE RANGS     ######################
                 if self.index_list_scan_quoi == 0: # on scanne les debut de rang donc ammare
-                    self.parcel.position = (self.position_gps, "AMMARE", "2023", self.altitude_gps, self.a_arroser, self.list_travaux_piquet[self.index_travaux_piquet])
+                    self.parcel.position = [self.position_gps, "AMMARE", "2023", self.altitude_gps, self.a_arroser, self.list_travaux_piquet[self.index_travaux_piquet]]
                     operation_ok , self.parcel.vigne =  add_debut_rang_in_list_rang(self.parcel.position, self.parcel.vigne, float(self.parcel.largeur_rang ))
                     if operation_ok:
                         self.list_undo.append(self.parcel.position)
@@ -304,12 +304,12 @@ class WindowScanRang:
 
                 ######################  SCANNE LES FINS DE RANGS     ######################
                 elif self.index_list_scan_quoi == 1: # on scanne les fin de rang donc ammare
-                    self.parcel.position = (self.position_gps, "AMMARE", "2023", self.altitude_gps, self.a_arroser, self.list_travaux_piquet[self.index_travaux_piquet])
+                    self.parcel.position = [self.position_gps, "AMMARE", "2023", self.altitude_gps, self.a_arroser, self.list_travaux_piquet[self.index_travaux_piquet]]
                     operation_ok , self.parcel.vigne =  add_fin_rang_in_list_rang(self.parcel.position, self.parcel.vigne, float(self.parcel.largeur_rang ))
                     if operation_ok:
                         self.list_undo.append(self.parcel.position)
                     else:    
-                        print("LE DEBUT DE RANG N'A PAS ETE AJOUTER CAR IL EST TROPS PROCHE D'UNE AUTRE DEBUT DE RANG")
+                        print("LE fin DE RANG N'A PAS ETE AJOUTER CAR IL EST TROPS PROCHE D'UNE AUTRE fin DE RANG")
                 elif self.index_list_scan_quoi == 2: # on scanne les plant
                     print("plant")
                 elif self.index_list_scan_quoi == 3: # on scanne les piquet
