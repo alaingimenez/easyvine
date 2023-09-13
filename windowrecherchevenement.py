@@ -213,8 +213,7 @@ class WindowRecherchEvenement:
         self.robot.position = self.position_gps
         pos_robot = self.robot.robot_a_cote(self.parcel.vigne) # retrouver la position du robot par rapport a la vigne
         self.parcel.reverse_vigne(pos_robot) # tourner la vigne de maniere a ce que la liste est la premiere rangé a cote du robot
-        rang = self.parcel.vigne[0] 
-        cap, cap_inverse = self.parcel.cap_rang(rang)
+        
         self.ligne_vigne = [] # contient les lignes entre les rangs pour reperer les evenement sou la forme ligne_vigne = [[(lon,lat),(lon,lat)], [(lon,lat),(lon,lat)]]
         self.ligne_vigne_pyg = []
         self.ligne_event = []
@@ -225,129 +224,123 @@ class WindowRecherchEvenement:
         cote = self.parcel.vigne_setend()
         index_ligne_event = 0
         if cote == 1: # la vigne s'etend a droite
-            # CREER LA PREMIERE LIGNE A L'EXTERIEUR DE LA VIGNE
-            pos_debut,quoi,an,hauteur,arrosage,travail = rang [0] # premiere ammare premier rang
-            pos_fin,quoi,an,hauteur,arrosage,travail = rang [-1]  # derniere ammare premier rang
-            demi_largeur = float(self.parcel.largeur_rang) / 2
-            ad_dep = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_debut, cap - 90, demi_largeur), cap_inverse, self.robot.longueur)
-            ad_fin = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_fin, cap - 90, demi_largeur), cap, self.robot.longueur )
+            ofset_cap = -90
+        elif cote == 0: # la vigne s'etend a gauche
+            ofset_cap = 90
+        elif cote == -1: # il n'y a q'une seule range
+            print("parcour pour vigne a une rangé non calculé")
+            # si il n y a qu'une seule rangé regarder de quel coté est le robot et renvoyer cote = a 1 ou 0
+            # selon le cote ou est le robot
+            return
 
-            # attribuer les evenement a la ligne 0
+        rang = self.parcel.vigne[0] 
+        cap, cap_inverse = self.parcel.cap_rang(rang)
+        # CREER LA PREMIERE LIGNE A L'EXTERIEUR DE LA VIGNE
+        pos_debut,quoi,an,hauteur,arrosage,travail = rang [0] # premiere ammare premier rang
+        pos_fin,quoi,an,hauteur,arrosage,travail = rang [-1]  # derniere ammare premier rang
+        demi_largeur = float(self.parcel.largeur_rang) / 2
+        ad_dep = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_debut, cap + ofset_cap, demi_largeur), cap_inverse, self.robot.longueur)
+        ad_fin = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_fin, cap + ofset_cap, demi_largeur), cap, self.robot.longueur )
+
+        # attribuer les evenement a la ligne 0
+        for ev in self.event_selected:
+            point,nom = ev
+            if routine_gps.calculate_distance(point, ad_dep, ad_fin) <= demi_largeur:
+                self.ligne_event.append(ev)
+        if len(self.ligne_event) > 0:
+            self.ligne_vigne_event.append(self.ligne_event)    
+            self.ligne_vigne.append([ad_dep, ad_fin])
+
+            index_ligne_event += 1
+
+        # CREER LES LIGNE QUI S'ETENDE VERS LA DROITE et attribuer les evenements
+        for rang in self.parcel.vigne:
+            pos_debut,quoi,an,hauteur,arrosage,travail = rang [0] # premiere ammare premier ran
+            pos_fin,quoi,an,hauteur,arrosage,travail = rang [-1]  # derniere ammare premier rang
+            ad_dep = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_debut, cap + (ofset_cap * -1), demi_largeur), cap_inverse, self.robot.longueur)
+            ad_fin = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_fin, cap + (ofset_cap * -1), demi_largeur), cap, self.robot.longueur )
+            #
+            # atribuer les evenement a la ligne encours
+            self.ligne_event = []
             for ev in self.event_selected:
                 point,nom = ev
                 if routine_gps.calculate_distance(point, ad_dep, ad_fin) <= demi_largeur:
-                    self.ligne_event.append(ev)
+                    # verifier si ev est deja present dans les lignes precedent si oui ne pas le rajouter
+                    exist = False
+                    for lng in self.ligne_vigne_event:
+                        for ev_compar in lng:
+                            if ev_compar == ev:
+                                exist = True # l'evenement existe
+                    if exist == False:            
+                        self.ligne_event.append(ev)
             if len(self.ligne_event) > 0:
                 self.ligne_vigne_event.append(self.ligne_event)    
                 self.ligne_vigne.append([ad_dep, ad_fin])
-
+                print("LIGNE evenement n° ",index_ligne_event)
+                print (self.ligne_event)
                 index_ligne_event += 1
 
-            # CREER LES LIGNE QUI S'ETENDE VERS LA DROITE et attribuer les evenements
-            for rang in self.parcel.vigne:
-                pos_debut,quoi,an,hauteur,arrosage,travail = rang [0] # premiere ammare premier ran
-                pos_fin,quoi,an,hauteur,arrosage,travail = rang [-1]  # derniere ammare premier rang
-                ad_dep = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_debut, cap + 90, demi_largeur), cap_inverse, self.robot.longueur)
-                ad_fin = routine_gps.new_pointgpt(routine_gps.new_pointgpt(pos_fin, cap + 90, demi_largeur), cap, self.robot.longueur )
-                #
-                # atribuer les evenement a la ligne encours
-                self.ligne_event = []
-                for ev in self.event_selected:
-                    point,nom = ev
-                    if routine_gps.calculate_distance(point, ad_dep, ad_fin) <= demi_largeur:
-                        # verifier si ev est deja present dans les lignes precedent si oui ne pas le rajouter
-                        exist = False
-                        for lng in self.ligne_vigne_event:
-                            for ev_compar in lng:
-                                if ev_compar == ev:
-                                    exist = True # l'evenement existe
-                        if exist == False:            
-                            self.ligne_event.append(ev)
-                if len(self.ligne_event) > 0:
-                    self.ligne_vigne_event.append(self.ligne_event)    
-                    self.ligne_vigne.append([ad_dep, ad_fin])
-                    print("LIGNE evenement n° ",index_ligne_event)
-                    print (self.ligne_event)
-                    index_ligne_event += 1
-
-            # commencer a preparer le parcours il faut inverser les adresse debut fin sur les lignes impaire pour avoir la coutinuité du parcours
-            index = 0
-            print("AVANT")
-            print(self.ligne_vigne)
-            for ligne in self.ligne_vigne:
-                if (index % 2) != 0:
-                    ad_dep, ad_fin = ligne
-                    self.ligne_vigne[index] = [ad_fin, ad_dep]
-                index += 1    
-            print("APRES")
-            print(self.ligne_vigne)        
+        # commencer a preparer le parcours il faut inverser les adresse debut fin sur les lignes impaire pour avoir la coutinuité du parcours
+        index = 0
+        print("AVANT")
+        print(self.ligne_vigne)
+        for ligne in self.ligne_vigne:
+            if (index % 2) != 0:
+                ad_dep, ad_fin = ligne
+                self.ligne_vigne[index] = [ad_fin, ad_dep]
+            index += 1    
+        print("APRES")
+        print(self.ligne_vigne)        
 
 
-            # pour controle imprimer les evenement et leur index de ligne
-            for index in range(len(self.ligne_vigne)):
-                print("index ",index)
-                print(self.ligne_vigne_event[index])  
-            
-            # attribuer la distance de chaque evenement avec le debut de la ligne
-            ligne_vigne_distance_evenement = []
-            for index in range(len(self.ligne_vigne)):
-                debut, fin = self.ligne_vigne[index]
-                ligne_distance_evenement = []
-                for li_ev in self.ligne_vigne_event[index]:
-                    point,nom = li_ev
-                    distance = routine_gps.get_distance_gps(point, debut)
-                    ligne_distance_evenement.append((distance, li_ev))
-                ligne_vigne_distance_evenement.append(ligne_distance_evenement)   
-            print ("ligne_vigne_distance_evenement") 
-            print(ligne_vigne_distance_evenement)    
+        # pour controle imprimer les evenement et leur index de ligne
+        for index in range(len(self.ligne_vigne)):
+            print("index ",index)
+            print(self.ligne_vigne_event[index])  
+        
+        # attribuer la distance de chaque evenement avec le debut de la ligne
+        ligne_vigne_distance_evenement = []
+        for index in range(len(self.ligne_vigne)):
+            debut, fin = self.ligne_vigne[index]
+            ligne_distance_evenement = []
+            for li_ev in self.ligne_vigne_event[index]:
+                point,nom = li_ev
+                distance = routine_gps.get_distance_gps(point, debut)
+                ligne_distance_evenement.append((distance, li_ev))
+            ligne_vigne_distance_evenement.append(ligne_distance_evenement)   
+        print ("ligne_vigne_distance_evenement") 
+        print(ligne_vigne_distance_evenement)    
 
-            # trier chaque ligne d'evenement par rappor a la distance du debut de ligne
-            for index in range(len(self.ligne_vigne)):
-                print(" ligne_vigne_distance_evenement[index]", index)
-                print ( ligne_vigne_distance_evenement[index])
-                #ligne_vigne_distance_evenement[index] = sorted.ligne_vigne_distance_evenement[index]
-                ligne_vigne_distance_evenement[index] = sorted(ligne_vigne_distance_evenement[index], key=itemgetter(0), reverse=False)
-            print ("ligne_vigne_distance_evenement TRIER") 
-            print(ligne_vigne_distance_evenement) 
-            
-            # remettre les evenements trier dans self.event_selected
-            self.event_selected = []
-            for index in range(len(self.ligne_vigne)):
-                for dis_ev in ligne_vigne_distance_evenement[index]:
-                    distance, ev = dis_ev
-                    self.event_selected.append(ev)
+        # trier chaque ligne d'evenement par rappor a la distance du debut de ligne
+        for index in range(len(self.ligne_vigne)):
+            print(" ligne_vigne_distance_evenement[index]", index)
+            print ( ligne_vigne_distance_evenement[index])
+            #ligne_vigne_distance_evenement[index] = sorted.ligne_vigne_distance_evenement[index]
+            ligne_vigne_distance_evenement[index] = sorted(ligne_vigne_distance_evenement[index], key=itemgetter(0), reverse=False)
+        print ("ligne_vigne_distance_evenement TRIER") 
+        print(ligne_vigne_distance_evenement) 
+        
+        # remettre les evenements trier dans self.event_selected
+        self.event_selected = []
+        for index in range(len(self.ligne_vigne)):
+            for dis_ev in ligne_vigne_distance_evenement[index]:
+                distance, ev = dis_ev
+                self.event_selected.append(ev)
 
-            # transformer les lignes en parcours        
-            self.robot.parcour = []
-            self.robot.parcour.append(self.position_gps)
-            for ad in self.ligne_vigne:
-                debut, fin = ad
-                self.robot.parcour.append(debut)
-                self.robot.parcour.append(fin)
+        # transformer les lignes en parcours        
+        self.robot.parcour = []
+        self.robot.parcour.append(self.position_gps)
+        for ad in self.ligne_vigne:
+            debut, fin = ad
+            self.robot.parcour.append(debut)
+            self.robot.parcour.append(fin)
 
                 
 
 
 
 
-        elif cote == 0: # la vigne s'etend a gauche
-            # ci dessou en attendant de creer le parcour
-            self.deselectionne_event()
-            self.reset_parcour_et_ligne()
-            
-        elif cote == -1: # il n'y a q'une seule range
-            # ci dessou en attendant de creer le parcour
-            self.deselectionne_event()
-            self.reset_parcour_et_ligne()
-
-        # tracer des ligne entre chaque rangé et a mis distance
-        #tracer une ligne a mis distance de la premiere range a l'extrieur de la vigne
-        #tracer une ligne a mis distance de la derniere range et a mis distance
-        #rallonger les lignes de la longueur robot
-        #regarder la distance de l'evenement a la ligne si la distances est inferieure a une 1/2 rangé attribuer
-        #l'evenement a cette ligne
-        #
-        # pour les tests recuperer un adresse gps a chaque bout des rang exterieur
+       
         
 
     def position_amarre(self, indice, distance):
