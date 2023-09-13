@@ -32,7 +32,7 @@ class WindowFichierCreate:
         self.fichier = fichier # recuperer l'objet fichier qui permet d'avoir acces au sauvegarde et a la liste des fichier
 
         self.parcel = parcelle.Parcelle()
-        self.new_parcel = parcelle.NewParcelle()
+        #self.new_parcel = parcelle.NewParcelle()
 
         self.screen = screen
         self.font = pygame.font.Font('freesansbold.ttf',30)
@@ -242,7 +242,9 @@ class WindowFichierCreate:
         self.new_parcel.vigne = self.parcel.vigne
         self.new_parcel.position_evenement = [(0,0),""]
         self.new_parcelevenement = []
-        self.fichier.save_file(self.window_main.name_parcelle, self.new_parcel)
+        # j'ai desactive la ligne ci dessou car quand une Parcelle est transforme en NewParcelle et sauvegarde
+        # a chaque fois que l'on charge la Parcelle elle est chargé en tant que NewParcelle
+        #self.fichier.save_file(self.window_main.name_parcelle, self.new_parcel)
 
         #self.new_parcel
 

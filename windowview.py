@@ -447,5 +447,5 @@ class WindowView:
 
 
                     retour = self.window_main.gest_event(event, self.parcel)
-                    if retour == 0 : # si l'ACTION change return a windowscan et return a main.py 
+                    if retour == 0 : # si l'ACTION change  et return a main.py 
                         return 0

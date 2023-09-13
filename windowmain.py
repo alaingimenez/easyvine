@@ -39,7 +39,7 @@ class WindowMain:
         action SCAN permeet de scanner des PARCELLE des RANG des EVENEMENT
         action OUTILS permet de creer des parcour pour des outil TONDEUSE DK ARROSEUSE EPEMPREUSE etc et simuler les parcours
         """
-        self.index_action = 0
+        self.index_action = 3
 
 
         self.zoom = 1

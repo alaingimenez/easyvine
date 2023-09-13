@@ -10,7 +10,7 @@ import csv
 
 
 ########################################################################
-def inverse_sens_range(vigne):
+def inverse_sens_range(vigne):# NE SERT PLUS
     """
     inverse le sens de chaque rangé
 
@@ -27,6 +27,8 @@ def inverse_sens_range(vigne):
     del vigne[:nb_element]
     return(vigne)
 #########################################################################
+
+
 
 #########################################################################
 def create_vigne(name_vigne,origine,largeur_rang,nb_rang,cote):

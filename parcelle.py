@@ -95,7 +95,7 @@ class Parcelle:
 
 
 
-        
+"""        
 class NewParcelle:
     def __init__(self):
 
@@ -124,5 +124,6 @@ class NewParcelle:
         self.name_evenement = ""
         self.position_evenement = [(0,0),""]
         self.evenement = []
-        
+"""
+    
 

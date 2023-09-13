@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     window_main = windowmain.WindowMain(screen) # je cree un objet window_main
 
-    action = 0 # les action sont decrite dans windowmain
+    #action = 3 # les action sont decrite dans windowmain
     is_running = True
     while is_running:
 

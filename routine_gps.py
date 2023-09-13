@@ -63,7 +63,7 @@ def segmenter_route(point_depart, point_arrive, longueur_segment):
 #############################################################################
 
 #############################################################################
-def distanceGPS(pointA,pointB):
+def distanceGPS(pointA,pointB): # NE PLUS UTILISER
     """Retourne la distance en mètres entre les 2 points A et B connus grâce à
        leurs coordonnées GPS
     """

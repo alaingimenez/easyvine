@@ -34,7 +34,7 @@ class WindowScanEvenement:
         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle) # comment on charge un objet
 
         self.font = pygame.font.Font('freesansbold.ttf', 30)
-        self.font_mg = pygame.font.Font('freesansbold.ttf', 50)
+        self.font_mg = pygame.font.Font('freesansbold.ttf', 90)
         self.font_g = pygame.font.Font('freesansbold.ttf', 80)
 
         self.flag_info = False
@@ -66,41 +66,49 @@ class WindowScanEvenement:
 
         self.evenement_signale = False
 
-        
+        alignement = 600
+        index_decalage = 110
+        decalage = 0
         self.buton_arbre = self.font_mg.render("|ARBRE|", True, config.couleur_arbre, config.GRAY)
         self.buton_arbreRect = self.buton_arbre.get_rect()
-        self.buton_arbreRect.x = 700
-        self.buton_arbreRect.y = 60
+        self.buton_arbreRect.x = alignement
+        self.buton_arbreRect.y = 60 + decalage
+        decalage += index_decalage
 
         self.buton_racine = self.font_mg.render("|RACINE|", True, config.couleur_racine, config.GRAY)
         self.buton_racineRect = self.buton_racine.get_rect()
-        self.buton_racineRect.x = 700
-        self.buton_racineRect.y = 140
+        self.buton_racineRect.x = alignement
+        self.buton_racineRect.y = 60 + decalage
+        decalage += index_decalage
 
         self.buton_mort = self.font_mg.render("|MORT|", True, config.couleur_mort, config.GRAY)
         self.buton_mortRect = self.buton_mort.get_rect()
-        self.buton_mortRect.x = 700
-        self.buton_mortRect.y = 220
+        self.buton_mortRect.x = alignement
+        self.buton_mortRect.y = 60 + decalage
+        decalage += index_decalage
 
         self.buton_americain = self.font_mg.render("|AMERICAIN|", True, config.couleur_americain, config.GRAY)
         self.buton_americainRect = self.buton_americain.get_rect()
-        self.buton_americainRect.x = 700
-        self.buton_americainRect.y = 300
+        self.buton_americainRect.x = alignement
+        self.buton_americainRect.y = 60 + decalage
+        decalage += index_decalage
 
         self.buton_espalier = self.font_mg.render("|ESPALIER|", True, config.couleur_espalier, config.GRAY)
         self.buton_espalierRect = self.buton_espalier.get_rect()
-        self.buton_espalierRect.x = 700
-        self.buton_espalierRect.y = 380
+        self.buton_espalierRect.x = alignement
+        self.buton_espalierRect.y = 60 + decalage
+        decalage += index_decalage
 
         self.buton_pulve = self.font_mg.render("|PULVE|", True, config.couleur_pulve, config.GRAY)
         self.buton_pulveRect = self.buton_pulve.get_rect()
-        self.buton_pulveRect.x = 700
-        self.buton_pulveRect.y = 460
+        self.buton_pulveRect.x = alignement
+        self.buton_pulveRect.y = 60 + decalage
+        decalage += index_decalage
 
         self.buton_rabassier = self.font_mg.render("|RABASSIER|", True, config.couleur_rabassier, config.GRAY)
         self.buton_rabassierRect = self.buton_rabassier.get_rect()
-        self.buton_rabassierRect.x = 700
-        self.buton_rabassierRect.y = 540
+        self.buton_rabassierRect.x = alignement
+        self.buton_rabassierRect.y = 60 + decalage
         
 
         #############################################
