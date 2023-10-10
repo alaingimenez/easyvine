@@ -12,6 +12,11 @@ import fichier
 import pygame
 pygame.init()
 
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
 
 
 
@@ -135,6 +140,11 @@ class WindowMain:
         self.libelle_zoomRect.x = 395
         self.libelle_zoomRect.y = 935
 
+        self.text_rtk = self.font.render("NO RTK", True, config.BLACK, config.RED)
+        self.text_rtk_Rect = self.text_rtk.get_rect()
+        self.text_rtk_Rect.x = 535
+        self.text_rtk_Rect.y = 960
+
         self.buton_info = self.font.render("| INFO |", True, config.YELLOW, config.GRAY)
         self.buton_infoRect = self.buton_info.get_rect()
         self.buton_infoRect.x = 160
@@ -170,6 +180,15 @@ class WindowMain:
         self.name_parcelle = self.list_name_parcelle[self.index_list_name_parcelle]
         self.text_name_parcelle = self.font.render(self.name_parcelle, True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_name_parcelle, self.text_name_parcelleRect)
+
+        if(GPIO.input(config.PIN_NO_RTK)):
+            self.text_rtk = self.font.render("NO RTK", True, config.BLACK, config.RED)
+        else:
+            self.text_rtk = self.font.render("RTK OK", True, config.BLACK, config.GREEN)
+        
+        self.screen.blit(self.text_rtk, self.text_rtk_Rect)
+
+        
 
 
 

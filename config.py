@@ -26,3 +26,5 @@ couleur_americain = GREEN
 couleur_espalier = FER
 couleur_pulve = ALEZAN
 couleur_rabassier = BLEU
+
+PIN_NO_RTK = 25

@@ -22,6 +22,7 @@ pygame.init()
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 
 import sys
@@ -483,9 +484,18 @@ class WindowRecherchEvenement:
         if  len(self.parcel.tour) > 0: # le tour de la parcelle est existant donc initialiser  self.position_gps_simule
                 self.position_gps_simule = self.parcel.tour[0] # on simule que le gps est au premier point de la parcelle
 
+       
+        
+       
         while True:
-            titre = "**EasyVine RECHERCHE EVENEMENT **   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
+            if(GPIO.input(config.PIN_NO_RTK)):
+                rtk = "**"
+            else:
+                rtk = "RTK oK **"
+
+            titre = rtk +"EasyVine RECHERCHE EVENEMENT **   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f') 
             pygame.display.set_caption(titre) 
+           
             pygame.Surface.fill(self.screen, config.BLACK)
             # c'est ici que je vais affficher les parcelle et les rang
 

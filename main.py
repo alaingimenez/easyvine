@@ -10,9 +10,15 @@ import windowscan
 import windowmain
 import windowview
 import windowrecherch
+import config
 
 from gps import *
 import threading
+
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)  #GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 
 
