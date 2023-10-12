@@ -522,11 +522,11 @@ class WindowRecherchEvenement:
 
             ################################ AFFICHER LE PARCOURS ######################################
             #
-            if len(self.parcour_pyg) > 1:
-                pygame.draw.lines(self.screen, config.BLUE, False, (self.position_py  ,self.parcour_pyg[0]), 3)
-                pygame.draw.lines(self.screen, config.BLUE, False, self.parcour_pyg, 3)
-
             
+            if len(self.parcour_pyg) > 0:
+                pygame.draw.lines(self.screen, config.CITROUILLE, False, (self.position_py  ,self.parcour_pyg[0]), 6)
+            if len(self.parcour_pyg) > 1:
+                pygame.draw.lines(self.screen, config.CITROUILLE, False, self.parcour_pyg, 6)
             ################################    POUR LES ESSAIS ########################################
             ############################ AFFICHER LES LIGNES ENTRE LES RANGS POUR REPERER LES EVENEMENTS ##################
             #
@@ -642,12 +642,16 @@ class WindowRecherchEvenement:
                             del(self.robot.parcour[0])
                             if len(self.robot.parcour) == 1: # le parcour est terminer donc initialiser
                                 self.reset_parcour_et_ligne()
-                                self.valide_reparation() # demmander si on valide les reparation car le parcour est terminé
-                                
-                                
+                                self.valide_reparation() # demmander si on valide les reparation car le parcour est terminé                     
                 self.position_gps = self.position_gps_simule # on simule que le gps est au premier point de la parcelle
                 self.track = self.track_simule  #  
-            
+            else: # mode reel
+                if len(self.robot.parcour) > 0:
+                    if routine_gps.get_distance_gps(self.position_gps, self.robot.parcour[0]) < float(self.parcel.largeur_rang) / 2 :
+                        del(self.robot.parcour[0])
+                        if len(self.robot.parcour) == 0: # le parcour est terminer donc initialiser
+                            self.reset_parcour_et_ligne()
+                            self.valide_reparation() # demmander si on valide les reparation car le parcour est terminé
 
 
             if  self.buton_state == GPIO.HIGH:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
