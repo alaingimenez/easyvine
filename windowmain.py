@@ -48,6 +48,11 @@ class WindowMain:
 
 
         self.zoom = 1
+        self.zoom1 = 0.50
+        self.zoom2 = 10
+        self.zoom3 = 20
+        self.zoom4 = 30
+
         self.centre_x = 500
         self.centre_y = 500
 
@@ -56,21 +61,29 @@ class WindowMain:
         self.libelle_vigneRect.x = 100
         self.libelle_vigneRect.y = 935
 
+        dec_act = 350
         self.libelle_action = self.font_p.render("Action", True, config.WHITE, config.BLACK)
         self.libelle_actionRect = self.libelle_action.get_rect()
-        self.libelle_actionRect.x = 750
-        self.libelle_actionRect.y = 935
-
+        self.libelle_actionRect.x = 750 + dec_act
+        self.libelle_actionRect.y = 935 
 
         self.bouton_action_g = self.font.render(str("<< :"), True, config.YELLOW, config.GRAY)  # transformer le texte en graphique
         self.bouton_action_gRect = self.bouton_action_g.get_rect()
-        self.bouton_action_gRect.x = 670 # position le texte en width
-        self.bouton_action_gRect.y = 960  # position le texe en heigh en se servant de sa hauteur
+        self.bouton_action_gRect.x = 670 + dec_act # position le texte en width
+        self.bouton_action_gRect.y = 960   # position le texe en heigh en se servant de sa hauteur
 
         self.bouton_action_d = self.font.render(str(": >>"), True, config.YELLOW, config.GRAY)  # transformer le texte en graphique
         self.bouton_action_dRect = self.bouton_action_d.get_rect()
-        self.bouton_action_dRect.x = 940  # position le texte en width
+        self.bouton_action_dRect.x = 940 + dec_act # position le texte en width
         self.bouton_action_dRect.y = 960  # position le texe en heigh en se servant de sa hauteur
+
+        self.name_action = self.actions[self.index_action]  # chargement de la liste /PARCELLE/ /RANG/
+        self.text_action = self.font.render(str(self.name_action), True, config.GREEN,
+                                            config.BLUE)  # transformer le texte en graphique
+        self.text_actionRect = self.text_action.get_rect()  # recuperer le rectangle du texte
+        self.text_actionRect.x = 730 + dec_act # position le texte 10 + largeur  bouton gauche  + 5 en width
+        self.text_actionRect.y = 960   # position le texe en heigh en se servant de sa hauteur
+
 
         self.bouton_parcelle_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.bouton_parcelle_gRect = self.bouton_parcelle_g.get_rect()
@@ -81,13 +94,6 @@ class WindowMain:
         self.bouton_parcelle_dRect = self.bouton_parcelle_d.get_rect()
         self.bouton_parcelle_dRect.x = 250
         self.bouton_parcelle_dRect.y = 960
-
-        self.name_action = self.actions[self.index_action]  # chargement de la liste /PARCELLE/ /RANG/
-        self.text_action = self.font.render(str(self.name_action), True, config.GREEN,
-                                            config.BLUE)  # transformer le texte en graphique
-        self.text_actionRect = self.text_action.get_rect()  # recuperer le rectangle du texte
-        self.text_actionRect.x = 730  # position le texte 10 + largeur  bouton gauche  + 5 en width
-        self.text_actionRect.y = 960  # position le texe en heigh en se servant de sa hauteur
 
         self.name_parcelle = self.list_name_parcelle[self.index_list_name_parcelle]
         self.text_name_parcelle = self.font.render(self.name_parcelle, True, config.GREEN, config.BLUE)
@@ -122,27 +128,69 @@ class WindowMain:
 
         self.buton_zoom_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_zoom_gRect = self.buton_zoom_g.get_rect()
-        self.buton_zoom_gRect.x = 340
+        self.buton_zoom_gRect.x = 320
         self.buton_zoom_gRect.y = 960
 
         self.buton_zoom_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.buton_zoom_dRect = self.buton_zoom_d.get_rect()
-        self.buton_zoom_dRect.x = 465
+        self.buton_zoom_dRect.x = 455
         self.buton_zoom_dRect.y = 960
 
         self.text_zoom = self.font.render(format(self.zoom,'.2f'), True, config.GREEN, config.BLUE)
         self.text_zoom_Rect = self.text_zoom.get_rect()
-        self.text_zoom_Rect.x = 400
+        self.text_zoom_Rect.x = 380
         self.text_zoom_Rect.y = 960
 
-        self.libelle_zoom = self.font_p.render("ZOOM", True, config.WHITE, config.BLACK)
+        
+        self.libelle_zoom = self.font_p.render("|ZOOM|", True, config.YELLOW, config.GRAY)
         self.libelle_zoomRect = self.libelle_zoom.get_rect()
-        self.libelle_zoomRect.x = 395
-        self.libelle_zoomRect.y = 935
+        self.libelle_zoomRect.x = 375
+        self.libelle_zoomRect.y = 925
+
+        dec_zoom = 510
+        self.btn_zoom1= self.font_p.render("|ZOOM 1|", True, config.YELLOW, config.GRAY)
+        self.btn_zoom1Rect = self.btn_zoom1.get_rect()
+        self.btn_zoom1Rect.x = 1020 - dec_zoom
+        self.btn_zoom1Rect.y = 925
+     
+        self.txt_zoom1= self.font_p.render(format(self.zoom1,'.2f'), True, config.YELLOW, config.GRAY)
+        self.txt_zoom1Rect = self.txt_zoom1.get_rect()
+        self.txt_zoom1Rect.x = 1040 - dec_zoom
+        self.txt_zoom1Rect.y = 960 
+
+        self.btn_zoom2= self.font_p.render("|ZOOM 2|", True, config.YELLOW, config.GRAY)
+        self.btn_zoom2Rect = self.btn_zoom2.get_rect()
+        self.btn_zoom2Rect.x = 1020 + 120 - dec_zoom
+        self.btn_zoom2Rect.y = 925
+
+        self.txt_zoom2= self.font_p.render(format(self.zoom2,'.2f'), True, config.YELLOW, config.GRAY)
+        self.txt_zoom2Rect = self.txt_zoom2.get_rect()
+        self.txt_zoom2Rect.x = 1040 + 120 - dec_zoom
+        self.txt_zoom2Rect.y = 960
+
+        self.btn_zoom3= self.font_p.render("|ZOOM 3|", True, config.YELLOW, config.GRAY)
+        self.btn_zoom3Rect = self.btn_zoom3.get_rect()
+        self.btn_zoom3Rect.x = 1020 + 240- dec_zoom
+        self.btn_zoom3Rect.y = 925
+
+        self.txt_zoom3= self.font_p.render(format(self.zoom3,'.2f'), True, config.YELLOW, config.GRAY)
+        self.txt_zoom3Rect = self.txt_zoom3.get_rect()
+        self.txt_zoom3Rect.x = 1040 +240 - dec_zoom
+        self.txt_zoom3Rect.y = 960
+
+        self.btn_zoom4= self.font_p.render("|ZOOM 4|", True, config.YELLOW, config.GRAY)
+        self.btn_zoom4Rect = self.btn_zoom4.get_rect()
+        self.btn_zoom4Rect.x = 1020 + 360 - dec_zoom
+        self.btn_zoom4Rect.y = 925
+
+        self.txt_zoom4= self.font_p.render(format(self.zoom4,'.2f'), True, config.YELLOW, config.GRAY)
+        self.txt_zoom4Rect = self.txt_zoom4.get_rect()
+        self.txt_zoom4Rect.x = 1040 + 360 - dec_zoom
+        self.txt_zoom4Rect.y = 960
 
         self.text_rtk = self.font.render("NO RTK", True, config.BLACK, config.RED)
         self.text_rtk_Rect = self.text_rtk.get_rect()
-        self.text_rtk_Rect.x = 535
+        self.text_rtk_Rect.x = 1360
         self.text_rtk_Rect.y = 960
 
         self.buton_info = self.font.render("| INFO |", True, config.YELLOW, config.GRAY)
@@ -159,6 +207,23 @@ class WindowMain:
         self.screen.blit(self.text_zoom, self.text_zoom_Rect)
         self.screen.blit(self.buton_zoom_g, self.buton_zoom_gRect)
         self.screen.blit(self.buton_zoom_d, self.buton_zoom_dRect)
+
+        self.screen.blit(self.btn_zoom1, self.btn_zoom1Rect)
+        self.txt_zoom1 = self.font.render(format(self.zoom1, '.2f'), True, config.YELLOW, config.GRAY)
+        self.screen.blit(self.txt_zoom1, self.txt_zoom1Rect)
+
+        self.screen.blit(self.btn_zoom2, self.btn_zoom2Rect)
+        self.txt_zoom2 = self.font.render(format(self.zoom2, '.2f'), True, config.YELLOW, config.GRAY)
+        self.screen.blit(self.txt_zoom2, self.txt_zoom2Rect)
+
+        self.screen.blit(self.btn_zoom3, self.btn_zoom3Rect)
+        self.txt_zoom3 = self.font.render(format(self.zoom3, '.2f'), True, config.YELLOW, config.GRAY)
+        self.screen.blit(self.txt_zoom3, self.txt_zoom3Rect)
+
+        self.screen.blit(self.btn_zoom4, self.btn_zoom4Rect)
+        self.txt_zoom4 = self.font.render(format(self.zoom4, '.2f'), True, config.YELLOW, config.GRAY)
+        self.screen.blit(self.txt_zoom4, self.txt_zoom4Rect)
+
         self.screen.blit(self.buton_centre_h, self.buton_centre_hRect)
         self.screen.blit(self.buton_centre_d, self.buton_centre_dRect)
         self.screen.blit(self.buton_centre_g, self.buton_centre_gRect)
@@ -224,17 +289,18 @@ class WindowMain:
     def gest_event(self,event,parcel):
         ############# GESTION DU CENTRAGE ##################
         if self.buton_centre_hRect.collidepoint(event.pos):
-            self.centre_y -= 10
+            self.centre_y -= 200
 
         elif self.buton_centre_bRect.collidepoint(event.pos):
-            self.centre_y += 10
+            self.centre_y += 200
 
         elif self.buton_centre_gRect.collidepoint(event.pos):
-            self.centre_x -= 10
+            self.centre_x -= 200
         elif self.buton_centre_dRect.collidepoint(event.pos):
-            self.centre_x += 10
+            self.centre_x += 200
         elif self.buton_centreRect.collidepoint(event.pos):
-            pass  # centrer la parcelle de maniere a la voir en totalité
+            self.centre_x = 500
+            self.centre_y = 500 # centrer la parcelle de maniere a la voir en totalité
 
         ############### GESTION DU ZOOM ###############
         elif self.buton_zoom_dRect.collidepoint(event.pos):
@@ -253,7 +319,25 @@ class WindowMain:
                 self.zoom -= 1
             if self.zoom <= 0:
                 self.zoom = 0.01
+        elif self.libelle_zoomRect.collidepoint(event.pos):
+            self.zoom = 1
+        elif self.btn_zoom1Rect.collidepoint(event.pos):
+            self.zoom = self.zoom1
+        elif self.btn_zoom2Rect.collidepoint(event.pos):
+            self.zoom = self.zoom2
+        elif self.btn_zoom3Rect.collidepoint(event.pos):
+            self.zoom = self.zoom3
+        elif self.btn_zoom4Rect.collidepoint(event.pos):
+            self.zoom = self.zoom4
 
+        elif self.txt_zoom1Rect.collidepoint(event.pos):
+            self.zoom1 = self.zoom
+        elif self.txt_zoom2Rect.collidepoint(event.pos):
+            self.zoom2 = self.zoom
+        elif self.txt_zoom3Rect.collidepoint(event.pos):
+            self.zoom3 = self.zoom
+        elif self.txt_zoom4Rect.collidepoint(event.pos):
+            self.zoom4 = self.zoom
         ################# CHANGE L'ACTION ############################################
         elif self.bouton_action_gRect.collidepoint(event.pos):  # permet de sortir de la windowscan
             self.dec_action_actuelle()

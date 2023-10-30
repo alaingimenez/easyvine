@@ -66,12 +66,13 @@ class WindowView:
         self.pulve = 0
         self.rabassier = 0
         self.count_evenement()
+        self.premier_passage_boucle = True
 
         
 
 
-        width = 780
-        width1 = 740
+        width = 780 + 500
+        width1 = 740+ 500
 
         self.libelle_general = self.font.render("evenement general", True, config.WHITE, config.BLACK)
         self.libelle_generalRect = self.libelle_general.get_rect()
@@ -371,12 +372,16 @@ class WindowView:
             pygame.display.update()
 
 
-            ####################################### PRENDRE LA POSITION ACTUELLE A L'ANGLE DE LA PARCELLE
-            if len(self.parcel.tour) > 0: # le tour de la parcelle est existant est mode VIEW
-                self.position_gps = self.parcel.tour[0] # on simule que le gps est au premier point de la parcelle
-                self.track = 0 #  nord
-
-            
+            ########################### POSITIONNER LE GPS SIMMULE DANS LA PARCELLE
+            if self.premier_passage_boucle:
+                if len(self.parcel.tour) > 0: # le tour de la parcelle est existant est mode VIEW
+                    self.track = 0 #  nord
+                    #calcul du centre de la parcelle on simule que le gps est au centre de la parcelle
+                    lats, lons = zip(*self.parcel.tour)
+                    centroid_lat = sum(lats) / len(self.parcel.tour)
+                    centroid_lons = sum(lons) / len(self.parcel.tour)
+                    self.position_gps = centroid_lat, centroid_lons
+                    self.premier_passage_boucle = False
 
 
             ###################### TRANSFORMER LES COORDONNEES GPS EN COORDONNE PYG ##############################
@@ -433,7 +438,7 @@ class WindowView:
                         self.evenement_pyg = []
                         self.window_main.dec_index_parcelle()
                         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle)  # charge un objet
-
+                        self.premier_passage_boucle = True
                         self.count_evenement()
 
                     elif self.window_main.bouton_parcelle_dRect.collidepoint(event.pos):  # change de parcelle
@@ -441,7 +446,7 @@ class WindowView:
                         self.evenement_pyg = []
                         self.window_main.inc_index_parcelle()
                         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle)  # charge un objet
-
+                        self.premier_passage_boucle = True
                         self.count_evenement()
                         
 

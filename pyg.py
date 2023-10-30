@@ -29,7 +29,7 @@ def tour_parcelle(list_gps, pos_actuelle,un_point_gps, zoom,  centre_x,centre_y,
     # recupere les dimension de la fenetre pygame
     deb_x = 0
     fin_y = 0
-    fin_x, deb_y = pygame.display.get_window_size()
+    fin_x, deb_y = 1000, 1000 # pygame.display.get_window_size()
 
     # recupere la grandeur utilise par les adresse gps et calcule l'echelle
     la, lo = pos_actuelle  # si la liste gps est vide on initialise avec la pos actuelle
@@ -199,7 +199,7 @@ def gps_en_pyg(parcour, list_evenement, list_rang_vigne, tour_parcelle, pos_actu
     # recupere les dimension de la fenetre pygame
     deb_x = 0
     fin_y = 0
-    fin_x, deb_y = pygame.display.get_window_size()
+    fin_x, deb_y = 1000, 1000 #pygame.display.get_window_size()
 
     # recupere la grandeur utilise par les adresse gps et calcule l'echelle
     la, lo = pos_actuelle  # si la liste gps est vide on initialise avec la pos actuelle

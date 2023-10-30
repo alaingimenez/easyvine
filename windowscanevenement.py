@@ -66,48 +66,48 @@ class WindowScanEvenement:
 
         self.evenement_signale = False
 
-        alignement = 600
+        width = 600 + 500
         index_decalage = 110
         decalage = 0
         self.buton_arbre = self.font_mg.render("|ARBRE|", True, config.couleur_arbre, config.GRAY)
         self.buton_arbreRect = self.buton_arbre.get_rect()
-        self.buton_arbreRect.x = alignement
+        self.buton_arbreRect.x = width
         self.buton_arbreRect.y = 60 + decalage
         decalage += index_decalage
 
         self.buton_racine = self.font_mg.render("|RACINE|", True, config.couleur_racine, config.GRAY)
         self.buton_racineRect = self.buton_racine.get_rect()
-        self.buton_racineRect.x = alignement
+        self.buton_racineRect.x = width
         self.buton_racineRect.y = 60 + decalage
         decalage += index_decalage
 
         self.buton_mort = self.font_mg.render("|MORT|", True, config.couleur_mort, config.GRAY)
         self.buton_mortRect = self.buton_mort.get_rect()
-        self.buton_mortRect.x = alignement
+        self.buton_mortRect.x = width
         self.buton_mortRect.y = 60 + decalage
         decalage += index_decalage
 
         self.buton_americain = self.font_mg.render("|AMERICAIN|", True, config.couleur_americain, config.GRAY)
         self.buton_americainRect = self.buton_americain.get_rect()
-        self.buton_americainRect.x = alignement
+        self.buton_americainRect.x = width
         self.buton_americainRect.y = 60 + decalage
         decalage += index_decalage
 
         self.buton_espalier = self.font_mg.render("|ESPALIER|", True, config.couleur_espalier, config.GRAY)
         self.buton_espalierRect = self.buton_espalier.get_rect()
-        self.buton_espalierRect.x = alignement
+        self.buton_espalierRect.x = width
         self.buton_espalierRect.y = 60 + decalage
         decalage += index_decalage
 
         self.buton_pulve = self.font_mg.render("|PULVE|", True, config.couleur_pulve, config.GRAY)
         self.buton_pulveRect = self.buton_pulve.get_rect()
-        self.buton_pulveRect.x = alignement
+        self.buton_pulveRect.x = width
         self.buton_pulveRect.y = 60 + decalage
         decalage += index_decalage
 
         self.buton_rabassier = self.font_mg.render("|RABASSIER|", True, config.couleur_rabassier, config.GRAY)
         self.buton_rabassierRect = self.buton_rabassier.get_rect()
-        self.buton_rabassierRect.x = alignement
+        self.buton_rabassierRect.x = width
         self.buton_rabassierRect.y = 60 + decalage
         
 

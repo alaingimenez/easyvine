@@ -29,57 +29,57 @@ class Module: # permet de choisir le module qui vas etre utiliser    EVENEMENT /
         self.buton_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_gRect = self.buton_g.get_rect()
         self.buton_gRect.x = 10
-        self.buton_gRect.y = 10
+        self.buton_gRect.y = 15
 
         self.module = self.font.render(str(self.list_module[self.index]), True, config.GREEN, config.BLUE)
         self.moduleRect = self.module.get_rect()
         self.moduleRect.x = 70
-        self.moduleRect.y = 10
+        self.moduleRect.y = 15
 
         self.buton_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
         self.buton_dRect = self.buton_d.get_rect()
         self.buton_dRect.x = 285
-        self.buton_dRect.y = 10
+        self.buton_dRect.y = 15
 
         self.buton_simu = self.font.render("|SIMU|", True, config.YELLOW, config.RED)
         self.buton_simuRect = self.buton_simu.get_rect()
         self.buton_simuRect.x = 350
-        self.buton_simuRect.y = 10
+        self.buton_simuRect.y = 15
 
         self.buton_parcours = self.font.render("|PARCOURS|", True, config.YELLOW, config.GRAY)
         self.buton_parcoursRect = self.buton_parcours.get_rect()
         self.buton_parcoursRect.x = 460
-        self.buton_parcoursRect.y = 10
+        self.buton_parcoursRect.y = 15
 
         self.buton_libelle_vitesse = self.font.render(str(self.indice_vitesse), True, config.YELLOW, config.GRAY)
         self.buton_libelle_vitesseRect = self.buton_libelle_vitesse.get_rect()
         self.buton_libelle_vitesseRect.x = 720
-        self.buton_libelle_vitesseRect.y = 10
+        self.buton_libelle_vitesseRect.y = 15
 
         self.buton_plus_vite = self.font.render("|+|", True, config.YELLOW, config.GRAY)
         self.buton_plus_viteRect= self.buton_plus_vite.get_rect()
         self.buton_plus_viteRect.x = 680
-        self.buton_plus_viteRect.y = 10
+        self.buton_plus_viteRect.y = 15
 
         self.buton_moins_vite = self.font.render("|-|", True, config.YELLOW, config.GRAY)
         self.buton_moins_viteRect= self.buton_moins_vite.get_rect()
         self.buton_moins_viteRect.x = 760
-        self.buton_moins_viteRect.y = 10
+        self.buton_moins_viteRect.y = 15
 
         self.buton_clear = self.font.render("|CLEAR|", True, config.YELLOW, config.GRAY)
         self.buton_clearRect = self.buton_clear.get_rect()
         self.buton_clearRect.x = 800
-        self.buton_clearRect.y = 10
+        self.buton_clearRect.y = 15
 
         self.buton_repare = self.font.render("|REPARER|", True, config.YELLOW, config.GRAY)
         self.buton_repareRect = self.buton_repare.get_rect()
-        self.buton_repareRect.x = 10
-        self.buton_repareRect.y = 60
+        self.buton_repareRect.x = 1300
+        self.buton_repareRect.y = 200
 
         self.buton_valid_repare = self.font.render("|VALIDER LES REPARATIONS|", True, config.YELLOW, config.GRAY)
         self.buton_valid_repareRect = self.buton_valid_repare.get_rect()
-        self.buton_valid_repareRect.x = 200
-        self.buton_valid_repareRect.y = 60
+        self.buton_valid_repareRect.x = 1000
+        self.buton_valid_repareRect.y = 15
 
         self.buton_hd = self.font.render("O", True, config.YELLOW, config.GRAY)
         self.buton_hdRect = self.buton_hd.get_rect()

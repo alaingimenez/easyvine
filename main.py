@@ -48,11 +48,8 @@ if __name__ == '__main__':
     print_hi('PyCharm')
 
     # definir le screen
-    width = 1000
+    width = 1500
     heigh = 1000
-    #deb_x = 0
-    #fin_y = 0
-    #fin_x, deb_y = width, heigh
     screen = pygame.display.set_mode((width, heigh))
 
     window_main = windowmain.WindowMain(screen) # je cree un objet window_main

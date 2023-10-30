@@ -100,49 +100,49 @@ class WindowRecherchEvenement:
         self.buton_arbre = self.font_mg.render("|ARBRE|", True, config.couleur_arbre, config.GRAY)
         self.buton_arbreRect = self.buton_arbre.get_rect()
         self.buton_arbreRect.x = 10
-        self.buton_arbreRect.y = 110
+        self.buton_arbreRect.y = 80
         self.buton_arbre_actif= False
 
         self.buton_racine = self.font_mg.render("|RACINE|", True, config.couleur_racine, config.GRAY)
         self.buton_racineRect = self.buton_racine.get_rect()
         self.buton_racineRect.x = 150
-        self.buton_racineRect.y = 110
+        self.buton_racineRect.y = 80
         self.buton_racine_actif = False
 
         self.buton_mort = self.font_mg.render("|MORT|", True, config.couleur_mort, config.GRAY)
         self.buton_mortRect = self.buton_mort.get_rect()
         self.buton_mortRect.x = 300
-        self.buton_mortRect.y = 110
+        self.buton_mortRect.y = 80
         self.buton_mort_actif = False
 
         self.buton_americain = self.font_mg.render("|AMERICAIN|", True, config.couleur_americain, config.GRAY)
         self.buton_americainRect = self.buton_americain.get_rect()
         self.buton_americainRect.x = 420
-        self.buton_americainRect.y = 110
+        self.buton_americainRect.y = 80
         self.buton_americain_actif = False
 
         self.buton_espalier = self.font_mg.render("|ESPALIER|", True, config.couleur_espalier, config.GRAY)
         self.buton_espalierRect = self.buton_espalier.get_rect()
         self.buton_espalierRect.x = 620
-        self.buton_espalierRect.y = 110
+        self.buton_espalierRect.y = 80
         self.buton_espalier_actif = False
 
         self.buton_pulve = self.font_mg.render("|PULVE|", True, config.couleur_pulve, config.GRAY)
         self.buton_pulveRect = self.buton_pulve.get_rect()
         self.buton_pulveRect.x = 790
-        self.buton_pulveRect.y = 110
+        self.buton_pulveRect.y = 80
         self.buton_pulve_actif = False
 
         self.buton_rabassier = self.font_mg.render("|RABASSIER|", True, config.couleur_rabassier, config.GRAY)
         self.buton_rabassierRect = self.buton_rabassier.get_rect()
-        self.buton_rabassierRect.x = 790
-        self.buton_rabassierRect.y = 150
+        self.buton_rabassierRect.x = 910
+        self.buton_rabassierRect.y = 80
         self.buton_rabassier_actif = False
 
         self.nb_event_selected = self.font.render("NB evenement selectionné : " + str(len(self.event_selected)), True, config.WHITE, config.BLACK)
         self.nb_event_selectedRect = self.nb_event_selected.get_rect()
-        self.nb_event_selectedRect.x = 10
-        self.nb_event_selectedRect.y = 150
+        self.nb_event_selectedRect.x = 1000
+        self.nb_event_selectedRect.y = 120
 
         
 
