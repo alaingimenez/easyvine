@@ -57,7 +57,7 @@ class WindowScanRang:
 
         self.a_arroser = False
 
-        self.buton_state = GPIO.HIGH
+        self.buton_state = 1
         
 
         self.list_scan_quoi = ["DEBUT RANG", "FIN RANG", "PLANT", "PIQUET"]
@@ -216,9 +216,9 @@ class WindowScanRang:
         gs = main.GpsPoller()
         gs.start() # start it up
 
-        buton = 4  #  c'est le bouton qui est sur le manche a droite et qui permet de scanner les rangs
-        GPIO.setup(buton, GPIO.IN, GPIO.PUD_UP)
-        self.buton_state = GPIO.HIGH
+        #buton = 4  #  c'est le bouton qui est sur le manche a droite et qui permet de scanner les rangs
+        #GPIO.setup(buton, GPIO.IN, GPIO.PUD_UP)
+        self.buton_state = 1
 
         erreurio = 0
         
@@ -287,12 +287,14 @@ class WindowScanRang:
             self.track = gs.gpsd.fix.track
             self.altitude_gps = gs.gpsd.fix.altitude
 
-            if  self.buton_state == GPIO.HIGH:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
-                self.buton_state = GPIO.input(buton)  # donc on vas chercher l'etat du bouton de la poignet
-            if self.buton_state == GPIO.LOW: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton CLICK FOR SCANNE
+            if  self.buton_state == 1:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
+                if config.BUTON_SCAN.is_pressed:      # donc on vas chercher l'etat du bouton de la poignet
+                    self.buton_state = 0 
+
+            if self.buton_state == 0: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton CLICK FOR SCANNE
 
                 ######################  SCANNE LES RANGS     ######################
-                self.buton_state = GPIO.HIGH # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
+                self.buton_state = 1 # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
                 ######################  SCANNE LES DEBUTS DE RANGS     ######################
                 if self.index_list_scan_quoi == 0: # on scanne les debut de rang donc ammare
                     self.parcel.position = [self.position_gps, "AMMARE", "2023", self.altitude_gps, self.a_arroser, self.list_travaux_piquet[self.index_travaux_piquet]]
@@ -364,7 +366,7 @@ class WindowScanRang:
                                 self.a_arroser = True 
 
                     elif self.buton_scanRect.collidepoint(event.pos): # on vien de clicker sur CLICK FOR SCAN
-                        self.buton_state = GPIO.LOW
+                        self.buton_state = 0
 
 
 

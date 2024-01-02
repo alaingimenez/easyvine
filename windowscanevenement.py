@@ -59,7 +59,7 @@ class WindowScanEvenement:
 
         self.list_undo = []
 
-        self.buton_state = GPIO.HIGH
+        self.buton_state = 1
 
 
 
@@ -176,9 +176,9 @@ class WindowScanEvenement:
         gs = main.GpsPoller()
         gs.start() # start it up
 
-        buton = 4  #  c'est le bouton qui est sur le manche a droite et qui permet de scanner les rangs
-        GPIO.setup(buton, GPIO.IN, GPIO.PUD_UP)
-        self.buton_state = GPIO.HIGH
+        #buton = 4  #  c'est le bouton qui est sur le manche a droite et qui permet de scanner les rangs
+        #GPIO.setup(buton, GPIO.IN, GPIO.PUD_UP)
+        self.buton_state = 1
 
         erreurio = 0
 
@@ -263,11 +263,12 @@ class WindowScanEvenement:
             self.track = gs.gpsd.fix.track
             self.altitude_gps = gs.gpsd.fix.altitude
 
-            if  self.buton_state == GPIO.HIGH:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
-                self.buton_state = GPIO.input(buton)  # donc on vas chercher l'etat du bouton de la poignet
-            if self.buton_state == GPIO.LOW: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton CLICK FOR SCANNE
+            if  self.buton_state == 1:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
+                if config.BUTON_SCAN.is_pressed:      # donc on vas chercher l'etat du bouton de la poignet
+                    self.buton_state = 0 
+            if self.buton_state == 0: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton CLICK FOR SCANNE
                 # ici on peut faire un action si l'on appuy sur le bouton poignet
-                self.buton_state = GPIO.HIGH # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
+                self.buton_state = 1 # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
 
             ########################## C'EST ICI QUE L'ON VA RENTRER LES EVENEMENTS #############
             if self.evenement_signale: # un evenement a ete signalé donc l'ajouter a la liste

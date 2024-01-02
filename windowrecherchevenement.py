@@ -18,12 +18,20 @@ from operator import itemgetter
 import time
 import pygame
 pygame.init()
-
+"""
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+"""
 
+#import gpiozero
+# no_rtk = gpiozero.Button(PIN_NO_RTK, pull_up= False)  dans se cas pull_up est DOWN
+
+
+#no_rtk = gpiozero.Button(config.PIN_NO_RTK)
+
+# buton_scan = gpiozero.Button(config.PIN_BUTON_SCAN)
 
 import sys
 
@@ -89,7 +97,7 @@ class WindowRecherchEvenement:
         self.cap_inverse_parcours = 0
 
 
-        self.buton_state = GPIO.HIGH
+        self.buton_state = 1
 
 
 
@@ -475,9 +483,12 @@ class WindowRecherchEvenement:
         gs = main.GpsPoller()
         gs.start() # start it up
 
+        """
         buton = 4  #  c'est le bouton qui est sur le manche a droite et qui permet de scanner les rangs
         GPIO.setup(buton, GPIO.IN, GPIO.PUD_UP)
         self.buton_state = GPIO.HIGH
+        """
+        self.buton_state = 1
 
         erreurio = 0
 
@@ -488,7 +499,8 @@ class WindowRecherchEvenement:
         
        
         while True:
-            if(GPIO.input(config.PIN_NO_RTK)):
+            #if(GPIO.input(config.PIN_NO_RTK)):
+            if  not config.NO_RTK.is_pressed: 
                 rtk = "**"
             else:
                 rtk = "RTK oK **"
@@ -645,7 +657,7 @@ class WindowRecherchEvenement:
                                 self.valide_reparation() # demmander si on valide les reparation car le parcour est terminé                     
                 self.position_gps = self.position_gps_simule # on simule que le gps est au premier point de la parcelle
                 self.track = self.track_simule  #  
-            else: # mode reel
+            else: ################ MODE REEL  ##########################
                 if len(self.robot.parcour) > 0:
                     if routine_gps.get_distance_gps(self.position_gps, self.robot.parcour[0]) < float(self.parcel.largeur_rang) / 2 :
                         del(self.robot.parcour[0])
@@ -654,12 +666,14 @@ class WindowRecherchEvenement:
                             self.valide_reparation() # demmander si on valide les reparation car le parcour est terminé
 
 
-            if  self.buton_state == GPIO.HIGH:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
-                self.buton_state = GPIO.input(buton)  # donc on vas chercher l'etat du bouton de la poignet
-            if self.buton_state == GPIO.LOW: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton CLICK FOR SCANNE
+            if  self.buton_state == 1:         # c'est que l'on n a pas appyuyer sur CLICK FOR SCANNE
+                if config.BUTON_SCAN.is_pressed:      # donc on vas chercher l'etat du bouton de la poignet
+                    self.buton_state = 0 
+            if self.buton_state == 0: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton CLICK FOR SCANNE
                 # ici on peut faire un action si l'on appuy sur le bouton poignet
-                self.buton_state = GPIO.HIGH # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
-
+                #print("JE FAIS UNE ACTION ")
+                self.buton_state = 1 # sinon on rentre dans une boucle infini ou button_state = GPIO.LOW
+            #print("self.buton_state : ",self.buton_state)
             
 
 

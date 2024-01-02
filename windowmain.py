@@ -12,13 +12,16 @@ import fichier
 import pygame
 pygame.init()
 
+"""
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
-
-
+import gpiozero
+# no_rtk = gpiozero.Button(PIN_NO_RTK, pull_up= False)  dans se cas pull_up est DOWN
+no_rtk = gpiozero.Button(config.PIN_NO_RTK)
+"""
 
 DELAY = 0.2
 
@@ -27,6 +30,10 @@ DELAY = 0.2
 class WindowMain:
     def __init__(self, screen):
         self.screen = screen
+
+
+        
+
 
         self.fichier = fichier.Fichier()
         self.list_name_parcelle = self.fichier.get_list() # recupere la liste des fichier qu'il y a sur le disk
@@ -39,9 +46,10 @@ class WindowMain:
 
         self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  OUTILS  "]
         """
-        action FICHIER permet de CREER ET EFFACER des fichier
+        action FICHIER permet de CREER ET EFFACER des fichier de vigne  ou de robot
         action CREAT permet de creer des PARCELLE et des RANG
         action SCAN permeet de scanner des PARCELLE des RANG des EVENEMENT
+        action RECHERCHE permet de rechercher des evenements et de faire un parcour qui méne au evenement
         action OUTILS permet de creer des parcour pour des outil TONDEUSE DK ARROSEUSE EPEMPREUSE etc et simuler les parcours
         """
         self.index_action = 3
@@ -198,6 +206,10 @@ class WindowMain:
         self.buton_infoRect.x = 160
         self.buton_infoRect.y = 884
 
+        # variable pour faire clignoter PI_RASPI_OK
+        self.val_raspi_ok = 25
+        self.compteur_raspi_ok = self.val_raspi_ok
+
         self.update()
 
     def update(self):
@@ -246,13 +258,20 @@ class WindowMain:
         self.text_name_parcelle = self.font.render(self.name_parcelle, True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_name_parcelle, self.text_name_parcelleRect)
 
-        if(GPIO.input(config.PIN_NO_RTK)):
+        #if(GPIO.input(config.PIN_NO_RTK)):
+        if not config.NO_RTK.is_pressed:    
             self.text_rtk = self.font.render("NO RTK", True, config.BLACK, config.RED)
         else:
             self.text_rtk = self.font.render("RTK OK", True, config.BLACK, config.GREEN)
         
         self.screen.blit(self.text_rtk, self.text_rtk_Rect)
 
+        # print("c'est ici qu'il faut faire clignoter la del")
+        self.compteur_raspi_ok = self.compteur_raspi_ok - 1
+        if self.compteur_raspi_ok == 0:
+            self.compteur_raspi_ok = self.val_raspi_ok
+            config.RASPI_OK.toggle()
+            
         
 
 

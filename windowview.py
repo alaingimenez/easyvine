@@ -313,7 +313,7 @@ class WindowView:
 
     def gestion(self):
         while True:
-            titre = "**EasyVine VIEW**   lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
+            titre = "** EasyVine VIEW **  "  # lat: " + format(self.latitude, '.7f') + "   long: " + format(self.longitude, '.7f') + "  track: " + format(self.track,'.2f') + "  altitude: " + format(self.altitude, '.4f')
             pygame.display.set_caption(titre) 
             pygame.Surface.fill(self.screen, config.BLACK)
             # c'est ici que je vais affficher les parcelle et les rang
@@ -382,6 +382,9 @@ class WindowView:
                     centroid_lons = sum(lons) / len(self.parcel.tour)
                     self.position_gps = centroid_lat, centroid_lons
                     self.premier_passage_boucle = False
+    
+            
+
 
 
             ###################### TRANSFORMER LES COORDONNEES GPS EN COORDONNE PYG ##############################

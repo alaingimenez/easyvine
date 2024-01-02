@@ -1,10 +1,17 @@
 
 
+ # placer la fenetre en haut de l'ecran
+import os
+"""
+x = 10
+y = 10
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
+"""
 
 import pygame
 pygame.init()
 
-import os
+
 import windowfichier
 import windowscan
 import windowmain
@@ -15,11 +22,12 @@ import config
 from gps import *
 import threading
 
+"""
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)  #GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-
+"""
 
 
 
@@ -47,11 +55,13 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
+   
+
     # definir le screen
     width = 1500
     heigh = 1000
-    screen = pygame.display.set_mode((width, heigh))
-
+    # screen = pygame.display.set_mode((width, heigh) , pygame.FULLSCREEN) # permet un mode plein ecran
+    screen = pygame.display.set_mode((width, heigh) )
     window_main = windowmain.WindowMain(screen) # je cree un objet window_main
 
     #action = 3 # les action sont decrite dans windowmain
