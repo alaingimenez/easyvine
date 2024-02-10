@@ -53,14 +53,16 @@ class WindowScanParcelle:
         self.tour_parcelle_pyg =[]
         self.list_undo = []
 
-        self.distance_point = 0.20
+        self.distance_point = 0.0 # quand on rentre un valeur le scan du tour de la parcelle devient automatique et chaque
+                                  # et un point est rentré a chaque tronçon de cette valeur en metre  
 
         self.index_scan_mode = 0 #   = 0 mode VIEW  = 1 mode PAUSE   = 2 mode REC
-
+        
         self.libelle_saving = self.font_g.render("** SAVING **", True, config.GREEN, config.GRAY)
         self.libelle_savingRect = self.libelle_saving.get_rect()
         self.libelle_savingRect.x = 400
         self.libelle_savingRect.y = 400
+        
 
         self.buton_rec = self.font.render("|  REC  |", True, config.YELLOW, config.GRAY)
         self.buton_recRect = self.buton_rec.get_rect()
@@ -97,7 +99,57 @@ class WindowScanParcelle:
         self.text_distanceRect.x = 90+20
         self.text_distanceRect.y = 80
 
+        ####################################################### consite a enlever des points pour gagner de la vitesse
+        ### CI DESSOU LA SIMPLIFICATION DU TOUR DE PARCELLE ### a l'affichage
+        #######################################################
+        self.buton_simplifie = self.font.render("|SIMPLIFIE|", True, config.YELLOW, config.GRAY)
+        self.buton_simplifieRect = self.buton_simplifie.get_rect()
+        self.buton_simplifieRect.x = 975
+        self.buton_simplifieRect.y = 10
 
+        self.buton_simplifie_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
+        self.buton_simplifie_gRect = self.buton_simplifie_g.get_rect()
+        self.buton_simplifie_gRect.x = 930
+        self.buton_simplifie_gRect.y = 65
+
+        self.buton_simplifie_enleve = self.font.render("|ENLEVE|", True, config.YELLOW, config.GRAY)
+        self.buton_simplifie_enleveRect = self.buton_simplifie_enleve.get_rect()
+        self.buton_simplifie_enleveRect.x = 990
+        self.buton_simplifie_enleveRect.y = 50
+
+        self.buton_simplifie_remet = self.font.render("|REMET|", True, config.YELLOW, config.GRAY)
+        self.buton_simplifie_remetRect = self.buton_simplifie_remet.get_rect()
+        self.buton_simplifie_remetRect.x = 1000
+        self.buton_simplifie_remetRect.y = 90
+
+        self.buton_simplifie_d = self.font.render(": >>", True, config.YELLOW, config.GRAY)
+        self.buton_simplifie_dRect = self.buton_simplifie_d.get_rect()
+        self.buton_simplifie_dRect.x = 1135
+        self.buton_simplifie_dRect.y = 65
+
+        self.mode_simplifie = False  # si = a True on peut simplifier le tour de la parcelle
+        self.nb_point_tour_parcelle = len(self.tour_parcelle_pyg)-1
+        self.point_vise = self.nb_point_tour_parcelle # c'est le point entoure de blanc qui pourrat etre detruit
+        # ci dessou variable pour remetre le point
+        self.pos_enleve = 0 # c'est la position dans la liste du point qui viens d'etre enleve
+        self.lon_lat_enleve = (0,0) # ce sont les valeur du point qui vient d'etre enleve 
+        self.remetre = False # il faut etre = a True pour remetre le point
+
+        ################################################################################################
+        ### CI DESSOU POUR FAIRE FONCTIONNER LE SCAN EN APPUYANT SUR LE BOUTON POUR RENTRER LE POINT ###
+        ################################################################################################
+        self.automatique_or_buton = True       # False scan est en mode automatique si True il faut appuyer le bouton
+        self.text_automatique_or_buton = self.font.render(format("|BOUTON|"), True, config.YELLOW, config.GRAY)
+        self.text_automatique_or_butonRect = self.text_automatique_or_buton.get_rect()
+        self.text_automatique_or_butonRect.x = 50
+        self.text_automatique_or_butonRect.y = 120
+
+        self.buton_state = 1
+
+
+
+        ############################################
+        ### CI DESSOU LES INFOS PARCELLE ###
         #############################################
         # format(self.parcel.largeur_rang, '.2f')
         self.libelle_largeur_rang = self.font.render("largeur rang  : " + str( self.parcel.largeur_rang) + "M" , True, config.WHITE, config.BLACK)
@@ -146,6 +198,25 @@ class WindowScanParcelle:
         self.text_distance = self.font.render(format(self.distance_point,'.2f'), True, config.GREEN, config.BLUE)
         self.screen.blit(self.text_distance, self.text_distanceRect)
 
+        if self.automatique_or_buton:       # le scan est en mode automatique si True il faut appuyer le bouton
+            self.text_automatique_or_buton = self.font.render(format("|BOUTON|"), True, config.YELLOW, config.GRAY)
+        else:
+            self.text_automatique_or_buton = self.font.render(format("AUTOMATIQUE"), True, config.GREEN, config.BLUE)
+        self.screen.blit(self.text_automatique_or_buton, self.text_automatique_or_butonRect)
+
+        if self.mode_simplifie:
+            self.buton_simplifie = self.font.render("|SIMPLIFIE|", True, config.YELLOW, config.RED)
+        else:
+            self.buton_simplifie = self.font.render("|SIMPLIFIE|", True, config.YELLOW, config.GRAY)
+        
+        self.screen.blit(self.buton_simplifie, self.buton_simplifieRect)
+        self.screen.blit(self.buton_simplifie_g, self.buton_simplifie_gRect)
+        self.screen.blit(self.buton_simplifie_enleve, self.buton_simplifie_enleveRect)
+        self.screen.blit(self.buton_simplifie_remet, self.buton_simplifie_remetRect)
+        self.screen.blit(self.buton_simplifie_d, self.buton_simplifie_dRect)
+
+
+
     def scan_mode(self):
         if self.index_scan_mode == 0:  # mode VIEW
             self.buton_view = self.font.render("|VIEW|", True, config.YELLOW, config.RED)
@@ -162,11 +233,15 @@ class WindowScanParcelle:
 
     def dec_distance_point(self):
         self.distance_point -= 0.2
-        if self.distance_point <= 0.2:
-            self.distance_point = 0.2
+        self.distance_point = round(self.distance_point, 1)
+        if self.distance_point <= 0:
+            self.distance_point = 0
+            self.automatique_or_buton = True # passage en mode bouton 
+
 
     def inc_distance_point(self):
         self.distance_point += 0.2
+        self.automatique_or_buton = False       # le scan est en mode automatique
 
     def save_anciene_version_en_new(self):
         print(" je charge la parcelle : ", self.window_main.name_parcelle)
@@ -202,6 +277,8 @@ class WindowScanParcelle:
 
         self.track = gs.gpsd.fix.track
         self.altitude = gs.gpsd.fix.altitude
+
+        self.buton_state = 1
        
 
         while True:
@@ -215,6 +292,18 @@ class WindowScanParcelle:
             ################################### AFFICHER LA POSITION ACTUELLE ROND ROUGE  ############################################
             pygame.draw.circle(self.screen, config.RED, self.position_py, 8)  # long_pyg , lat_pyg
 
+            ########## si mode simplifie en cours entourer le point visé ######################
+            if self.mode_simplifie:
+                #print("popint vise = ", self.point_vise)
+                lon_lat = self.tour_parcelle_pyg[self.point_vise]
+                
+                #print("lng tour parcelle", len(self.tour_parcelle_pyg))
+                long_pyg, lat_pyg = lon_lat
+                pygame.draw.circle(self.screen, config.WHITE, (long_pyg, lat_pyg), 12)  # long_pyg , lat_pyg 
+            
+            
+            
+            
             ################################### AFFICHER LES POINTS GPS TOUR DE LA PARCELLE ###########################################
             for lon_lat in self.tour_parcelle_pyg:
                 long_pyg, lat_pyg = lon_lat
@@ -266,13 +355,34 @@ class WindowScanParcelle:
 
             # MODE REC
             if self.index_scan_mode == 2: # mode REC
-                
-                if len(self.parcel.tour) == 0: # si la parcelle est vide
-                    self.parcel.tour.append(self.position_gps) # ajouter la premiere position
-                last_position = self.parcel.tour[-1]
-                distance_last_position = routine_gps.get_distance_gps(last_position, self.position_gps)
-                if distance_last_position > self.distance_point:
-                    self.parcel.tour.append(self.position_gps)
+
+                if self.automatique_or_buton: ### ON EST EN MODE BOUTON POUR RENTRER LES POINTS DE LA PARCELLE
+                    if  self.buton_state == 1:         # c'est que l'on n a pas appyuyer sur BOUTON
+                        if config.BUTON_SCAN.is_pressed:      # donc on vas chercher l'etat du bouton de la poignet
+                            self.buton_state = 0        # car le bouton est pressé 
+
+                    if self.buton_state == 0: # ici on a appuyé sur le bouton de la poignet  ou sur le bouton BOUTON
+                        self.buton_state = 1 # sinon on rentre dans une boucle infini 
+                        ### ICI RENTRE LE POINT DE LA PARCELLE 
+                        if len(self.parcel.tour) == 0: # si la parcelle est vide
+                            self.parcel.tour.append(self.position_gps) # ajouter la premiere position
+
+                        last_position = self.parcel.tour[-1]
+                        distance_last_position = routine_gps.get_distance_gps(last_position, self.position_gps)
+                        if distance_last_position > 0.5: # empeche de rentrer des point a moins de 0.5 metre de distance si on laisse le bouton appuye
+                            self.parcel.tour.append(self.position_gps)
+
+
+
+
+
+                else: ### ON EST EN MODE AUTOMATIQUE les points rentre avec le deplacement et la distance point
+                    if len(self.parcel.tour) == 0: # si la parcelle est vide
+                        self.parcel.tour.append(self.position_gps) # ajouter la premiere position
+                    last_position = self.parcel.tour[-1]
+                    distance_last_position = routine_gps.get_distance_gps(last_position, self.position_gps)
+                    if distance_last_position > self.distance_point:
+                        self.parcel.tour.append(self.position_gps)
 
 
 
@@ -312,12 +422,51 @@ class WindowScanParcelle:
                         self.index_scan_mode = 2  # REC
                         self.scan_mode()
 
+                    ### BOUTON DU MODE SIMPLIFIE ##
+                    elif self.buton_simplifieRect.collidepoint(event.pos):
+                        if self.mode_simplifie:
+                            self.mode_simplifie = False
+                        else:
+                            self.mode_simplifie = True
+                            self.nb_point_tour_parcelle = len(self.tour_parcelle_pyg)-1
+                            self.point_vise = self.nb_point_tour_parcelle
+                    elif self.buton_simplifie_dRect.collidepoint(event.pos) and self.mode_simplifie:
+                        if self.point_vise == self.nb_point_tour_parcelle:
+                            self.point_vise = 1
+                        else:
+                            self.point_vise += 1
+                    elif self.buton_simplifie_gRect.collidepoint(event.pos) and self.mode_simplifie:
+                        if self.point_vise == 1:
+                            self.point_vise = self.nb_point_tour_parcelle
+                        else:
+                            self.point_vise -= 1 
+                    elif self.buton_simplifie_enleveRect.collidepoint(event.pos) and self.mode_simplifie:
+                        #detruire l'element vise
+                        self.pos_enleve = self.point_vise
+                        self.lon_lat_enleve = self.parcel.tour[self.point_vise]
+                        self.remetre = True
+                        del self.parcel.tour[self.point_vise]
+                        self.nb_point_tour_parcelle -= 1
+                        if self.point_vise > self.nb_point_tour_parcelle:
+                            self.point_vise = self.nb_point_tour_parcelle
+                    elif self.buton_simplifie_remetRect.collidepoint(event.pos)  and self.remetre:
+                        print ("je remet le point")
+                        self.remetre = False 
+                        self.parcel.tour.insert(self.pos_enleve, self.lon_lat_enleve)
+                    # fait comme si on appuy sur le bouton de la poignet au click BOUTON
+                    # a condition que l'on soit en mode REC et BOUTON    
+                    elif self.text_automatique_or_butonRect.collidepoint(event.pos) and self.automatique_or_buton and self.index_scan_mode == 2: # on vien de clicker sur CLICK FOR SCAN
+                        self.buton_state = 0
+                        
+                        
+
                     ########### GESTION DE LA DISTANCE POINTS  #####################
                     elif self.buton_distance_gRect.collidepoint(event.pos):
                         self.dec_distance_point()
                     elif self.buton_distance_dRect.collidepoint(event.pos):
                         self.inc_distance_point()
 
+                    ########### GESTION AFFICAHGE DES INFOS PARCELLE  #####################
                     elif self.window_main.buton_infoRect.collidepoint(event.pos):
                         if self.flag_info:
                             self.flag_info = False

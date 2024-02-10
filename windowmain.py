@@ -44,7 +44,7 @@ class WindowMain:
         self.font_p = pygame.font.Font('freesansbold.ttf', 25)
         self.font = pygame.font.Font('freesansbold.ttf', 30)
 
-        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  OUTILS  "]
+        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  TRAVAIL  "," PASSAGE"]#[" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  OUTILS  "]
         """
         action FICHIER permet de CREER ET EFFACER des fichier de vigne  ou de robot
         action CREAT permet de creer des PARCELLE et des RANG
@@ -55,11 +55,14 @@ class WindowMain:
         self.index_action = 3
 
 
+        
+
+
         self.zoom = 1
         self.zoom1 = 0.50
-        self.zoom2 = 10
-        self.zoom3 = 20
-        self.zoom4 = 30
+        self.zoom2 = 3
+        self.zoom3 = 5
+        self.zoom4 = 7
 
         self.centre_x = 500
         self.centre_y = 500
@@ -201,6 +204,11 @@ class WindowMain:
         self.text_rtk_Rect.x = 1360
         self.text_rtk_Rect.y = 960
 
+        self.buton_quit = self.font.render("QUIT", True, config.YELLOW, config.GRAY)
+        self.buton_quitRect = self.buton_quit.get_rect()
+        self.buton_quitRect.x = 1400
+        self.buton_quitRect.y = 915
+
         self.buton_info = self.font.render("| INFO |", True, config.YELLOW, config.GRAY)
         self.buton_infoRect = self.buton_info.get_rect()
         self.buton_infoRect.x = 160
@@ -209,6 +217,12 @@ class WindowMain:
         # variable pour faire clignoter PI_RASPI_OK
         self.val_raspi_ok = 25
         self.compteur_raspi_ok = self.val_raspi_ok
+
+        self.temperature = 0
+        self.text_temp = self.font_p.render(format(self.temperature,'.2f'), True, config.BLACK, config.GRAY)
+        self.text_tempRect = self.text_temp .get_rect()
+        self.text_tempRect.x = 1430
+        self.text_tempRect.y = 880
 
         self.update()
 
@@ -265,6 +279,7 @@ class WindowMain:
             self.text_rtk = self.font.render("RTK OK", True, config.BLACK, config.GREEN)
         
         self.screen.blit(self.text_rtk, self.text_rtk_Rect)
+        self.screen.blit(self.buton_quit, self.buton_quitRect)
 
         # print("c'est ici qu'il faut faire clignoter la del")
         self.compteur_raspi_ok = self.compteur_raspi_ok - 1
@@ -272,9 +287,13 @@ class WindowMain:
             self.compteur_raspi_ok = self.val_raspi_ok
             config.RASPI_OK.toggle()
             
-        
-
-
+        # AFFICHER LA TEMPERATURE Du RASPBERRY
+        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as ftemp:
+            self.temperature = int(ftemp.read()) / 1000
+            temp =int(self.temperature)
+            self.text_temp = self.font_p.render(str(temp)+"°", True, config.BLACK, config.GRAY)
+            #self.text_temp = self.font_p.render(format(self.temperature,'.0f'), True, config.WHITE, config.GRAY)
+            self.screen.blit(self.text_temp, self.text_tempRect)
 
     def inc_action_actuelle(self):
         self.index_action += 1
@@ -306,8 +325,12 @@ class WindowMain:
 
     ############### GESTION DES EVENEMENTS ##############################
     def gest_event(self,event,parcel):
+        if self.buton_quitRect.collidepoint(event.pos):
+            self.index_action = -99 # permet de fermer le programe
+            print("JE QUITE LE PROGRAME")
+            return 0
         ############# GESTION DU CENTRAGE ##################
-        if self.buton_centre_hRect.collidepoint(event.pos):
+        elif self.buton_centre_hRect.collidepoint(event.pos):
             self.centre_y -= 200
 
         elif self.buton_centre_bRect.collidepoint(event.pos):

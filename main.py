@@ -13,21 +13,19 @@ pygame.init()
 
 
 import windowfichier
+import windowcreat
 import windowscan
 import windowmain
 import windowview
 import windowrecherch
+import windowtravail
+import windowpassage
 import config
 
 from gps import *
 import threading
 
-"""
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_UP)  #GPIO.setup(config.PIN_NO_RTK,GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-"""
+
 
 
 
@@ -60,8 +58,13 @@ if __name__ == '__main__':
     # definir le screen
     width = 1500
     heigh = 1000
-    # screen = pygame.display.set_mode((width, heigh) , pygame.FULLSCREEN) # permet un mode plein ecran
-    screen = pygame.display.set_mode((width, heigh) )
+
+    plein_ecran = True
+    if plein_ecran:
+        screen = pygame.display.set_mode((width, heigh) , pygame.FULLSCREEN) # permet un mode plein ecran
+    else:
+        screen = pygame.display.set_mode((width, heigh) )
+
     window_main = windowmain.WindowMain(screen) # je cree un objet window_main
 
     #action = 3 # les action sont decrite dans windowmain
@@ -88,7 +91,8 @@ if __name__ == '__main__':
             action = windowfichier.gestion(window_main)
 
         elif window_main.index_action == 1: # creat
-            pass
+            window_creat = windowcreat.WindowCreat(window_main) # creer l'instance 
+            action = window_creat.gestion()
 
         elif window_main.index_action == 2: # scan
             action = windowscan.gestion(window_main)
@@ -99,6 +103,14 @@ if __name__ == '__main__':
 
         elif window_main.index_action == 4: # RECHERCHE
             action = windowrecherch.gestion(window_main)
+
+        elif window_main.index_action == 5: # TRAVAIL
+            window_travail = windowtravail.WindowTravail(window_main) # creer l'instance
+            action = window_travail.gestion()
+
+        elif window_main.index_action == 6: # PASSAGE
+            window_passage = windowpassage.WindowPassage(window_main) # creer l'instance
+            action = window_passage.gestion()
 
         if window_main.index_action == -99: # il faut arreter le prg
             is_running = False

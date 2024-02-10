@@ -2,7 +2,7 @@
 
 
 
-TIME_MSG = 1
+#TIME_MSG = 1
 
 import config
 import main
@@ -18,9 +18,7 @@ import time
 import pygame
 pygame.init()
 
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+
 
 
 import sys
