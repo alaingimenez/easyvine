@@ -14,6 +14,8 @@ pygame.init()
 
 import windowfichier
 import windowcreat
+import windowmodify
+import windowdelete
 import windowscan
 import windowmain
 import windowview
@@ -59,7 +61,7 @@ if __name__ == '__main__':
     width = 1500
     heigh = 1000
 
-    plein_ecran = True
+    plein_ecran = False
     if plein_ecran:
         screen = pygame.display.set_mode((width, heigh) , pygame.FULLSCREEN) # permet un mode plein ecran
     else:
@@ -90,25 +92,30 @@ if __name__ == '__main__':
         if window_main.index_action == 0: # fichier
             action = windowfichier.gestion(window_main)
 
-        elif window_main.index_action == 1: # creat
-            window_creat = windowcreat.WindowCreat(window_main) # creer l'instance 
-            action = window_creat.gestion()
+        elif window_main.index_action == 1: # CREATION
+            action = windowcreat.gestion(window_main)
 
-        elif window_main.index_action == 2: # scan
+        elif window_main.index_action == 2: # MODIFY
+            action = windowmodify.gestion(window_main)
+
+        elif window_main.index_action == 3: # DELETE
+            action = windowdelete.gestion(window_main)
+
+        elif window_main.index_action == 4: # scan
             action = windowscan.gestion(window_main)
 
-        elif window_main.index_action == 3: # VIEW
+        elif window_main.index_action == 5: # VIEW
             window_view = windowview.WindowView(window_main)
             action = window_view.gestion()
 
-        elif window_main.index_action == 4: # RECHERCHE
+        elif window_main.index_action == 6: # RECHERCHE
             action = windowrecherch.gestion(window_main)
 
-        elif window_main.index_action == 5: # TRAVAIL
+        elif window_main.index_action == 7: # TRAVAIL
             window_travail = windowtravail.WindowTravail(window_main) # creer l'instance
             action = window_travail.gestion()
 
-        elif window_main.index_action == 6: # PASSAGE
+        elif window_main.index_action == 8: # PASSAGE
             window_passage = windowpassage.WindowPassage(window_main) # creer l'instance
             action = window_passage.gestion()
 

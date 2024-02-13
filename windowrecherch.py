@@ -177,7 +177,7 @@ def gestion(window_m):
 
 
         # teste si l'action n'est plus de rechercher a ce moment la return au main.py pour aller sur la nouvelle action
-        if window_m.index_action != 4: # permet de sortir de la windowrecherche
+        if window_m.index_action != 6: # permet de sortir de la windowrecherche
             del(module)
             del(parcel)
             print("window_m.index_action " + str(window_m.index_action))

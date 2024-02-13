@@ -44,15 +44,15 @@ class WindowMain:
         self.font_p = pygame.font.Font('freesansbold.ttf', 25)
         self.font = pygame.font.Font('freesansbold.ttf', 30)
 
-        self.actions = [" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  TRAVAIL  "," PASSAGE"]#[" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  OUTILS  "]
+        self.actions = [" FICHIER  ", " CREAT ", "MODIFY", "DELETE", " SCAN ", " _VIEW_ ", "RECHERCHER", "  TRAVAIL  "," PASSAGE"]#[" FICHIER  ", " CREAT ", " SCAN ", " _VIEW_ ", "RECHERCHER", "  OUTILS  "]
         """
         action FICHIER permet de CREER ET EFFACER des fichier de vigne  ou de robot
-        action CREAT permet de creer des PARCELLE et des RANG
+        action OBJET permet de creer des VIGNE des PORTEUR des OUTIL
         action SCAN permeet de scanner des PARCELLE des RANG des EVENEMENT
         action RECHERCHE permet de rechercher des evenements et de faire un parcour qui méne au evenement
         action OUTILS permet de creer des parcour pour des outil TONDEUSE DK ARROSEUSE EPEMPREUSE etc et simuler les parcours
         """
-        self.index_action = 3
+        self.index_action = 5
 
 
         

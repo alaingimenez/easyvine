@@ -92,7 +92,8 @@ class WindowRecherchEvenement:
         self.ligne_vigne_event = []
         self.index_evenement_proche = 0
 
-        self.premier_rang = self.parcel.vigne[0] 
+        if len(self.parcel.vigne) > 0:
+            self.premier_rang = self.parcel.vigne[0] 
         self.cap_parcours = 0
         self.cap_inverse_parcours = 0
 

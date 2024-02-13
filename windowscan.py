@@ -1,3 +1,13 @@
+# windowscan
+"""
+
+
+
+
+
+
+
+"""
 
 import config
 import parcelle
@@ -108,7 +118,7 @@ def gestion(window_m):
 
 
         # teste si l'action n'est plus de scanner a ce moment la return au main.py pour aller sur la nouvelle action
-        if window_m.index_action != 2: # permet de sortir de la windowscan
+        if window_m.index_action != 4: # permet de sortir de la windowscan
             del(module)
             del(parcel)
             print("window_m.index_action " + str(window_m.index_action))

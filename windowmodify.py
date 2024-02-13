@@ -1,7 +1,8 @@
-# windowcreat
+# Windowmodify
+
 """
 ici
-on CREER les VIGNES les PORTEURS et les OUTILS
+on MODIFY les VIGNES les PORTEURS et les OUTILS
 la creation va du fichierau données pour creer l'objet 
 ici il y aura la possibilite de creer les rangs virtuels d'une vigne apres avoir scaner la parcelle de maniere a la faire planter par le robot
 
@@ -15,9 +16,9 @@ import sys
 import pygame
 pygame.init()
 
-import windowcreatvigne
-import windowcreatporteur
-import windowcreatoutil
+import windowmodifyvine
+import windowmodifyporteur
+import windowmodifyoutil
 
 
 
@@ -98,21 +99,21 @@ def gestion(window_m):
     while True:
         if module.index == 0:
             print("VIGNE ")
-            window = windowcreatvigne.WindowCreatVigne(window_m, module,parcel)
+            window = windowmodifyvine.WindowModifyVine(window_m, module,parcel)
             ofset = window.gestion()
             del(window)
             module.chang_module(ofset)
 
         elif module.index == 1:
             print("PORTEUR ")
-            window = windowcreatporteur.WindowCreatPorteur(window_m, module, parcel)
+            window = windowmodifyporteur.WindowModifyPorteur(window_m, module, parcel)
             ofset = window.gestion()
             del(window)
             module.chang_module(ofset)
 
         elif module.index == 2:
             print("OUTIL")
-            window = windowcreatoutil.WindowCreatOutil(window_m, module, parcel)
+            window = windowmodifyoutil.WindowModifyOutil(window_m, module, parcel)
             ofset = window.gestion()
             del(window)
             module.chang_module(ofset)
@@ -121,7 +122,7 @@ def gestion(window_m):
 
 
         # teste si l'action n'est plus de scanner a ce moment la return au main.py pour aller sur la nouvelle action
-        if window_m.index_action != 1: # permet de sortir de la windowscan
+        if window_m.index_action != 2: # permet de sortir de la windowscan
             del(module)
             del(parcel)
             print("window_m.index_action " + str(window_m.index_action))
