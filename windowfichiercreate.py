@@ -131,7 +131,7 @@ class WindowFichierCreate:
             recup_touche = event.unicode # recupere la lettre ou le chiffre
             print("recup commande " + recup_commande)
             #print("recup touche  " + recup_touche)
-            if recup_commande == "return" or recup_commande == "tab" or recup_commande == "enter":
+            if recup_commande == "return" or recup_commande == "tab" or recup_commande == "enter": # tab =acsii9  return = ascii13
                 self.quel_info +=1
                 if self.quel_info == 4:
                     self.quel_info = 0

@@ -52,7 +52,7 @@ class WindowMain:
         action RECHERCHE permet de rechercher des evenements et de faire un parcour qui méne au evenement
         action OUTILS permet de creer des parcour pour des outil TONDEUSE DK ARROSEUSE EPEMPREUSE etc et simuler les parcours
         """
-        self.index_action = 5
+        self.index_action = 1 # remetre a 5 pour se retrouver sur view au demmarage
 
 
         

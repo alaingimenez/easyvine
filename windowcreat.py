@@ -27,9 +27,9 @@ class Module: # permet de choisir le module qui vas etre utiliser   PARCELLE / R
         self.screen = screen
         self.font = pygame.font.Font('freesansbold.ttf', 33)
 
-        self.list_module = ["_VIGNE_", "__PORTEUR_", "OUTIL"] # pour rajouter un module il faut rajouter sa window qui le gere
+        self.list_module = ["_VIGNE_", "_PORTEUR_", "OUTIL"] # pour rajouter un module il faut rajouter sa window qui le gere
         self.nb_module = len(self.list_module) # quantité de module
-        self.index = 0
+        self.index = 1 
 
         self.buton_g = self.font.render("<< :", True, config.YELLOW, config.GRAY)
         self.buton_gRect = self.buton_g.get_rect()
