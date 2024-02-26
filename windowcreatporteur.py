@@ -35,10 +35,10 @@ class WindowCreatPorteur:
         self.libelle_porteurRect.y = 80 
 
         self.nom =""
-        self.btn_porteur = self.font.render("|" + self.nom + "|", True, config.YELLOW, config.GRAY)
-        self.btn_porteurRect = self.btn_porteur.get_rect()
-        self.btn_porteurRect.x = 280
-        self.btn_porteurRect.y = 80
+        self.btn_nom = self.font.render("|" + self.nom + "|", True, config.YELLOW, config.GRAY)
+        self.btn_nomRect = self.btn_nom.get_rect()
+        self.btn_nomRect.x = 280
+        self.btn_nomRect.y = 80
 
         self.libelle_voie = self.font.render("Voie : ", True, config.WHITE, config.BLACK)
         self.libelle_voieRect = self.libelle_voie.get_rect()
@@ -56,71 +56,77 @@ class WindowCreatPorteur:
         self.libelle_empattementRect.x = 10
         self.libelle_empattementRect.y = 160
 
-        self.empattement = self.font.render("||", True, config.YELLOW, config.GRAY)
-        self.empattementRect = self.empattement.get_rect()
-        self.empattementRect.x = 280
-        self.empattementRect.y = 160
+        self.empattement = ""
+        self.btn_empattement = self.font.render("|" + self.empattement + "|", True, config.YELLOW, config.GRAY)
+        self.btn_empattementRect = self.btn_empattement.get_rect()
+        self.btn_empattementRect.x = 280
+        self.btn_empattementRect.y = 160
 
         self.libelle_rayon_braquage = self.font.render("Rayon Braquage : ", True, config.WHITE, config.BLACK)
         self.libelle_rayon_braquageRect = self.libelle_rayon_braquage.get_rect()
         self.libelle_rayon_braquageRect.x = 10
         self.libelle_rayon_braquageRect.y = 200
 
-        self.rayon_braquage = self.font.render("||", True, config.YELLOW, config.GRAY)
-        self.rayon_braquageRect = self.rayon_braquage.get_rect()
-        self.rayon_braquageRect.x = 280
-        self.rayon_braquageRect.y = 200
+        self.rayon_braquage =""
+        self.btn_rayon_braquage = self.font.render("|" + self.rayon_braquage+ "|", True, config.YELLOW, config.GRAY)
+        self.btn_rayon_braquageRect = self.btn_rayon_braquage.get_rect()
+        self.btn_rayon_braquageRect.x = 280
+        self.btn_rayon_braquageRect.y = 200
 
         self.libelle_position_antene_gpsX = self.font.render("Position GPS X: ", True, config.WHITE, config.BLACK)
         self.libelle_position_antene_gpsXRect = self.libelle_position_antene_gpsX.get_rect()
         self.libelle_position_antene_gpsXRect.x = 10
         self.libelle_position_antene_gpsXRect.y = 240
 
-        self.position_antene_gpsX = self.font.render("||", True, config.YELLOW, config.GRAY)
-        self.position_antene_gpsXRect = self.position_antene_gpsX.get_rect()
-        self.position_antene_gpsXRect.x = 280
-        self.position_antene_gpsXRect.y = 240
+        self.pos_gpsX = ""
+        self.btn_pos_gpsX = self.font.render("|" + self.pos_gpsX + "|", True, config.YELLOW, config.GRAY)
+        self.btn_pos_gpsXRect = self.btn_pos_gpsX.get_rect()
+        self.btn_pos_gpsXRect.x = 280
+        self.btn_pos_gpsXRect.y = 240
 
         self.libelle_position_antene_gpsY = self.font.render("Position GPS Y: ", True, config.WHITE, config.BLACK)
         self.libelle_position_antene_gpsYRect = self.libelle_position_antene_gpsY.get_rect()
         self.libelle_position_antene_gpsYRect.x = 10
         self.libelle_position_antene_gpsYRect.y = 280
 
-        self.position_antene_gpsY = self.font.render("||", True, config.YELLOW, config.GRAY)
-        self.position_antene_gpsYRect = self.position_antene_gpsY.get_rect()
-        self.position_antene_gpsYRect.x = 280
-        self.position_antene_gpsYRect.y = 280
+        self.pos_gpsY = ""
+        self.btn_pos_gpsY = self.font.render("|" + self.pos_gpsY + "|", True, config.YELLOW, config.GRAY)
+        self.btn_pos_gpsYRect = self.btn_pos_gpsY.get_rect()
+        self.btn_pos_gpsYRect.x = 280
+        self.btn_pos_gpsYRect.y = 280
 
         self.libelle_hauteur_antene_gps = self.font.render("Hauteur GPS: ", True, config.WHITE, config.BLACK)
         self.libelle_hauteur_antene_gpsRect = self.libelle_hauteur_antene_gps.get_rect()
         self.libelle_hauteur_antene_gpsRect.x = 10
         self.libelle_hauteur_antene_gpsRect.y = 320
 
-        self.hauteur_antene_gps = self.font.render("||", True, config.YELLOW, config.GRAY)
-        self.hauteur_antene_gpsRect = self.hauteur_antene_gps.get_rect()
-        self.hauteur_antene_gpsRect.x = 280
-        self.hauteur_antene_gpsRect.y = 320
+        self.hauteur_gps = ""
+        self.btn_hauteur_gps = self.font.render("|" + self.hauteur_gps + "|", True, config.YELLOW, config.GRAY)
+        self.btn_hauteur_gpsRect = self.btn_hauteur_gps.get_rect()
+        self.btn_hauteur_gpsRect.x = 280
+        self.btn_hauteur_gpsRect.y = 320
        
         self.libelle_vitesse_max = self.font.render("Vitesse Max: ", True, config.WHITE, config.BLACK)
         self.libelle_vitesse_maxRect = self.libelle_vitesse_max.get_rect()
         self.libelle_vitesse_maxRect.x = 10
         self.libelle_vitesse_maxRect.y = 360
 
-        self.vitesse_max = self.font.render("||", True, config.YELLOW, config.GRAY)
-        self.vitesse_maxRect = self.vitesse_max.get_rect()
-        self.vitesse_maxRect.x = 280
-        self.vitesse_maxRect.y = 360
+        self.vitesse_max = ""
+        self.btn_vitesse_max = self.font.render("|" + self.vitesse_max + "|", True, config.YELLOW, config.GRAY)
+        self.btn_vitesse_maxRect = self.btn_vitesse_max.get_rect()
+        self.btn_vitesse_maxRect.x = 280
+        self.btn_vitesse_maxRect.y = 360
 
-        self.list_type = ["TRACTEUR 3 ROUES", "TRACTEUR 4 ROUES", "ENJAMBEUR 3 ROUES", "ENJAMBEUR 4 ROUES", "TRACTEUR CHENILLE"]
+        self.list_type = config.LIST_TYPE_TRACTEUR
         self.index_type = 0
-        self.nom_type = self.list_type[self.index_type]
+        
 
         self.libelle_type= self.font.render("TYPE: ", True, config.WHITE, config.BLACK)
         self.libelle_typeRect = self.libelle_type.get_rect()
         self.libelle_typeRect.x = 10
         self.libelle_typeRect.y = 420
 
-        self.type = self.font.render(self.nom_type, True, config.GREEN, config.BLUE)
+        self.type = self.font.render(self.list_type[self.index_type], True, config.GREEN, config.BLUE)
         self.typeRect = self.type.get_rect()
         self.typeRect.x = 260
         self.typeRect.y = 420
@@ -132,19 +138,19 @@ class WindowCreatPorteur:
 
         self.btn_inc_type = self.font.render(":>>", True, config.YELLOW, config.GRAY)
         self.btn_inc_typeRect = self.btn_inc_type.get_rect()
-        self.btn_inc_typeRect.x = 600
+        self.btn_inc_typeRect.x = 670
         self.btn_inc_typeRect.y = 420
 
-        self.list_direction = ["CHENILLE", "AVANT", "AV et AR", "ARRIERE"]
+        self.list_direction = config.LIST_DIRECTION_TRACTEUR
         self.index_direction = 0
-        self.nom_direction = self.list_direction[self.index_direction]
+        
 
         self.libelle_direction = self.font.render("DIRECTION: ", True, config.WHITE, config.BLACK)
         self.libelle_directionRect = self.libelle_direction.get_rect()
         self.libelle_directionRect.x = 10
         self.libelle_directionRect.y = 460
 
-        self.direction = self.font.render(self.nom_direction, True, config.GREEN, config.BLUE)
+        self.direction = self.font.render(self.list_direction[self.index_direction], True, config.GREEN, config.BLUE)
         self.directionRect = self.direction.get_rect()
         self.directionRect.x = 260
         self.directionRect.y = 460
@@ -156,19 +162,19 @@ class WindowCreatPorteur:
 
         self.btn_inc_direction = self.font.render(":>>", True, config.YELLOW, config.GRAY)
         self.btn_inc_directionRect = self.btn_inc_direction.get_rect()
-        self.btn_inc_directionRect.x = 600
+        self.btn_inc_directionRect.x = 670
         self.btn_inc_directionRect.y = 460
 
-        self.list_choix_outils = ["SANS OUTIL"]
+        self.list_choix_outils = [config.OUTIL_OBLIGATOIRE, "premier outil", "2eme outil"]
         self.index_choix_outil = 0
-        self.nom_choix_outil= self.list_choix_outils[self.index_choix_outil]
+        
 
         self.libelle_choix_outil = self.font.render("BASE D'OUTILS: ", True, config.WHITE, config.BLACK)
         self.libelle_choix_outilRect = self.libelle_choix_outil.get_rect()
         self.libelle_choix_outilRect.x = 10
         self.libelle_choix_outilRect.y = 540
 
-        self.choix_outil = self.font.render(self.nom_choix_outil, True, config.GREEN, config.BLUE)
+        self.choix_outil = self.font.render(self.list_choix_outils[self.index_choix_outil], True, config.GREEN, config.BLUE)
         self.choix_outilRect = self.choix_outil.get_rect()
         self.choix_outilRect.x = 260 + 140
         self.choix_outilRect.y = 540
@@ -193,16 +199,16 @@ class WindowCreatPorteur:
         self.btn_remove_outilRect.x = 480 + 100
         self.btn_remove_outilRect.y = 590
 
-        self.list_outils_adaptable = ["SANS OUTIL"]
+        self.list_outils_adaptable = [config.OUTIL_OBLIGATOIRE]
         self.index_outil_adaptable = 0
-        self.nom_outil_adaptable = self.list_outils_adaptable[self.index_outil_adaptable]
+        
 
         self.libelle_outil_adaptable = self.font.render("OUTILS ADAPTABLE : ", True, config.WHITE, config.BLACK)
         self.libelle_outil_adaptableRect = self.libelle_outil_adaptable.get_rect()
         self.libelle_outil_adaptableRect.x = 10
         self.libelle_outil_adaptableRect.y = 640
 
-        self.outil_adaptable = self.font.render(self.nom_outil_adaptable, True, config.GREEN, config.BLUE)
+        self.outil_adaptable = self.font.render(self.list_outils_adaptable[self.index_outil_adaptable], True, config.GREEN, config.BLUE)
         self.outil_adaptableRect = self.outil_adaptable.get_rect()
         self.outil_adaptableRect.x = 260 + 140
         self.outil_adaptableRect.y = 640
@@ -227,12 +233,12 @@ class WindowCreatPorteur:
 
     def update(self):
         if self.quel_champ == 0: #enter nom porteur
-            self.btn_porteur = self.font.render("|" + self.nom + "|", True, config.YELLOW, config.RED)
+            self.btn_nom = self.font.render("|" + self.nom + "|", True, config.YELLOW, config.RED)
         else:
-            self.btn_porteur = self.font.render("|" + self.nom + "|", True, config.YELLOW, config.GRAY)
-        self.btn_porteurRect = self.btn_porteur.get_rect()
-        self.btn_porteurRect.x = 280
-        self.btn_porteurRect.y = 80
+            self.btn_nom = self.font.render("|" + self.nom + "|", True, config.YELLOW, config.GRAY)
+        self.btn_nomRect = self.btn_nom.get_rect()
+        self.btn_nomRect.x = 280
+        self.btn_nomRect.y = 80
 
         if self.quel_champ == 1:
             self.btn_voie = self.font.render("|" + self.voie + "|", True, config.YELLOW, config.RED)
@@ -242,23 +248,92 @@ class WindowCreatPorteur:
         self.btn_voieRect.x = 280
         self.btn_voieRect.y = 120
 
+        if self.quel_champ == 2:
+            self.btn_empattement = self.font.render("|" + self.empattement + "|", True, config.YELLOW, config.RED)
+        else:
+            self.btn_empattement = self.font.render("|" + self.empattement + "|", True, config.YELLOW, config.GRAY)
+        self.btn_empattementRect = self.btn_empattement.get_rect()
+        self.btn_empattementRect.x = 280
+        self.btn_empattementRect.y = 160
+
+        if self.quel_champ == 3:
+            self.btn_rayon_braquage = self.font.render("|" + self.rayon_braquage+ "|", True, config.YELLOW, config.RED)
+        else:
+            self.btn_rayon_braquage = self.font.render("|" + self.rayon_braquage+ "|", True, config.YELLOW, config.GRAY)
+        self.btn_rayon_braquageRect = self.btn_rayon_braquage.get_rect()
+        self.btn_rayon_braquageRect.x = 280
+        self.btn_rayon_braquageRect.y = 200
+
+        if self.quel_champ == 4:
+            self.btn_pos_gpsX = self.font.render("|" + self.pos_gpsX + "|", True, config.YELLOW, config.RED)
+        else:
+            self.btn_pos_gpsX = self.font.render("|" + self.pos_gpsX + "|", True, config.YELLOW, config.GRAY)
+        self.btn_pos_gpsXRect = self.btn_pos_gpsX.get_rect()
+        self.btn_pos_gpsXRect.x = 280
+        self.btn_pos_gpsXRect.y = 240
+
+        if self.quel_champ == 5:
+            self.btn_pos_gpsY = self.font.render("|" + self.pos_gpsY + "|", True, config.YELLOW, config.RED)
+        else:
+            self.btn_pos_gpsY = self.font.render("|" + self.pos_gpsY + "|", True, config.YELLOW, config.GRAY)
+        self.btn_pos_gpsYRect = self.btn_pos_gpsY.get_rect()
+        self.btn_pos_gpsYRect.x = 280
+        self.btn_pos_gpsYRect.y = 280
+
+        if self.quel_champ == 6:
+            self.btn_hauteur_gps = self.font.render("|" + self.hauteur_gps + "|", True, config.YELLOW, config.RED)
+        else:
+            self.btn_hauteur_gps = self.font.render("|" + self.hauteur_gps + "|", True, config.YELLOW, config.GRAY)
+        self.btn_hauteur_gpsRect = self.btn_hauteur_gps.get_rect()
+        self.btn_hauteur_gpsRect.x = 280
+        self.btn_hauteur_gpsRect.y = 320
+
+        if self.quel_champ == 7:
+            self.btn_vitesse_max = self.font.render("|" + self.vitesse_max + "|", True, config.YELLOW, config.RED)
+        else:
+            self.btn_vitesse_max = self.font.render("|" + self.vitesse_max + "|", True, config.YELLOW, config.GRAY)
+        self.btn_vitesse_maxRect = self.btn_vitesse_max.get_rect()
+        self.btn_vitesse_maxRect.x = 280
+        self.btn_vitesse_maxRect.y = 360
+   
+        self.type = self.font.render(self.list_type[self.index_type], True, config.GREEN, config.BLUE)
+        self.typeRect = self.type.get_rect()
+        self.typeRect.x = 260
+        self.typeRect.y = 420
+
+        self.direction = self.font.render(self.list_direction[self.index_direction], True, config.GREEN, config.BLUE)
+        self.directionRect = self.direction.get_rect()
+        self.directionRect.x = 260
+        self.directionRect.y = 460
+
+        self.choix_outil = self.font.render(self.list_choix_outils[self.index_choix_outil], True, config.GREEN, config.BLUE)
+        self.choix_outilRect = self.choix_outil.get_rect()
+        self.choix_outilRect.x = 260 + 140
+        self.choix_outilRect.y = 540
+
+        self.outil_adaptable = self.font.render(self.list_outils_adaptable[self.index_outil_adaptable], True, config.GREEN, config.BLUE)
+        self.outil_adaptableRect = self.outil_adaptable.get_rect()
+        self.outil_adaptableRect.x = 260 + 140
+        self.outil_adaptableRect.y = 640
+        
+        
 
         self.screen.blit(self.libelle_porteur, self.libelle_porteurRect)
-        self.screen.blit(self.btn_porteur, self.btn_porteurRect)
+        self.screen.blit(self.btn_nom, self.btn_nomRect)
         self.screen.blit(self.libelle_voie, self.libelle_voieRect)
         self.screen.blit(self.btn_voie, self.btn_voieRect)
         self.screen.blit(self.libelle_empattement, self.libelle_empattementRect)
-        self.screen.blit(self.empattement, self.empattementRect)
+        self.screen.blit(self.btn_empattement, self.btn_empattementRect)
         self.screen.blit(self.libelle_rayon_braquage, self.libelle_rayon_braquageRect)
-        self.screen.blit(self.rayon_braquage, self.rayon_braquageRect)
+        self.screen.blit(self.btn_rayon_braquage, self.btn_rayon_braquageRect)
         self.screen.blit(self.libelle_position_antene_gpsX, self.libelle_position_antene_gpsXRect)
-        self.screen.blit(self.position_antene_gpsX, self.position_antene_gpsXRect)
+        self.screen.blit(self.btn_pos_gpsX, self.btn_pos_gpsXRect)
         self.screen.blit(self.libelle_position_antene_gpsY, self.libelle_position_antene_gpsYRect)
-        self.screen.blit(self.position_antene_gpsY, self.position_antene_gpsYRect)
+        self.screen.blit(self.btn_pos_gpsY, self.btn_pos_gpsYRect)
         self.screen.blit(self.libelle_hauteur_antene_gps, self.libelle_hauteur_antene_gpsRect)
-        self.screen.blit(self.hauteur_antene_gps, self.hauteur_antene_gpsRect)
+        self.screen.blit(self.btn_hauteur_gps, self.btn_hauteur_gpsRect)
         self.screen.blit(self.libelle_vitesse_max, self.libelle_vitesse_maxRect)
-        self.screen.blit(self.vitesse_max, self.vitesse_maxRect)
+        self.screen.blit(self.btn_vitesse_max, self.btn_vitesse_maxRect)
         self.screen.blit(self.libelle_type, self.libelle_typeRect)
         self.screen.blit(self.type, self.typeRect)
         self.screen.blit(self.btn_dec_type, self.btn_dec_typeRect)
@@ -339,16 +414,90 @@ class WindowCreatPorteur:
                         self.nom = self.enter_text(self.nom, event.unicode, 20)
                     elif self.quel_champ == 1:  # entre voie du porteur
                         self.voie = self.enter_nombre(self.voie, event.unicode)
-
-                    #a = self.enter_text(event.unicode)
-                                            # pygame.key.name(event.key) # permet de recuperer le commande  TAB  RETURN
-                                            # event.unicode # recupere la lettre ou le chiffre
-                    #print (a)
+                    elif self.quel_champ == 2:
+                        self.empattement = self.enter_nombre(self.empattement, event.unicode)
+                    if self.quel_champ == 3:
+                        self.rayon_braquage = self.enter_nombre(self.rayon_braquage, event.unicode)
+                    if self.quel_champ == 4:
+                        self.pos_gpsX = self.enter_nombre(self.pos_gpsX, event.unicode)
+                    if self.quel_champ == 5:
+                        self.pos_gpsY = self.enter_nombre(self.pos_gpsY, event.unicode)
+                    if self.quel_champ == 6:
+                        self.hauteur_gps = self.enter_nombre(self.hauteur_gps, event.unicode)
+                    if self.quel_champ == 7:
+                        self.vitesse_max = self.enter_nombre(self.vitesse_max, event.unicode)
                 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.btn_nomRect.collidepoint(event.pos):
+                        self.quel_champ = 0  
+                    elif self.btn_voieRect.collidepoint(event.pos):
+                        self.quel_champ = 1
+                    elif self.btn_empattementRect.collidepoint(event.pos):
+                        self.quel_champ = 2
+                    elif self.btn_rayon_braquageRect.collidepoint(event.pos):
+                        self.quel_champ = 3
+                    elif self.btn_pos_gpsXRect.collidepoint(event.pos):
+                        self.quel_champ = 4
+                    elif self.btn_pos_gpsYRect.collidepoint(event.pos):
+                        self.quel_champ = 5
+                    elif self.btn_hauteur_gpsRect.collidepoint(event.pos):
+                        self.quel_champ = 6
+                    elif self.btn_vitesse_maxRect.collidepoint(event.pos):
+                        self.quel_champ = 7
+
+                    elif self.btn_inc_typeRect.collidepoint(event.pos):
+                        self.index_type +=1
+                        if self.index_type == len(self.list_type):
+                            self.index_type = 0
+
+                    elif self.btn_dec_typeRect.collidepoint(event.pos):
+                        self.index_type -= 1
+                        if self.index_type < 0:
+                            self.index_type = len(self.list_type) - 1
+
+                    elif self.btn_dec_directionRect.collidepoint(event.pos):
+                        self.index_direction += 1
+                        if self.index_direction == len(self.list_direction):
+                            self.index_direction = 0
+
+                    elif self.btn_inc_directionRect.collidepoint(event.pos):
+                        self.index_direction -= 1
+                        if self.index_direction < 0 :
+                            self.index_direction = len(self.list_direction) -1
+
+                    elif self.btn_dec_choix_outilRect.collidepoint(event.pos):
+                        self.index_choix_outil -= 1
+                        if self.index_choix_outil < 0:
+                            self.index_choix_outil = len(self.list_choix_outils) - 1
+
+                    elif self.btn_inc_choix_outilRect.collidepoint(event.pos):
+                        self.index_choix_outil += 1
+                        if self.index_choix_outil == len(self.list_choix_outils):
+                            self.index_choix_outil = 0
+
+                    elif self.btn_dec_outil_adaptableRect.collidepoint(event.pos):
+                        self.index_outil_adaptable -= 1
+                        if self.index_outil_adaptable < 0:
+                            self.index_outil_adaptable = len(self.list_outils_adaptable) - 1
+
+                    elif self.btn_inc_outil_adaptableRect.collidepoint(event.pos):
+                        self.index_outil_adaptable += 1
+                        if self.index_outil_adaptable == len(self.list_outils_adaptable):
+                            self.index_outil_adaptable = 0
+
+                    elif self.btn_add_outilRect.collidepoint(event.pos):
+                        if (self.list_outils_adaptable.count(self.list_choix_outils[self.index_choix_outil])) < 1: # on peut ajouter l'outil que si il n'y ai pas
+                            self.list_outils_adaptable.append(self.list_choix_outils[self.index_choix_outil])
+                            self.index_outil_adaptable = len(self.list_outils_adaptable)-1
+
+                    elif self.btn_remove_outilRect.collidepoint(event.pos):
+                        if config.OUTIL_OBLIGATOIRE != self.list_outils_adaptable[self.index_outil_adaptable]: # empeche d'enlever l'outil obigatoire
+                            del self.list_outils_adaptable[self.index_outil_adaptable]
+                            if len(self.list_outils_adaptable) <= self.index_outil_adaptable:
+                                self.index_outil_adaptable = len(self.list_outils_adaptable)-1
 
                     ########## ON RETURN AU FICHIER windowscan POUR CHANGER DE MODULE ###########
-                    if self.module.buton_gRect.collidepoint(event.pos):
+                    elif self.module.buton_gRect.collidepoint(event.pos):
                         return -1 # on return au fichier windowscan.py pour changer de module
                     elif self.module.buton_dRect.collidepoint(event.pos):
                         return 1  # on return au fichier windowscan.py pour changer de module

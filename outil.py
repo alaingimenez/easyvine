@@ -1,28 +1,29 @@
 # outil
 
+import config
+
 
 class Outil:
     def __init__(self):
 
         self.nom = ""
 
-        self.type = 0   # 0 = pas d'outil
-                        # 1 = lame
-                        # 2 = tondeuse axe vertical
-                        # 3 = tondeuse axe horizontal
-                        # 4 = arrosage
-                        # 5 = pulve traitement
-                        # 6 = pulve desherbage
-                        # 7 = distributeur engrais
+        self.list_type = config.LIST_TYPE_OUTILS
+
+        self.list_partie_travaille = config.PARTIE_TRAVAILLE_PAR_LOUTIL
         
-        self.travail_x = 0  # dans la largeur du rang
-        self.travail_y = 0  # dans la longeur du rang
+        self.relevage = False   # True si on doit relever en fin de rang 
+        self.action_au_cep = False # True si une action doit etre effectue a chaque souche
+        self.outil_a_tateur = False
+
+        
+        self.largeur_travail= 0  # dans la largeur du rang
+        self.longeur_outil = 0  # dans la longeur du rang
         
         
-        self.distance_essieu_avant_debut_travail_y = float(0)
-        self.distance_centre_porteur_debut_travail_x = float(0)
+        self.distance_gps_debut_outil = float(0) # distance de l'antenne gps a l'avant de loutil
+        self.distance_gps_exterieur_outil = float(0) # distance du gps a la partie gauche ou droite de l'outil la plus eloigne du gps
 
         self.penetration_in_intercep = float(0)
 
-        self.relevage = False   # True si on doit relever en fin de rang 
-        self.attention_cep = False # True si une action doit etre effectue a chaque souche
+        
