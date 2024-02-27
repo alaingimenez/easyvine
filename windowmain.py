@@ -39,6 +39,8 @@ class WindowMain:
         self.list_name_parcelle = self.fichier.get_list() # recupere la liste des fichier qu'il y a sur le disk
         self.index_list_name_parcelle = 0
         self.name_parcelle = self.list_name_parcelle[self.index_list_name_parcelle]
+        # recuperer la liste des outils
+        
 
         self.titre_window = "fenetre principale"
         self.font_p = pygame.font.Font('freesansbold.ttf', 25)

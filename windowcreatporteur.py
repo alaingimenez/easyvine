@@ -22,6 +22,8 @@ class WindowCreatPorteur:
         self.screen = self.window_main.screen
         self.module = module
         self.parcel = parcel
+        self.main = main.Main()
+        
         
 
         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle) # comment on charge un objet
@@ -165,7 +167,7 @@ class WindowCreatPorteur:
         self.btn_inc_directionRect.x = 670
         self.btn_inc_directionRect.y = 460
 
-        self.list_choix_outils = [config.OUTIL_OBLIGATOIRE, "premier outil", "2eme outil"]
+        #self.list_choix_outils = [config.OUTIL_OBLIGATOIRE, "premier outil", "2eme outil"]
         self.index_choix_outil = 0
         
 
@@ -174,7 +176,7 @@ class WindowCreatPorteur:
         self.libelle_choix_outilRect.x = 10
         self.libelle_choix_outilRect.y = 540
 
-        self.choix_outil = self.font.render(self.list_choix_outils[self.index_choix_outil], True, config.GREEN, config.BLUE)
+        self.choix_outil = self.font.render(self.main.list_outil[self.index_choix_outil], True, config.GREEN, config.BLUE)
         self.choix_outilRect = self.choix_outil.get_rect()
         self.choix_outilRect.x = 260 + 140
         self.choix_outilRect.y = 540
@@ -306,7 +308,8 @@ class WindowCreatPorteur:
         self.directionRect.x = 260
         self.directionRect.y = 460
 
-        self.choix_outil = self.font.render(self.list_choix_outils[self.index_choix_outil], True, config.GREEN, config.BLUE)
+        
+        self.choix_outil = self.font.render(self.main.list_outil[self.index_choix_outil], True, config.GREEN, config.BLUE)
         self.choix_outilRect = self.choix_outil.get_rect()
         self.choix_outilRect.x = 260 + 140
         self.choix_outilRect.y = 540
@@ -468,11 +471,11 @@ class WindowCreatPorteur:
                     elif self.btn_dec_choix_outilRect.collidepoint(event.pos):
                         self.index_choix_outil -= 1
                         if self.index_choix_outil < 0:
-                            self.index_choix_outil = len(self.list_choix_outils) - 1
+                            self.index_choix_outil = len(self.main.list_outil) - 1
 
                     elif self.btn_inc_choix_outilRect.collidepoint(event.pos):
                         self.index_choix_outil += 1
-                        if self.index_choix_outil == len(self.list_choix_outils):
+                        if self.index_choix_outil == len(self.main.list_outil):
                             self.index_choix_outil = 0
 
                     elif self.btn_dec_outil_adaptableRect.collidepoint(event.pos):
@@ -486,8 +489,8 @@ class WindowCreatPorteur:
                             self.index_outil_adaptable = 0
 
                     elif self.btn_add_outilRect.collidepoint(event.pos):
-                        if (self.list_outils_adaptable.count(self.list_choix_outils[self.index_choix_outil])) < 1: # on peut ajouter l'outil que si il n'y ai pas
-                            self.list_outils_adaptable.append(self.list_choix_outils[self.index_choix_outil])
+                        if (self.list_outils_adaptable.count(self.main.list_outil[self.index_choix_outil])) < 1: # on peut ajouter l'outil que si il n'y ai pas
+                            self.list_outils_adaptable.append(self.main.list_outil[self.index_choix_outil])
                             self.index_outil_adaptable = len(self.list_outils_adaptable)-1
 
                     elif self.btn_remove_outilRect.collidepoint(event.pos):
@@ -498,8 +501,10 @@ class WindowCreatPorteur:
 
                     ########## ON RETURN AU FICHIER windowscan POUR CHANGER DE MODULE ###########
                     elif self.module.buton_gRect.collidepoint(event.pos):
+                        del self.main
                         return -1 # on return au fichier windowscan.py pour changer de module
                     elif self.module.buton_dRect.collidepoint(event.pos):
+                        del self.main
                         return 1  # on return au fichier windowscan.py pour changer de module
 
                     ########## GERE LES EVENEMENTS DE LA window.main
@@ -516,4 +521,5 @@ class WindowCreatPorteur:
 
                     retour = self.window_main.gest_event(event, self.parcel)
                     if retour == 0 : # si l'ACTION change return a windowscan et return a main.py 
+                        del self.main
                         return 0

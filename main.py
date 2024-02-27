@@ -2,6 +2,7 @@
 
  # placer la fenetre en haut de l'ecran
 import os
+import fichier
 """
 x = 10
 y = 10
@@ -46,6 +47,13 @@ class GpsPoller(threading.Thread):
 
 gpsp = GpsPoller() # create the thread
 gpsp.start() # start it up
+
+class Main:
+    def __init__(self):
+        # RECUPERE LA LISTE DES OUTILS ET DU MATERIEL
+        self.list_outil = [config.OUTIL_OBLIGATOIRE]  + fichier.charge_list( config.MATERIEL, config.EXT_OUTILS)
+        self.list_materiel = fichier.charge_list(config.MATERIEL, config.EXT_PORTEUR)
+        
 
 
 def print_hi(name):

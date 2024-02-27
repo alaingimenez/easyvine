@@ -4,6 +4,8 @@
 
 import config
 import main
+import outil
+import fichier
 
 
 import pygame
@@ -22,6 +24,9 @@ class WindowCreatOutil:
         self.screen = self.window_main.screen
         self.module = module
         self.parcel = parcel
+        self.main = main.Main()
+        self.outil = outil.Outil()
+        
         
 
         self.parcel = self.window_main.fichier.load_parcelle(self.window_main.name_parcelle) # comment on charge un objet
@@ -40,60 +45,82 @@ class WindowCreatOutil:
         self.btn_nomRect.x = 280
         self.btn_nomRect.y = 80
 
+
+        self.ligne_vers_le_bas = 120
         self.libelle_largeur_travail = self.font.render("LARGEUR DE TRAVAIL ", True, config.WHITE, config.BLACK)
         self.libelle_largeur_travailRect = self.libelle_largeur_travail.get_rect()
         self.libelle_largeur_travailRect.x = 10
-        self.libelle_largeur_travailRect.y = 420
+        self.libelle_largeur_travailRect.y = 420 + self.ligne_vers_le_bas
 
         self.largeur_travail = ""
         self.btn_largeur_travail= self.font.render("|" + self.largeur_travail + "|", True, config.YELLOW, config.GRAY)
         self.btn_largeur_travailRect = self.btn_largeur_travail.get_rect()
         self.btn_largeur_travailRect.x = 280
-        self.btn_largeur_travailRect.y = 420
+        self.btn_largeur_travailRect.y = 420 + self.ligne_vers_le_bas
 
         self.libelle_longeur_outil = self.font.render("LONGUEUR OUTIL ", True, config.WHITE, config.BLACK)
         self.libelle_longeur_outilRect = self.libelle_longeur_outil.get_rect()
         self.libelle_longeur_outilRect.x = 10
-        self.libelle_longeur_outilRect.y = 460
+        self.libelle_longeur_outilRect.y = 460 + self.ligne_vers_le_bas
 
         self.longueur_outil = ""
         self.btn_longueur_outil = self.font.render("|" + self.longueur_outil + "|", True, config.YELLOW, config.GRAY)
         self.btn_longueur_outilRect = self.btn_longueur_outil.get_rect()
         self.btn_longueur_outilRect.x = 280
-        self.btn_longueur_outilRect.y = 460
+        self.btn_longueur_outilRect.y = 460 + self.ligne_vers_le_bas
 
-        self.libelle_distance_gps_debut_outil = self.font.render("DISTANCE GPS DEBUT OUTIL ", True, config.WHITE, config.BLACK)
-        self.libelle_distance_gps_debut_outilRect = self.libelle_distance_gps_debut_outil.get_rect()
-        self.libelle_distance_gps_debut_outilRect.x = 10
-        self.libelle_distance_gps_debut_outilRect.y = 500
+        self.libelle_distance_essieux_av_debut_outil = self.font.render("DISTANCE ESSIEU AV DEBUT OUTIL ", True, config.WHITE, config.BLACK)
+        self.libelle_distance_essieux_av_debut_outilRect = self.libelle_distance_essieux_av_debut_outil.get_rect()
+        self.libelle_distance_essieux_av_debut_outilRect.x = 10
+        self.libelle_distance_essieux_av_debut_outilRect.y = 500 + self.ligne_vers_le_bas
 
-        self.distance_gps_debut_outil =""
-        self.btn_distance_gps_debut_outil = self.font.render("|" + self.distance_gps_debut_outil+ "|", True, config.YELLOW, config.GRAY)
-        self.btn_distance_gps_debut_outilRect = self.btn_distance_gps_debut_outil.get_rect()
-        self.btn_distance_gps_debut_outilRect.x = 280
-        self.btn_distance_gps_debut_outilRect.y = 500
+        self.distance_essieux_av_debut_outil =""
+        self.btn_distance_essieux_av_debut_outil = self.font.render("|" + self.distance_essieux_av_debut_outil+ "|", True, config.YELLOW, config.GRAY)
+        self.btn_distance_essieux_av_debut_outilRect = self.btn_distance_essieux_av_debut_outil.get_rect()
+        self.btn_distance_essieux_av_debut_outilRect.x = 280
+        self.btn_distance_essieux_av_debut_outilRect.y = 500 + self.ligne_vers_le_bas
 
-        self.libelle_distance_gps_exterieur_outil = self.font.render("DISTANCE GPS EXTERIEUR OUTIL ", True, config.WHITE, config.BLACK)
-        self.libelle_distance_gps_exterieur_outilRect = self.libelle_distance_gps_exterieur_outil.get_rect()
-        self.libelle_distance_gps_exterieur_outilRect.x = 10
-        self.libelle_distance_gps_exterieur_outilRect.y = 540
+        #distance centre porteur au centre outil droite gauche
+        self.libelle_dist_centre_porteur_centre_outil = self.font.render("DIST C PORTEUR C OUTIL G/D ", True, config.WHITE, config.BLACK)
+        self.libelle_dist_centre_porteur_centre_outilRect = self.libelle_dist_centre_porteur_centre_outil.get_rect()
+        self.libelle_dist_centre_porteur_centre_outilRect.x = 10
+        self.libelle_dist_centre_porteur_centre_outilRect.y = 540 + self.ligne_vers_le_bas
 
-        self.distance_gps_exterieur_outil = ""
-        self.btn_distance_gps_exterieur_outil = self.font.render("|" + self.distance_gps_exterieur_outil + "|", True, config.YELLOW, config.GRAY)
-        self.btn_distance_gps_exterieur_outilRect = self.btn_distance_gps_exterieur_outil.get_rect()
-        self.btn_distance_gps_exterieur_outilRect.x = 280
-        self.btn_distance_gps_exterieur_outilRect.y = 540
+        self.dist_centre_porteur_centre_outil = "0"
+        self.btn_dist_centre_porteur_centre_outil = self.font.render("|" + self.dist_centre_porteur_centre_outil + "|", True, config.YELLOW, config.GRAY)
+        self.btn_dist_centre_porteur_centre_outilRect = self.btn_dist_centre_porteur_centre_outil.get_rect()
+        self.btn_dist_centre_porteur_centre_outilRect.x = 280
+        self.btn_dist_centre_porteur_centre_outilRect.y = 540 + self.ligne_vers_le_bas
 
         self.libelle_penetration_in_intercep= self.font.render("PENETRATION DANS L'INTERCEP ", True, config.WHITE, config.BLACK)
         self.libelle_penetration_in_intercepRect = self.libelle_penetration_in_intercep.get_rect()
         self.libelle_penetration_in_intercepRect.x = 10
-        self.libelle_penetration_in_intercepRect.y = 580
+        self.libelle_penetration_in_intercepRect.y = 580 + self.ligne_vers_le_bas
 
         self.penetration_in_intercep = ""
         self.btn_penetration_in_intercep = self.font.render("|" + self.penetration_in_intercep + "|", True, config.YELLOW, config.GRAY)
         self.btn_penetration_in_intercepRect = self.btn_penetration_in_intercep.get_rect()
         self.btn_penetration_in_intercepRect.x = 280
-        self.btn_penetration_in_intercepRect.y = 580
+        self.btn_penetration_in_intercepRect.y = 580 + self.ligne_vers_le_bas
+
+        self.libelle_deport_outil= self.font.render("DEPORT DE L'OUTIL ", True, config.WHITE, config.BLACK)
+        self.libelle_deport_outilRect = self.libelle_deport_outil.get_rect()
+        self.libelle_deport_outilRect.x = 10
+        self.libelle_deport_outilRect.y = 320 + self.ligne_vers_le_bas
+
+        self.list_deport = config.LIST_DEPORT
+        self.index_deport = 0
+        
+        self.btn_deport_outil = self.font.render("|" + self.list_deport[self.index_deport]  + "|", True, config.YELLOW, config.GRAY)
+        self.btn_deport_outilRect = self.btn_deport_outil.get_rect()
+        self.btn_deport_outilRect.x = 280
+        self.btn_deport_outilRect.y = 320 + self.ligne_vers_le_bas
+
+        
+        self.libelle_cm= self.font.render("       :: dimension a entrer en cm :: ", True, config.WHITE, config.BLACK)
+        self.libelle_cmRect = self.libelle_cm.get_rect()
+        self.libelle_cmRect.x = 10
+        self.libelle_cmRect.y = 380 + self.ligne_vers_le_bas
 
         """
         self.libelle_hauteur_antene_gps = self.font.render("Hauteur GPS: ", True, config.WHITE, config.BLACK)
@@ -264,7 +291,7 @@ class WindowCreatOutil:
             self.btn_largeur_travail = self.font.render("|" + self.largeur_travail + "|", True, config.YELLOW, config.GRAY)
         self.btn_largeur_travailRect = self.btn_largeur_travail.get_rect()
         self.btn_largeur_travailRect.x = 280 + 280
-        self.btn_largeur_travailRect.y = 420
+        self.btn_largeur_travailRect.y = 420  + self.ligne_vers_le_bas
 
         if self.quel_champ == 2:
             self.btn_longueur_outil = self.font.render("|" + self.longueur_outil + "|", True, config.YELLOW, config.RED)
@@ -272,31 +299,31 @@ class WindowCreatOutil:
             self.btn_longueur_outil = self.font.render("|" + self.longueur_outil + "|", True, config.YELLOW, config.GRAY)
         self.btn_longueur_outilRect = self.btn_longueur_outil.get_rect()
         self.btn_longueur_outilRect.x = 280 + 280
-        self.btn_longueur_outilRect.y = 460
+        self.btn_longueur_outilRect.y = 460 + self.ligne_vers_le_bas
 
         if self.quel_champ == 3:
-            self.btn_distance_gps_debut_outil = self.font.render("|" + self.distance_gps_debut_outil + "|", True, config.YELLOW, config.RED)
+            self.btn_distance_essieux_av_debut_outil = self.font.render("|" + self.distance_essieux_av_debut_outil + "|", True, config.YELLOW, config.RED)
         else:
-            self.btn_distance_gps_debut_outil = self.font.render("|" + self.distance_gps_debut_outil+ "|", True, config.YELLOW, config.GRAY)
-        self.btn_distance_gps_debut_outilRect = self.btn_distance_gps_debut_outil.get_rect()
-        self.btn_distance_gps_debut_outilRect.x = 280 + 280
-        self.btn_distance_gps_debut_outilRect.y = 500
+            self.btn_distance_essieux_av_debut_outil = self.font.render("|" + self.distance_essieux_av_debut_outil+ "|", True, config.YELLOW, config.GRAY)
+        self.btn_distance_essieux_av_debut_outilRect = self.btn_distance_essieux_av_debut_outil.get_rect()
+        self.btn_distance_essieux_av_debut_outilRect.x = 280 + 280
+        self.btn_distance_essieux_av_debut_outilRect.y = 500 + self.ligne_vers_le_bas
 
         if self.quel_champ == 4:
-            self.btn_distance_gps_exterieur_outil = self.font.render("|" + self.distance_gps_exterieur_outil + "|", True, config.YELLOW, config.RED)
+            self.btn_dist_centre_porteur_centre_outil = self.font.render("|" + self.dist_centre_porteur_centre_outil + "|", True, config.YELLOW, config.RED)
         else:
-            self.btn_distance_gps_exterieur_outil = self.font.render("|" + self.distance_gps_exterieur_outil + "|", True, config.YELLOW, config.GRAY)
-        self.btn_distance_gps_exterieur_outilRect = self.btn_distance_gps_exterieur_outil.get_rect()
-        self.btn_distance_gps_exterieur_outilRect.x = 280 + 280
-        self.btn_distance_gps_exterieur_outilRect.y = 540
+            self.btn_dist_centre_porteur_centre_outil = self.font.render("|" + self.dist_centre_porteur_centre_outil + "|", True, config.YELLOW, config.GRAY)
+        self.btn_dist_centre_porteur_centre_outilRect = self.btn_dist_centre_porteur_centre_outil.get_rect()
+        self.btn_dist_centre_porteur_centre_outilRect.x = 280 + 280
+        self.btn_dist_centre_porteur_centre_outilRect.y = 540 + self.ligne_vers_le_bas
 
         if self.quel_champ == 5:
             self.btn_penetration_in_intercep = self.font.render("|" + self.penetration_in_intercep + "|", True, config.YELLOW, config.RED)
         else:
             self.btn_penetration_in_intercep = self.font.render("|" + self.penetration_in_intercep + "|", True, config.YELLOW, config.GRAY)
-        self.btn_penetration_in_intercepYRect = self.btn_penetration_in_intercep.get_rect()
+        self.btn_penetration_in_intercepRect = self.btn_penetration_in_intercep.get_rect()
         self.btn_penetration_in_intercepRect.x = 280 + 280
-        self.btn_penetration_in_intercepRect.y = 580
+        self.btn_penetration_in_intercepRect.y = 580 + self.ligne_vers_le_bas
 
         """
         if self.quel_champ == 6:
@@ -350,16 +377,22 @@ class WindowCreatOutil:
         self.btn_outil_a_tateurRect.x = 260 + 140
         self.btn_outil_a_tateurRect.y = 280
 
+        self.btn_deport_outil = self.font.render("|" + self.list_deport[self.index_deport]  + "|", True, config.YELLOW, config.GRAY)
+        self.btn_deport_outilRect = self.btn_deport_outil.get_rect()
+        self.btn_deport_outilRect.x = 380
+        self.btn_deport_outilRect.y = 320 + self.ligne_vers_le_bas
+
+        self.screen.blit(self.btn_deport_outil, self.btn_deport_outilRect)
         self.screen.blit(self.libelle_nom, self.libelle_nomRect)
         self.screen.blit(self.btn_nom, self.btn_nomRect)
         self.screen.blit(self.libelle_largeur_travail, self.libelle_largeur_travailRect)
         self.screen.blit(self.btn_largeur_travail, self.btn_largeur_travailRect)
         self.screen.blit(self.libelle_longeur_outil, self.libelle_longeur_outilRect)
         self.screen.blit(self.btn_longueur_outil, self.btn_longueur_outilRect)
-        self.screen.blit(self.libelle_distance_gps_debut_outil, self.libelle_distance_gps_debut_outilRect)
-        self.screen.blit(self.btn_distance_gps_debut_outil, self.btn_distance_gps_debut_outilRect)
-        self.screen.blit(self.libelle_distance_gps_exterieur_outil, self.libelle_distance_gps_exterieur_outilRect)
-        self.screen.blit(self.btn_distance_gps_exterieur_outil, self.btn_distance_gps_exterieur_outilRect)
+        self.screen.blit(self.libelle_distance_essieux_av_debut_outil, self.libelle_distance_essieux_av_debut_outilRect)
+        self.screen.blit(self.btn_distance_essieux_av_debut_outil, self.btn_distance_essieux_av_debut_outilRect)
+        self.screen.blit(self.libelle_dist_centre_porteur_centre_outil, self.libelle_dist_centre_porteur_centre_outilRect)
+        self.screen.blit(self.btn_dist_centre_porteur_centre_outil, self.btn_dist_centre_porteur_centre_outilRect)
         self.screen.blit(self.libelle_penetration_in_intercep, self.libelle_penetration_in_intercepRect)
         self.screen.blit(self.btn_penetration_in_intercep, self.btn_penetration_in_intercepRect)
         #self.screen.blit(self.libelle_hauteur_antene_gps, self.libelle_hauteur_antene_gpsRect)
@@ -385,6 +418,9 @@ class WindowCreatOutil:
         self.screen.blit(self.btn_action_au_cep, self.btn_action_au_cepRect)
         #self.screen.blit(self.btn_dec_outil_adaptable, self.btn_dec_outil_adaptableRect)
         #self.screen.blit(self.btn_inc_outil_adaptable, self.btn_inc_outil_adaptableRect)
+        self.screen.blit(self.btn_deport_outil, self.btn_deport_outilRect)
+        self.screen.blit(self.libelle_deport_outil,self.libelle_deport_outilRect)
+        self.screen.blit(self.libelle_cm, self.libelle_cmRect)
 
 
     def enter_text(self,chaine, caractere, longueur):
@@ -410,6 +446,68 @@ class WindowCreatOutil:
         if 47 < ord(caractere) < 58 or ord(caractere) == 46:  # accepte les chiffre et le point
             chaine = chaine + caractere
         return chaine
+    
+    def sav_outil(self):
+        self.outil.nom = self.nom
+        self.outil.type = self.list_type[self.index_type]
+        self.outil.partie_travaille  = self.list_partie_travaille[self.index_partie_travaille]
+
+        if self.list_relevage[self.index_relevage] == config.OUI:
+            self.outil.relevage = True
+        else:
+            self.outil.relevage = False
+
+        if self.list_action_au_cep[self.index_action_au_cep] == config.OUI:
+            self.outil.action_au_cep = True
+        else:
+            self.outil.action_au_cep = False
+
+        if self.list_outil_a_tateur[self.index_outil_a_tateur] == config.OUI:
+            self.outil.outil_a_tateur = True
+        else:
+            self.outil.outil_a_tateur= False
+
+        self.outil.largeur_travail = float(self.largeur_travail)
+        self.outil.longueur_outil = float(self.longueur_outil)
+        self.outil.distance_essieu_av_debut_outil = float(self.distance_essieux_av_debut_outil)
+
+        
+        if self.list_deport[self.index_deport] == config.CENTRE:
+            self.outil.dist_centre_porteur_centre_outil = 0
+        elif self.list_deport[self.index_deport] == config.DROITE:
+            self.outil.dist_centre_porteur_centre_outil = float(self.dist_centre_porteur_centre_outil)
+        elif self.list_deport[self.index_deport] == config.GAUCHE: 
+            self.outil.dist_centre_porteur_centre_outil = (float(self.dist_centre_porteur_centre_outil)) * -1  
+
+        self.outil.penetration_in_intercep = float(self.penetration_in_intercep)
+
+        self.outil.affiche()
+
+        fichier.save_fichier(config.MATERIEL, self.outil.nom, config.EXT_OUTILS, self.outil)
+
+        self.main.list_outil.append(self.nom)
+        
+
+        self. initialise_champ()
+
+
+    def initialise_champ(self):
+        self.nom = "" 
+        self.index_type = 0
+        self.index_partie_travaille = 0
+        self.index_relevage = 0
+        self.index_action_au_cep = 0
+        self.index_outil_a_tateur = 0
+        self.largeur_travail = ""
+        self.longueur_outil = ""
+        self.distance_essieux_av_debut_outil = ""
+        self.dist_centre_porteur_centre_outil = ""
+        self.index_deport = 0 
+        self.penetration_in_intercep = ""   
+
+        
+
+
 
     def gestion(self):
         gs = main.GpsPoller()
@@ -450,9 +548,9 @@ class WindowCreatOutil:
                     elif self.quel_champ == 2:
                         self.longueur_outil = self.enter_nombre(self.longueur_outil, event.unicode)
                     if self.quel_champ == 3:
-                        self.distance_gps_debut_outil = self.enter_nombre(self.distance_gps_debut_outil, event.unicode)
+                        self.distance_essieux_av_debut_outil = self.enter_nombre(self.distance_essieux_av_debut_outil, event.unicode)
                     if self.quel_champ == 4:
-                        self.distance_gps_exterieur_outil = self.enter_nombre(self.distance_gps_exterieur_outil, event.unicode)
+                        self.dist_centre_porteur_centre_outil = self.enter_nombre(self.dist_centre_porteur_centre_outil, event.unicode)
                     if self.quel_champ == 5:
                         self.penetration_in_intercep = self.enter_nombre(self.penetration_in_intercep, event.unicode)
                     if self.quel_champ == 6:
@@ -467,9 +565,9 @@ class WindowCreatOutil:
                         self.quel_champ = 1
                     elif self.btn_longueur_outilRect.collidepoint(event.pos):
                         self.quel_champ = 2
-                    elif self.btn_distance_gps_debut_outilRect.collidepoint(event.pos):
+                    elif self.btn_distance_essieux_av_debut_outilRect.collidepoint(event.pos):
                         self.quel_champ = 3
-                    elif self.btn_distance_gps_exterieur_outilRect.collidepoint(event.pos):
+                    elif self.btn_dist_centre_porteur_centre_outilRect.collidepoint(event.pos):
                         self.quel_champ = 4
                     elif self.btn_penetration_in_intercepRect.collidepoint(event.pos):
                         self.quel_champ = 5
@@ -489,12 +587,12 @@ class WindowCreatOutil:
                         if self.index_type < 0:
                             self.index_type = len(self.list_type) - 1
 
-                    elif self.btn_dec_partie_travailleRect.collidepoint(event.pos):
+                    elif self.btn_inc_partie_travailleRect.collidepoint(event.pos):
                         self.index_partie_travaille += 1
                         if self.index_partie_travaille == len(self.list_partie_travaille):
                             self.index_partie_travaille = 0
 
-                    elif self.btn_inc_partie_travailleRect.collidepoint(event.pos):
+                    elif self.btn_dec_partie_travailleRect.collidepoint(event.pos):
                         self.index_partie_travaille -= 1
                         if self.index_partie_travaille < 0 :
                             self.index_partie_travaille = len(self.list_partie_travaille) -1
@@ -514,18 +612,34 @@ class WindowCreatOutil:
                         if self.index_outil_a_tateur > 1:
                             self.index_outil_a_tateur = 0
 
+                    elif self.btn_deport_outilRect.collidepoint(event.pos):
+                        self.index_deport += 1
+                        if self.index_deport == 3:
+                            self.index_deport = 0
+                        if self.list_deport[self.index_deport] == config.CENTRE:
+                            self.dist_centre_porteur_centre_outil = "0"   
+                    #
+                    ############ GESTION DES BOUTONS DU MODULE ###################
+                    elif self.module.buton_saveRect.collidepoint(event.pos):
+                        if self.nom == "" or self.largeur_travail == "" or self.longueur_outil == "" or self.distance_essieux_av_debut_outil == "" or self.dist_centre_porteur_centre_outil == "" or self.penetration_in_intercep == "":
+                            print ("impossible de sauvegarder certain champ manque")
+                        else:
+                            if self.main.list_outil.count(self.nom) >= 1:
+                                print("ce nom est deja pris")
+                            else:
+                                print("je sauvegarde l'outil")
+                                self.sav_outil()
 
-                    
-
-                    
-
-                   
-
-                    ########## ON RETURN AU FICHIER windowscan POUR CHANGER DE MODULE ###########
+                    ########## ON RETURN A WINDOW CREAT ###########
                     elif self.module.buton_gRect.collidepoint(event.pos):
-                        return -1 # on return au fichier windowscan.py pour changer de module
+                        del self.main
+                        del self.outil
+                        return -1 # on return a window creat et on change OUTIL/PORTEUR/VIGNE
                     elif self.module.buton_dRect.collidepoint(event.pos):
-                        return 1  # on return au fichier windowscan.py pour changer de module
+                        del self.main
+                        del self.outil
+                        return 1  # on return a window creat et on change OUTIL/PORTEUR/VIGNE
+
 
                     ########## GERE LES EVENEMENTS DE LA window.main
                     ########## CHANGEMENT DE PARCELLE #################
@@ -541,4 +655,6 @@ class WindowCreatOutil:
 
                     retour = self.window_main.gest_event(event, self.parcel)
                     if retour == 0 : # si l'ACTION change return a windowscan et return a main.py 
+                        del self.main
+                        del self.outil
                         return 0

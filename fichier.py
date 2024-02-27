@@ -64,3 +64,24 @@ class Fichier:
         essai = pickle.load(file)
         file.close()
         return essai
+    
+    # ci dessou routine a partir du 20 02 2024
+
+def charge_list(chemin, extension):
+    chemin_disk = chemin + "/"   #"vigne/" "materiel/" avec les extensions por pour les porteur et otl pout outils
+    liste = os.listdir(chemin_disk)  # liste des noms des fichier parcelle qu'il y a sur le disk
+    # enlever le .prc
+    l = []
+    for i in liste:
+        if i[-3:] == extension:
+            i = (i[:-4])
+            l.append(i)     
+    liste = l
+    liste.sort()
+    return liste
+
+def save_fichier(chemin, nom, extension,objet):
+    nom = chemin + "/" + nom +"." + extension
+    file = open(nom,"wb")
+    pickle.dump(objet, file)
+    file.close()
