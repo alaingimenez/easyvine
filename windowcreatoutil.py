@@ -447,7 +447,7 @@ class WindowCreatOutil:
             chaine = chaine + caractere
         return chaine
     
-    def sav_outil(self):
+    def save(self):
         self.outil.nom = self.nom
         self.outil.type = self.list_type[self.index_type]
         self.outil.partie_travaille  = self.list_partie_travaille[self.index_partie_travaille]
@@ -628,7 +628,7 @@ class WindowCreatOutil:
                                 print("ce nom est deja pris")
                             else:
                                 print("je sauvegarde l'outil")
-                                self.sav_outil()
+                                self.save()
 
                     ########## ON RETURN A WINDOW CREAT ###########
                     elif self.module.buton_gRect.collidepoint(event.pos):

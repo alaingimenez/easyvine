@@ -19,13 +19,13 @@ class Porteur:
 
         self.vitesse_max = float(0)
         
-        self.type = 0   # 0 = tracteur 3 roues
+        self.type = ""   # 0 = tracteur 3 roues
                         # 1 = tracteur 4 roues 
                         # 2 = enjembeur 3 roues
                         # 3 = enjembeur 4 roues
                         # 4 = tracteur a chenille
         
-        self.direction = 0  # 0 = pas de roue directrice type chenille
+        self.direction = ""  # 0 = pas de roue directrice type chenille
                             # 1 = roue avant directrice
                             # 2 = roue avant et arriere directrice
                             # 3 = roue arriere directrice
@@ -36,3 +36,17 @@ class Porteur:
 
         self.pitch = float(0)   # degre avant arriere
         self.roll = float(0)    # degre droite gauche
+
+    def affiche(self):
+        print("nom : " + self.nom)
+        print(" voie : " + str(self.voie))
+        print(" empattement : " + str(self.empattement))
+        print(" rayon de braquage : " + str(self.rayon_braquage))
+        print(" position gps X : " + str(self.position_antene_gps_x))
+        print(" position gps Y : " + str(self.position_antene_gps_y))
+        print(" hauteur gps : " + str(self.hauteur_antene_gps))
+        print(" vitesse max : " + str(self.vitesse_max))
+        print(" type de porteur : " + self.type)
+        print(" type de direction : " + self.direction)
+        print(" liste d'outils adaptable : " )
+        print(self.list_outils)

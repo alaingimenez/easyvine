@@ -4,6 +4,8 @@
 
 import config
 import main
+import porteur
+import fichier
 
 
 import pygame
@@ -23,6 +25,7 @@ class WindowCreatPorteur:
         self.module = module
         self.parcel = parcel
         self.main = main.Main()
+        self.porteur = porteur.Porteur()
         
         
 
@@ -380,6 +383,22 @@ class WindowCreatPorteur:
         if 47 < ord(caractere) < 58 or ord(caractere) == 46:  # accepte les chiffre et le point
             chaine = chaine + caractere
         return chaine
+    
+    def save(self):
+        self.porteur.nom = self.nom
+        self.porteur.voie = self.voie
+        self.porteur.empattement = self.empattement
+        self.porteur.rayon_braquage = self.rayon_braquage
+        self.porteur.position_antene_gps_x = self.pos_gpsX
+        self.porteur.position_antene_gps_y = self.pos_gpsY
+        self.porteur.hauteur_antene_gps = self.hauteur_gps
+        self.porteur.vitesse_max = self.vitesse_max
+        self.porteur.type = self.list_type[self.index_type]
+        self.porteur.direction = self.list_direction[self.index_direction]
+        self.porteur.list_outils = self.list_outils_adaptable
+
+        self.porteur.affiche()
+
 
     def gestion(self):
         gs = main.GpsPoller()
@@ -499,12 +518,23 @@ class WindowCreatPorteur:
                             if len(self.list_outils_adaptable) <= self.index_outil_adaptable:
                                 self.index_outil_adaptable = len(self.list_outils_adaptable)-1
 
+                    ########### GERE LES EVENEMEMT DU MODULE de WINDOW CREAT #########################
+                    elif self.module.buton_saveRect.collidepoint(event.pos):
+                        if self.nom == "" or self.voie == "" or self.empattement == "" or self.rayon_braquage == "" or self.pos_gpsX == "" or self.pos_gpsY == "" or self.hauteur_gps == "" or self.vitesse_max == "":
+                            print ("impossible de sauvegarder certain champ manque")
+                        elif self.main.list_porteur.count(self.nom) >= 1:
+                            print("ce nom est deja pris")
+                        else:
+                            self.save()    
+
                     ########## ON RETURN AU FICHIER windowscan POUR CHANGER DE MODULE ###########
                     elif self.module.buton_gRect.collidepoint(event.pos):
                         del self.main
+                        del self.porteur
                         return -1 # on return au fichier windowscan.py pour changer de module
                     elif self.module.buton_dRect.collidepoint(event.pos):
                         del self.main
+                        del self.porteur
                         return 1  # on return au fichier windowscan.py pour changer de module
 
                     ########## GERE LES EVENEMENTS DE LA window.main
@@ -522,4 +552,5 @@ class WindowCreatPorteur:
                     retour = self.window_main.gest_event(event, self.parcel)
                     if retour == 0 : # si l'ACTION change return a windowscan et return a main.py 
                         del self.main
+                        del self.porteur
                         return 0

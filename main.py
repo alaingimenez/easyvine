@@ -25,6 +25,8 @@ import windowtravail
 import windowpassage
 import config
 
+import porteur
+
 from gps import *
 import threading
 
@@ -52,8 +54,12 @@ class Main:
     def __init__(self):
         # RECUPERE LA LISTE DES OUTILS ET DU MATERIEL
         self.list_outil = [config.OUTIL_OBLIGATOIRE]  + fichier.charge_list( config.MATERIEL, config.EXT_OUTILS)
-        self.list_materiel = fichier.charge_list(config.MATERIEL, config.EXT_PORTEUR)
+        self.list_porteur = fichier.charge_list(config.MATERIEL, config.EXT_PORTEUR)
         
+        
+
+        
+
 
 
 def print_hi(name):
@@ -63,7 +69,7 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
-   
+    
 
     # definir le screen
     width = 1500
